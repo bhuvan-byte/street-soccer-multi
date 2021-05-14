@@ -1,6 +1,6 @@
 function setup() {
     createCanvas(Width, Height);
-    ball = new Ball(Width/2,Height/2,15); 
+    ball = new Ball(Width/2,Height/2); 
     // player1 = new Player(150,100,40);
     // var player[10];
     players = [];
@@ -8,7 +8,6 @@ function setup() {
         players.push(new Player(random(255),random(255),random(255),random(Width)+gap+goalW,random(Height),random(50)+10));
     }
 }
-
 
 
 

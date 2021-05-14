@@ -2,7 +2,7 @@ class Ball{
     constructor(x,y,radius){
         this.x=x;
         this.y=y;
-        this.r=30;
+        this.r=radius ?? 30;
 
         this.img = loadImage('assets/ball.png');
     }
