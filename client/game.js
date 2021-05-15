@@ -5,7 +5,7 @@ function setup() {
     // var player[10];
     players = [];
     for(var i=0;i<10;i++){
-        players.push(new Player(random(255),random(255),random(255),random(Width)+gap+goalW,random(Height),random(50)+10));
+        players.push(new Player(random(255),random(255),random(255),random(Width)+gap+goalW,random(Height),30,radians(random(360))));
     }
 }
 
