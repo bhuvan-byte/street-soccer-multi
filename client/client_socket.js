@@ -7,3 +7,5 @@ sock.on("ping",(sendtime)=>{
     let ping = Date.now() - sendtime;
     // console.log(`ping=${ping}, sendtime=${sendtime}`);
 });
+username = "Player" ; 
+sock.emit("newPlayer",username);

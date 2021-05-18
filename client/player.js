@@ -1,15 +1,15 @@
+/// <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
+"use strict";
+
 class Player{
-    constructor(R,G,B,x,y,d,theta){
-        this.R=R;
-        this.G=G;
-        this.B=B;
+    constructor(x,y,d){
         this.x=x;
         this.y=y;
         this.d=d;
         this.dx=0;
         this.dy=0;
         this.r=this.d/2;
-        this.theta=theta;
+        this.theta=0;
         this.centreX=this.x+this.r;
         this.centreY=this.y+this.r;
         this.v=3; 
@@ -17,7 +17,7 @@ class Player{
         this.vy=this.v*sin(this.theta);      
     }
     display(){
-        fill(this.R,this.G,this.B)
+        fill("#F00")
         ellipse(this.centreX,this.centreY,this.d,this.d); // circle representing player
         stroke(255, 255, 255); // white color to draw shapes
 
