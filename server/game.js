@@ -1,3 +1,4 @@
+// this file is not run or imported elsewhere, it is to be used if required later
 if(typeof module !="undefined"){
     // const { Player } = require("./player");
     Player = require("./player").Player;
@@ -20,22 +21,6 @@ class Game{
         for(let [key,player] of Object.entries(this.players)){
             player.update();
         }
-    }
-    display(){
-        for(let key in this.players){
-            this.players[key].display();
-        }
-    }
-    updateData(playerData){
-        const t0 = performance.now();
-        for(let key in playerData){
-            if(!(key in this.players)){
-                this.players[key] = new Player(key,0,0,playerRadius);
-            }
-            Object.assign(this.players[key],playerData[key]);
-        }
-        const t1 = performance.now();
-        console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
     }
     serverSend(){
         let playerData={};

@@ -2,7 +2,7 @@ const socketio = require('socket.io');
 // server.js does not run again because it is already executed
 const { server } = require("./server.js");
 const { newRoomName } = require('./utils');
-const {Game} = require("./client/game");
+const {Game} = require("../client/game");
 let games = {};
 let idToRoom = {};
 
@@ -38,9 +38,10 @@ io.on("connection", (sock) => {
         console.log(`playerid ${sock.id} joined the room ${roomName}`);
         const noOfPlayersInRoom = io.sockets.adapter.rooms.get(roomName).size;
         sock.number =noOfPlayersInRoom;
-        sock.emit('init',sock.number);
         const game = games[roomName];
         game.addPlayer(sock);
+        sock.emit('init',{number:sock.number,roomName:roomName});
+        io.in(roomName).emit('newPlayer',{id:sock.id,playerNo:sock.number});
     }
     
     function handleNewRoom(){

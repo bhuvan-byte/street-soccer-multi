@@ -83,7 +83,7 @@ class Player extends Entity{
             vx:this.vx,
             vy:this.vy,
             ax:this.ax,
-            ay:this.ay
+            ay:this.ay,
         };
     }
 }

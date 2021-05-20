@@ -5,3 +5,4 @@ const goalW = 50;
 const ballD = 25;
 const gap = Width / 40;
 const backgroundColor = (4, 199, 75);
+const playerRadius = 20;
