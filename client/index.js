@@ -41,6 +41,13 @@ function init(data) {
     apna_player = new Player(playerNo, random(Width) + gap + goalW, random(Height), 20,isAdmin);
     allowSetup = true;
     setup();
+    setTimeout(() => {
+        if(sock.id in game.players){
+            game.players[sock.id].client();
+        }else{
+            console.log("my player undefined");
+        }
+    }, 400);
 }
 
 function handleGameCode(gameCode) {

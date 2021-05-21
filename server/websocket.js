@@ -18,7 +18,7 @@ let intervalId = setInterval(() => {
         game.update();
         game.serverSend();
     }
-}, 1600);
+}, 33);
 //io.sockets.something and io.something are same thing
 io.on("connection", (sock) => {
     console.log(`Client Id ${sock.id} connected`);
@@ -28,7 +28,13 @@ io.on("connection", (sock) => {
     sock.on("disconnect", () => {
         console.log(`Client Id ${sock.id} disconnected`);
     });
-
+    sock.on("update",(keyInfo)=>{
+        if(sock.roomName in games && sock.id in games[sock.roomName].players){
+            games[sock.roomName].players[sock.id].moveHandler(keyInfo.ecode,keyInfo.direction);
+        }else {
+            console.log("not defined//refresh required");
+        }
+    });
     sock.on('newRoom',handleNewRoom);
     sock.on('joinRoom',handleJoinRoom);
     function newPlayer(roomName){
@@ -38,6 +44,7 @@ io.on("connection", (sock) => {
         console.log(`playerid ${sock.id} joined the room ${roomName}`);
         const noOfPlayersInRoom = io.sockets.adapter.rooms.get(roomName).size;
         sock.number =noOfPlayersInRoom;
+        sock.roomName = roomName;
         const game = games[roomName];
         game.addPlayer(sock);
         sock.emit('init',{number:sock.number,roomName:roomName});
