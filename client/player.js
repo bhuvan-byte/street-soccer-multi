@@ -3,7 +3,7 @@
 try {
     console.log(Player);
 } catch (error) {
-    console.log("error",error);
+    // console.log("error",error); // made only for debug
 }
 class Entity{
     constructor(x,y,radius){
@@ -48,10 +48,13 @@ class Player extends Entity{
         ellipse(this.x,this.y,this.d,this.d); // circle representing player
         stroke(255, 255, 255); // white color to draw shapes
 
-        this.theta=atan2((mouseY-this.y),(mouseX-this.x));
+        // this.theta=atan2((mouseY-this.y),(mouseX-this.x));
         this.vx=this.v*Math.cos(this.theta);
         this.vy=this.v*Math.sin(this.theta); 
         line(this.x,this.y,this.x+this.radius*Math.cos(this.theta),this.y+this.radius*Math.sin(this.theta)); // line showing  the dirction where player is pointing
+    }
+    mouseSend(){
+        sock.emit('mouse',{x:mouseX,y:mouseY});
     }
     client(){
         document.addEventListener('keydown',(e)=>{
@@ -76,6 +79,9 @@ class Player extends Entity{
         if(this.pressed['KeyD']) this.ax+=acc;
         if(this.pressed['KeyS']) this.ay+=acc;
     }
+    thetaHandler(mousex,mousey){
+        this.theta = Math.atan2((mousey-this.y),(mousex-this.x));
+    }
     getData(){
         return {
             x:this.x,
@@ -84,6 +90,7 @@ class Player extends Entity{
             vy:this.vy,
             ax:this.ax,
             ay:this.ay,
+            theta:this.theta,
         };
     }
 }

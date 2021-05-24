@@ -29,8 +29,9 @@ sock.on('newPlayer',(data)=>{
     game.players[data.id]  = new Player(data.playerNo,0,0,playerRadius,false);
 });
 sock.on('clock',(playerData)=>{
-    console.log(playerData);
+    // console.log(playerData);
     game.updateData(playerData);
+    apna_player.mouseSend();
 });
 function init(data) {
     let {playerNo,roomName} = data;
@@ -38,12 +39,13 @@ function init(data) {
     game = new Game(roomName);
     let isAdmin=false;
     if(playerNo===1)isAdmin=true;
-    apna_player = new Player(playerNo, random(Width) + gap + goalW, random(Height), 20,isAdmin);
+    // apna_player = new Player(playerNo, random(Width) + gap + goalW, random(Height), 20,isAdmin);
     allowSetup = true;
     setup();
     setTimeout(() => {
         if(sock.id in game.players){
-            game.players[sock.id].client();
+            apna_player = game.players[sock.id];
+            apna_player.client();
         }else{
             console.log("my player undefined");
         }
