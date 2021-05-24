@@ -35,6 +35,13 @@ io.on("connection", (sock) => {
             console.log("not defined//refresh required");
         }
     });
+    sock.on("mouse",(mouse)=>{
+        if(sock.roomName in games && sock.id in games[sock.roomName].players){
+            games[sock.roomName].players[sock.id].thetaHandler(mouse.x,mouse.y);
+        }else {
+            console.log("not defined//refresh required");
+        }
+    });
     sock.on('newRoom',handleNewRoom);
     sock.on('joinRoom',handleJoinRoom);
     function newPlayer(roomName){

@@ -24,7 +24,7 @@ class Game{
     }
     serverSend(){
         let playerData={};
-        console.log(Object.keys(this.players).length);
+        // console.log(Object.keys(this.players).length);
         for(let key in this.players){
             playerData[key] = this.players[key].getData();
         }
