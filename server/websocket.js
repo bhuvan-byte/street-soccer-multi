@@ -26,7 +26,16 @@ io.on("connection", (sock) => {
         sock.emit("ping",sendtime);
     });
     sock.on("disconnect", () => {
+        if(sock.roomName in games && sock.id in games[sock.roomName].players){
+            console.log(`deleting player id,name = ${games[sock.roomName].players[sock.id]}, ${sock.username}`);
+            console.log(`length = ${Object.keys(games[sock.roomName].players).length}`)
+            delete games[sock.roomName].players[sock.id];            
+            if(Object.keys(games[sock.roomName].players).length == 0){
+                console.log(`deleting room ${sock.roomName}`);
+                delete games[sock.roomName];
+            }
         console.log(`Client Id ${sock.id} disconnected`);
+        }
     });
     sock.on("update",(keyInfo)=>{
         if(sock.roomName in games && sock.id in games[sock.roomName].players){
@@ -44,7 +53,7 @@ io.on("connection", (sock) => {
     });
     sock.on('newRoom',handleNewRoom);
     sock.on('joinRoom',handleJoinRoom);
-    function newPlayer(roomName){
+    function newPlayer(roomName,username){
         idToRoom[sock.id] =roomName;
         sock.emit('gameCode',roomName);
         sock.join(roomName);
@@ -52,24 +61,29 @@ io.on("connection", (sock) => {
         const noOfPlayersInRoom = io.sockets.adapter.rooms.get(roomName).size;
         sock.number =noOfPlayersInRoom;
         sock.roomName = roomName;
+        sock.username = username;
         const game = games[roomName];
         game.addPlayer(sock);
         sock.emit('init',{number:sock.number,roomName:roomName});
-        io.in(roomName).emit('newPlayer',{id:sock.id,playerNo:sock.number});
+        // io.in(roomName).emit('newPlayer',{id:sock.id,playerNo:sock.number,username:sock.username});
     }
     
-    function handleNewRoom(){
+    function handleNewRoom(username){
         let roomName = newRoomName(4);
+        console.log(`${username} joined the room telling this from handle join room in websocket.js`);
         games[roomName] = new Game(roomName,io);
         console.log("roomName",games[roomName].roomName);
-        newPlayer(roomName);
+        newPlayer(roomName,username);
         games[roomName].ready = true;
     }
     
-    function handleJoinRoom(roomName){
-        console.log(`requesting to join room ${roomName}`);
+    function handleJoinRoom(data){
+        const {roomName,username} = data;
+        console.log(data);
+        console.log(`requesting to join room ${data.roomName}, ${data.username}`);
+        console.log(`${roomName},${username}`);
         if(io.sockets.adapter.rooms.has(roomName)){
-            newPlayer(roomName);
+            newPlayer(roomName,username);
         } else{
             sock.emit('failedToJoinRoom','room does not exist');
         }

@@ -1,5 +1,5 @@
 // const { Game } = require("./game");
-
+// const {Player} = "./player";
 // const { reset } = require("nodemon");
 const welcomePage = document.getElementById('welcomePage');
 const createBtn = document.getElementById('createButton');
@@ -7,27 +7,44 @@ const joinBtn = document.getElementById('joinButton');
 const roomNameInput = document.getElementById('roomCode');
 const roomCodeDisplay = document.getElementById('roomCodeDisplay');
 const sock = io('http://localhost:8000');
+const pingElem = document.querySelector('#ping_element');
 createBtn.addEventListener('click', newRoom);
 joinBtn.addEventListener('click', joinRoom);
 var allowSetup = false,apna_player;
 let game ;
 function newRoom() {
-    console.log('create room button clicked');
-    sock.emit('newRoom');
+    const username = document.getElementById('username');
+    let username_ = username.value;
+    // console.log(`create room button clicked and player name is ${username_}`)
+    sock.emit('newRoom',username_);
 }
 
 function joinRoom() {
     const roomName =  roomNameInput.value;
+    const username = document.getElementById('username2');
+    let username_ = username.value;
     console.log(`join room clicked with code = ${roomName}`);
-    sock.emit('joinRoom', roomName);
+    sock.emit('joinRoom',{roomName:roomName,username:username_});
 }
 
+setInterval(() => {
+    let sendtime = Date.now();
+    sock.emit("ping",sendtime);
+}, 1000);
+let pingArray = [];
+sock.on("ping",(sendtime)=>{
+    let ping = Date.now() - sendtime;
+    pingElem.innerText = `${ping}ms`;
+});
 sock.on('init', init);
 sock.on('gameCode', handleGameCode);
 sock.on('failedToJoinRoom',handleFailedToJoinRoom);
-sock.on('newPlayer',(data)=>{
-    game.players[data.id]  = new Player(data.playerNo,0,0,playerRadius,false);
-});
+// sock.on('newPlayer',(data)=>{
+//     console.info(data);
+//     let player = new Player(data.playerNo,0,0,playerRadius,false,data.username);
+
+//     game.players[data.id]  = player;
+// });
 sock.on('clock',(playerData)=>{
     // console.log(playerData);
     game.updateData(playerData);

@@ -1,5 +1,8 @@
 // / <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
 "use strict";
+
+// const { text } = require("express");
+// const {Width,Height} = require("./constants");
 try {
     console.log(Player);
 } catch (error) {
@@ -21,6 +24,10 @@ class Entity{
     update(){
         this.x+=this.vx;
         this.y+=this.vy;
+        // if(this.x<this.radius)this.x=this.radius;
+        // if(this.x+2*this.radius>Width)this.x=Width-2*this.radius;
+        // if(this.y<this.radius)this.y=this.radius;
+        // if(this.y>Height)this.y=Height;
         this.vx+=this.ax;
         this.vy+=this.ay;
         this.vx*=this.friction;
@@ -28,12 +35,12 @@ class Entity{
     }
 }
 class Player extends Entity{
-    constructor(playerNo,x,y,radius,isAdmin,sock){
+    constructor(playerNo,x,y,radius,isAdmin,username,sock){
         super(x,y,radius);
         this.sock=sock;
         this.d = 2*radius;
         this.theta = 0;
-        this.username=null ?? "stillUnamed";
+        this.username=username ?? "stillUnamed";
         this.friction=0.9;
         this.exists=true;
         this.pressed={
@@ -47,7 +54,9 @@ class Player extends Entity{
         fill("#F00")
         ellipse(this.x,this.y,this.d,this.d); // circle representing player
         stroke(255, 255, 255); // white color to draw shapes
-
+        textSize(20);
+        fill("#FFF");
+        text(this.username,this.x,this.y+1.5*this.radius);
         // this.theta=atan2((mouseY-this.y),(mouseX-this.x));
         this.vx=this.v*Math.cos(this.theta);
         this.vy=this.v*Math.sin(this.theta); 
@@ -91,6 +100,7 @@ class Player extends Entity{
             ax:this.ax,
             ay:this.ay,
             theta:this.theta,
+            username:this.username,
         };
     }
 }
