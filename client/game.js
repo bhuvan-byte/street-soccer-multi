@@ -12,8 +12,7 @@ class Game{
         this.ready = false;
     }
     addPlayer(sock){
-        let player = new Player(sock.playerNo,Math.random()*400,Math.random()*400,20,false,sock);
-        // console.log("player,sockid",player,sock.id);
+        let player = new Player(sock.playerNo,Math.random()*400,Math.random()*400,20,false,sock.username,sock);
         this.players[sock.id] = player;
     }
     update(){
@@ -27,15 +26,23 @@ class Game{
         }
     }
     updateData(playerData){
-        const t0 = performance.now();
+        // const t0 = performance.now();
         for(let key in playerData){
+            console.log(`key = ${key}`);
+
+            console.log(`playerDat[key].username= ${playerData[key].username}`)
             if(!(key in this.players)){
-                this.players[key] = new Player(key,0,0,playerRadius);
+                this.players[key] = new Player(key,0,0,playerRadius,playerData[key].username);
             }
             Object.assign(this.players[key],playerData[key]);
         }
-        const t1 = performance.now();
-        console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
+        for(let key in this.players){
+            if(!(key in playerData)){
+                delete this.players[key];
+            }
+        }
+        // const t1 = performance.now();
+        // console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
     }
     serverSend(){
         let playerData={};
@@ -48,6 +55,7 @@ class Game{
         //     console.log(key,value);
         //     // playerData[key] = value.getData();
         // }
+        // console.info(playerData);
         this.io.in(this.roomName).emit("clock",playerData);
     }
 }
