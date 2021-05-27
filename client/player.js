@@ -51,15 +51,18 @@ class Player extends Entity{
         };
     }
     display(){
-        fill("#F00")
+        fill("#F00");
         ellipse(this.x,this.y,this.d,this.d); // circle representing player
         stroke(255, 255, 255); // white color to draw shapes
         textSize(20);
         fill("#FFF");
+        strokeWeight(1);
         text(this.username,this.x,this.y+1.5*this.radius);
         // this.theta=atan2((mouseY-this.y),(mouseX-this.x));
         this.vx=this.v*Math.cos(this.theta);
         this.vy=this.v*Math.sin(this.theta); 
+        fill("#FFF");
+        strokeWeight(2);
         line(this.x,this.y,this.x+this.radius*Math.cos(this.theta),this.y+this.radius*Math.sin(this.theta)); // line showing  the dirction where player is pointing
     }
     mouseSend(){

@@ -8,11 +8,42 @@
     <title>Soccer</title>
     <script src="libraries/p5.js"></script>
     <!-- CSS only -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <style>
-        .container{
+        .container {
             margin-top: 30px;
+        }
+        .game-screen-div{
+            margin: 10px;
+        }
+        
+        body{
+            height: 95vh;
+            width: 100vw;
+            background-image: url(assets/wp1.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+           
+        }
+
+        #roomCodeDiv {
+            display: none;
+        }
+
+        #ping_element {
+            /* background-color: black; */
+            color: rgb(43, 214, 51);
+            width: 100%;
+        }
+
+        .game-screen-div {
+            display: flex;
+            flex-direction: row;
+        }
+        #roomCodeDiv {
+            color: rgb(43, 214, 51);
+            width: 100%;
         }
     </style>
 </head>
@@ -42,14 +73,22 @@
             </div>
         </div>
     </div>
-    <div>
-        <p>Room Code is <span id="roomCodeDisplay"></span></p>
+    <div class="game-screen-div">
+        <div id="canvasDiv"></div>
+        <div class="others">
+            <div id="roomCodeDiv">
+               Room Code: <span id="roomCodeDisplay"></span>
+            </div>
+            <div id="ping_element"></div>
+        </div>
     </div>
-    <div id="ping_element"></div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script>
 
 
     <script src="constants.js"></script>
