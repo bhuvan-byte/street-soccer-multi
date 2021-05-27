@@ -18,7 +18,7 @@ let intervalId = setInterval(() => {
         game.update();
         game.serverSend();
     }
-}, 33);
+}, 16);
 //io.sockets.something and io.something are same thing
 io.on("connection", (sock) => {
     console.log(`Client Id ${sock.id} connected`);

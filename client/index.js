@@ -44,7 +44,7 @@ sock.on('failedToJoinRoom',handleFailedToJoinRoom);
 // });
 sock.on('clock',(playerData)=>{
     game.updateData(playerData);
-    apna_player.mouseSend();
+    if(apna_player) apna_player.mouseSend();
 });
 function init(data) {
     let {playerNo,roomName} = data;

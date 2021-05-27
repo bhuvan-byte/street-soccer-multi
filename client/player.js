@@ -83,7 +83,7 @@ class Player extends Entity{
         });
     }
     moveHandler(ecode,direction){
-        const acc=0.8 ;
+        const acc=0.5 ;
         this.pressed[ecode]=direction;
         this.ax=this.ay=0
         if(this.pressed['KeyA']) this.ax-=acc;
