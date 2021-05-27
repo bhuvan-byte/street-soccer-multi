@@ -7,7 +7,7 @@ const joinBtn = document.getElementById('joinButton');
 const roomNameInput = document.getElementById('roomCode');
 const roomCodeDisplay = document.getElementById('roomCodeDisplay');
 const roomCodeDiv = document.getElementById('roomCodeDiv');
-const sock = io('http://localhost:8000');
+const sock = io();
 const pingElem = document.querySelector('#ping_element');
 createBtn.addEventListener('click', newRoom);
 joinBtn.addEventListener('click', joinRoom);
