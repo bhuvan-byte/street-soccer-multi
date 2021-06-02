@@ -53,13 +53,16 @@ io.on("connection", (sock) => {
     });
     sock.on('newRoom',handleNewRoom);
     sock.on('joinRoom',handleJoinRoom);
+    sock.on('joinTeamA',handleJoinTeamA);
+    sock.on('joinTeamB',handleJoinTeamB);
+
     function newPlayer(roomName,username){
         idToRoom[sock.id] =roomName;
         sock.emit('gameCode',roomName);
         sock.join(roomName);
         console.log(`playerid ${sock.id} joined the room ${roomName}`);
         const noOfPlayersInRoom = io.sockets.adapter.rooms.get(roomName).size;
-        sock.number =noOfPlayersInRoom;
+        sock.number = noOfPlayersInRoom;
         sock.roomName = roomName;
         sock.username = username;
         const game = games[roomName];
@@ -89,9 +92,14 @@ io.on("connection", (sock) => {
         }
 
     }
-    // function handleKeyDown(){
-
-    // }
+    function handleJoinTeamA(){
+        // sock.teamName="A";
+        games[sock.roomName].players[sock.id].teamName="A";
+    }
+    function handleJoinTeamB(){
+        // sock.teamName="B";
+        games[sock.roomName].players[sock.id].teamName="B";
+    }
     
     
 });
