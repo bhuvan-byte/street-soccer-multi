@@ -34,6 +34,11 @@ class Game{
                 this.players[key] = new Player(key,0,0,playerRadius,playerData[key].username);
             }
             Object.assign(this.players[key],playerData[key]);
+            if(this.players[key].teamName == 'A'){
+                this.players[key].color = "#F00";
+            } else if(this.players[key].teamName == 'B'){
+                this.players[key].color = "#00B";
+            }
         }
         for(let key in this.players){
             if(!(key in playerData)){

@@ -1,13 +1,11 @@
-class Ball{
-    constructor(x,y,radius){
-        this.x=x;
-        this.y=y;
-        this.r=radius ?? 30;
-
-        this.img = loadImage('assets/ball.png');
+class Ball extends Entity{
+    constructor(img){
+        super(50,50,30); // remove hardcoded value
+        this.img = img;
+        this.img.resize(this.radius,this.radius);
     }
     display(){
-        image(this.img,this.x-this.r/2,this.y-this.r/2,this.r,this.r);
+        // console.log("Ball display");
+        image(this.img,this.x-this.radius/2,this.y-this.radius/2,this.radius,this.radius);
     }
-
 }

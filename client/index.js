@@ -85,7 +85,7 @@ sock.on('failedToJoinRoom',handleFailedToJoinRoom);
 // });
 sock.on('clock',(playerData)=>{
     game.updateData(playerData);
-    apna_player.mouseSend();
+    if(apna_player) apna_player.mouseSend();
     extractOnlinePlayers(playerData);
     handleUpdateTeams(playerData);
 });
@@ -122,7 +122,7 @@ function handleUpdateTeams(playerData){
     let team_a = '<ul>';
     let team_b = '<ul>';
     for(let key in playerData){
-        console.log(playerData[key].teamName);
+        // console.log(playerData[key].teamName);
         if(playerData[key].teamName==="A")
             team_a+=`<li>`+playerData[key].username+`</li>`;
         if(playerData[key].teamName==="B") 
@@ -144,6 +144,10 @@ function handleFailedToJoinRoom(msg){
 }
 
 
+let ball_img;
+function preload(){
+    ball_img = loadImage('assets/ball.png');
+}
 
 function setup() {
     if (allowSetup) {
@@ -153,6 +157,8 @@ function setup() {
         const canvas = createCanvas(Width, Height);
         canvas.parent('canvasDiv');
         field = new Field();
+        ball = new Ball(ball_img);
+        
     }
 }
 
@@ -165,6 +171,7 @@ function drawPlayers(players) {
 function draw() {
     if (allowSetup) {
         field.display();
+        ball.display();
         game.display();
     }
 }

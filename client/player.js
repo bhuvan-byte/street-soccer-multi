@@ -1,4 +1,4 @@
-// / <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
+/// <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
 "use strict";
 
 // const { text } = require("express");
@@ -19,7 +19,6 @@ class Entity{
         this.radius=radius;
         this.friction=0.99;
         this.mass=1;
-        this.color='#000';
     }
     update(){
         this.x+=this.vx;
@@ -38,7 +37,7 @@ class Player extends Entity{
     constructor(playerNo,x,y,radius,isAdmin,username,sock){
         super(x,y,radius);
         this.sock=sock;
-        // this.color=color;
+        this.color= "#000";
         this.d = 2*radius;
         this.theta = 0;
         this.username=username ?? "stillUnamed";
@@ -53,7 +52,7 @@ class Player extends Entity{
         };
     }
     display(){
-        fill("#F00");
+        fill(this.color);
         ellipse(this.x,this.y,this.d,this.d); // circle representing player
         stroke(255, 255, 255); // white color to draw shapes
         textSize(20);
@@ -111,6 +110,7 @@ class Player extends Entity{
         };
     }
 }
+
 if(typeof module != "undefined"){
     module.exports = {
         Player:Player,
