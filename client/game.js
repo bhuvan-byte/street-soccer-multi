@@ -29,12 +29,7 @@ class Game{
         // const t0 = performance.now();
         for(let key in playerData){
             // console.log(`key = ${key}`);
-<<<<<<< HEAD
             // console.log(`playerDat[key].username= ${playerData[key].username}`);
-=======
-
-            // console.log(`playerDat[key].username= ${playerData[key].username}`)
->>>>>>> 3fe13943afbd3807a8270d60bc3d1fff060e0cb4
             if(!(key in this.players)){
                 this.players[key] = new Player(key,0,0,playerRadius,playerData[key].username);
             }
