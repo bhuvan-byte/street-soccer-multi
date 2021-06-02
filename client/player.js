@@ -38,11 +38,13 @@ class Player extends Entity{
     constructor(playerNo,x,y,radius,isAdmin,username,sock){
         super(x,y,radius);
         this.sock=sock;
+        // this.color=color;
         this.d = 2*radius;
         this.theta = 0;
         this.username=username ?? "stillUnamed";
         this.friction=0.9;
         this.exists=true;
+        this.teamName="notYetDecided";
         this.pressed={
             'KeyA':0,
             'KeyW':0,
@@ -104,6 +106,8 @@ class Player extends Entity{
             ay:this.ay,
             theta:this.theta,
             username:this.username,
+            teamName:this.teamName,
+            // color:this.color,
         };
     }
 }
