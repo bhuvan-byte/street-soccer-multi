@@ -1,5 +1,11 @@
-// / <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
-"use strict";
+    /// <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
+// "use strict";
+if(typeof module !="undefined"){
+    Width = require("./constants.js").Width;
+    Height = require("./constants.js").Height;
+    playerAcc = require("./constants.js").playerAcc;
+    console.log("Width=",Width);
+}
 
 // const { text } = require("express");
 // const {Width,Height} = require("./constants");
@@ -19,15 +25,14 @@ class Entity{
         this.radius=radius;
         this.friction=0.99;
         this.mass=1;
-        this.color='#000';
     }
     update(){
         this.x+=this.vx;
         this.y+=this.vy;
-        // if(this.x<this.radius)this.x=this.radius;
-        // if(this.x+2*this.radius>Width)this.x=Width-2*this.radius;
-        // if(this.y<this.radius)this.y=this.radius;
-        // if(this.y>Height)this.y=Height;
+        if(this.x<this.radius) this.x=this.radius;
+        if(this.x+this.radius>Width)this.x=Width-this.radius;
+        if(this.y<this.radius)this.y=this.radius;
+        if(this.y+this.radius>Height)this.y=Height-this.radius;
         this.vx+=this.ax;
         this.vy+=this.ay;
         this.vx*=this.friction;
@@ -38,7 +43,7 @@ class Player extends Entity{
     constructor(playerNo,x,y,radius,isAdmin,username,sock){
         super(x,y,radius);
         this.sock=sock;
-        // this.color=color;
+        this.color= "#000";
         this.d = 2*radius;
         this.theta = 0;
         this.username=username ?? "stillUnamed";
@@ -53,19 +58,48 @@ class Player extends Entity{
         };
     }
     display(){
-        fill("#F00");
+        fill(this.color);
         ellipse(this.x,this.y,this.d,this.d); // circle representing player
         stroke(255, 255, 255); // white color to draw shapes
         textSize(20);
         fill("#FFF");
         strokeWeight(1);
-        text(this.username,this.x,this.y+1.5*this.radius);
+        textAlign(CENTER);
+        textFont('Georgia');
+        text(this.username,this.x,this.y+2*this.radius);
         // this.theta=atan2((mouseY-this.y),(mouseX-this.x));
         this.vx=this.v*Math.cos(this.theta);
         this.vy=this.v*Math.sin(this.theta); 
         fill("#FFF");
         strokeWeight(2);
         line(this.x,this.y,this.x+this.radius*Math.cos(this.theta),this.y+this.radius*Math.sin(this.theta)); // line showing  the dirction where player is pointing
+    }
+    collide (ball2){
+        let dx=ball2.x-this.x,
+			dy=ball2.y-this.y,
+			radSum=ball2.radius+this.radius;
+		if(dx*dx + dy*dy< radSum*radSum){
+			let dist=Math.sqrt(dx*dx + dy*dy),
+				dif=radSum-dist;
+			dx/=dist;
+			dy/=dist;
+			let dot=dx*this.vx+dy*this.vy,
+				dot2=dx*ball2.vx+dy*ball2.vy,
+				impulsex=(dot-dot2)*dx,
+				impulsey=(dot-dot2)*dy;
+			//console.log(dot,dot2,impulsex,impulsey);
+			this.vx-=impulsex;
+			this.vy-=impulsey;
+			ball2.vx+=impulsex;
+			ball2.vy+=impulsey;
+			this.x-=dif*dx;
+			this.y-=dif*dy;
+			ball2.x+=dif*dx;
+			ball2.y+=dif*dy;
+			this.dx+=dif*dx/2;
+			this.dy+=dif*dy/2;
+			//if(this.radius>10)this.radius-=5;
+        }
     }
     mouseSend(){
         sock.emit('mouse',{x:mouseX,y:mouseY});
@@ -85,7 +119,7 @@ class Player extends Entity{
         });
     }
     moveHandler(ecode,direction){
-        const acc=0.5 ;
+        const acc=playerAcc ;
         this.pressed[ecode]=direction;
         this.ax=this.ay=0
         if(this.pressed['KeyA']) this.ax-=acc;
@@ -111,6 +145,7 @@ class Player extends Entity{
         };
     }
 }
+
 if(typeof module != "undefined"){
     module.exports = {
         Player:Player,

@@ -19,6 +19,16 @@ class Game{
         for(let [key,player] of Object.entries(this.players)){
             player.update();
         }
+        for(let [key,player] of Object.entries(this.players)){
+            player.update();
+        }
+        // Object.keys(dictionary).length
+        let players = Object.values(this.players);
+        for(let i=0; i<players.length;i++){
+            for(let j=i+1; j<players.length; j++){
+                players[i].collide(players[j]);
+            }
+        }
     }
     display(){
         for(let key in this.players){
@@ -34,6 +44,11 @@ class Game{
                 this.players[key] = new Player(key,0,0,playerRadius,playerData[key].username);
             }
             Object.assign(this.players[key],playerData[key]);
+            if(this.players[key].teamName == 'A'){
+                this.players[key].color = "#F00";
+            } else if(this.players[key].teamName == 'B'){
+                this.players[key].color = "#00B";
+            }
         }
         for(let key in this.players){
             if(!(key in playerData)){

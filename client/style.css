@@ -1,0 +1,96 @@
+.container {
+    margin-top: 30px;
+}
+
+.game-screen-div {
+    margin: 10px;
+}
+
+body {
+    height: 95vh;
+    width: 100vw;
+    background-image: url(assets/wp1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+#ping_element {
+    /* background-color: black; */
+    color: rgb(43, 214, 51);
+    width: 100%;
+}
+
+.dont-show-at-welcome {
+    display: none;
+}
+
+.game-screen-div {
+    display: flex;
+    flex-direction: row;
+}
+
+#roomCodeDiv {
+    color: rgb(43, 214, 51);
+    width: 100%;
+}
+
+.my-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: black;
+    color: rgb(1, 255, 1);
+    width: 700px;
+    max-width: 80%;
+}
+
+.my-modal.active{
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.my-modal-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.my-modal-close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    color: rgb(1, 255, 1);
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.my-modal-body {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+}
+#overlay {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    pointer-events: none;
+}
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
