@@ -19,6 +19,16 @@ class Game{
         for(let [key,player] of Object.entries(this.players)){
             player.update();
         }
+        for(let [key,player] of Object.entries(this.players)){
+            player.update();
+        }
+        // Object.keys(dictionary).length
+        let players = Object.values(this.players);
+        for(let i=0; i<players.length;i++){
+            for(let j=i+1; j<players.length; j++){
+                players[i].collide(players[j]);
+            }
+        }
     }
     display(){
         for(let key in this.players){
