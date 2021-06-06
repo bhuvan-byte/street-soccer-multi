@@ -27,7 +27,7 @@ createBtn.addEventListener('click', newRoom);
 joinBtn.addEventListener('click', joinRoom);
 
 configBtn.addEventListener('click',confModalShow);
-closeConfBtn.addEventListener('click',ConfModalClose);
+closeConfBtn.addEventListener('click',confModalClose);
 teamAJoinBtn.addEventListener('click',JoinATeam);
 teamBJoinBtn.addEventListener('click',JoinBTeam);
 
@@ -50,7 +50,7 @@ function confModalShow(){
     overlay.classList.add('active');
 }
 
-function ConfModalClose(){
+function confModalClose(){
     modal.classList.remove('active');
     overlay.classList.remove('active');
 }

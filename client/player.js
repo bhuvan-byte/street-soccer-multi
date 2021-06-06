@@ -1,5 +1,10 @@
 /// <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
-"use strict";
+// "use strict";
+if(typeof module !="undefined"){
+    Width = require("./constants.js").Width;
+    Height = require("./constants.js").Height;
+    console.log("Width=",Width);
+}
 
 // const { text } = require("express");
 // const {Width,Height} = require("./constants");
@@ -23,10 +28,10 @@ class Entity{
     update(){
         this.x+=this.vx;
         this.y+=this.vy;
-        // if(this.x<this.radius)this.x=this.radius;
-        // if(this.x+2*this.radius>Width)this.x=Width-2*this.radius;
-        // if(this.y<this.radius)this.y=this.radius;
-        // if(this.y>Height)this.y=Height;
+        if(this.x<this.radius) this.x=this.radius;
+        if(this.x+this.radius>Width)this.x=Width-this.radius;
+        if(this.y<this.radius)this.y=this.radius;
+        if(this.y+this.radius>Height)this.y=Height-this.radius;
         this.vx+=this.ax;
         this.vy+=this.ay;
         this.vx*=this.friction;
@@ -58,7 +63,9 @@ class Player extends Entity{
         textSize(20);
         fill("#FFF");
         strokeWeight(1);
-        text(this.username,this.x,this.y+1.5*this.radius);
+        textAlign(CENTER);
+        textFont('Georgia');
+        text(this.username,this.x,this.y+2*this.radius);
         // this.theta=atan2((mouseY-this.y),(mouseX-this.x));
         this.vx=this.v*Math.cos(this.theta);
         this.vy=this.v*Math.sin(this.theta); 
