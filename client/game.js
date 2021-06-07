@@ -1,6 +1,7 @@
+"use strict";
 if(typeof module !="undefined"){
     // const { Player } = require("./player");
-    Player = require("./player").Player;
+    global.Player = require("./player").Player;
     console.log("inside this",this);
     console.log("Player=",Player);   
 }

@@ -1,8 +1,9 @@
     /// <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
-// "use strict";
+"use strict";
 if(typeof module !="undefined"){
-    Width = require("./constants.js").Width;
-    Height = require("./constants.js").Height;
+    global.Width = require("./constants.js").Width;
+    global.Height = require("./constants.js").Height;
+    global.playerAcc = require("./constants.js").playerAcc;
     console.log("Width=",Width);
 }
 
@@ -118,7 +119,7 @@ class Player extends Entity{
         });
     }
     moveHandler(ecode,direction){
-        const acc=0.5 ;
+        const acc=playerAcc ;
         this.pressed[ecode]=direction;
         this.ax=this.ay=0
         if(this.pressed['KeyA']) this.ax-=acc;

@@ -7,6 +7,7 @@ const gap = Width / 40;
 const backgroundColor = (4, 199, 75);
 const playerRadius = 20;
 const ballRadius = 30;
+const playerAcc = 0.3;
 if(typeof module != "undefined"){
     module.exports = {
         Width:Width,
@@ -16,5 +17,6 @@ if(typeof module != "undefined"){
         ballD: ballD,
         playerRadius: playerRadius,
         ballRadius: ballRadius,
+        playerAcc: playerAcc,
     }
 }
