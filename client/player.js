@@ -1,9 +1,9 @@
     /// <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
-// "use strict";
+"use strict";
 if(typeof module !="undefined"){
-    Width = require("./constants.js").Width;
-    Height = require("./constants.js").Height;
-    playerAcc = require("./constants.js").playerAcc;
+    global.Width = require("./constants.js").Width;
+    global.Height = require("./constants.js").Height;
+    global.playerAcc = require("./constants.js").playerAcc;
     console.log("Width=",Width);
 }
 
