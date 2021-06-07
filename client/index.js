@@ -1,6 +1,8 @@
 // const { Game } = require("./game");
 // const {Player} = "./player";
 
+// const { picHeight, picWidth } = require("./constants");
+
 // const player = require("./player");
 
 // const { reset } = require("nodemon");
@@ -33,6 +35,9 @@ teamBJoinBtn.addEventListener('click',JoinBTeam);
 
 var allowSetup = false,apna_player;
 let game ;
+let bluePlayerImgList;
+let redPlayerImgList;
+
 function newRoom() {
     const username = document.getElementById('username').value;
     console.log("new room make");
@@ -147,6 +152,25 @@ function handleFailedToJoinRoom(msg){
 let ball_img;
 function preload(){
     ball_img = loadImage('assets/ball.png');
+    BlueFullImg = loadImage('assets/blue.png');
+    RedFullImg = loadImage('assets/red.png');
+}
+
+function extractImage(fullImage){
+    let x=0,y=0,imageList = [];
+    for(let r=0;r<4;r++){
+        // let oneAnimation = [];
+        y=r*picHeight;
+        x=0;
+        for(let c=0;c<3;c++){
+            let img = fullImage.get(x,y,picWidth,picHeight);
+            imageList.push(img);
+            x+=picWidth;
+        }
+    }
+    let img = fullImage.get(0,picHeight,picWidth,picHeight);
+    imageList.push(img); imageList.push(img); imageList.push(img);
+    return imageList;
 }
 
 function setup() {
@@ -158,6 +182,8 @@ function setup() {
         canvas.parent('canvasDiv');
         field = new Field();
         ball = new Ball(ball_img);
+        bluePlayerImgList = extractImage(BlueFullImg);
+        redPlayerImgList = extractImage(RedFullImg);        
         
     }
 }

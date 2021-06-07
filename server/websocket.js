@@ -67,7 +67,7 @@ io.on("connection", (sock) => {
         sock.username = username;
         const game = games[roomName];
         game.addPlayer(sock);
-        sock.emit('init',{number:sock.number,roomName:roomName});
+        sock.emit('init',{playerNo:sock.number,roomName:roomName});
         // io.in(roomName).emit('newPlayer',{id:sock.id,playerNo:sock.number,username:sock.username});
     }
     

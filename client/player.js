@@ -50,6 +50,10 @@ class Player extends Entity{
         this.friction=0.9;
         this.exists=true;
         this.teamName="notYetDecided";
+        this.animationIndex = 0; // denotes the direction movement
+        this.index = 0; // deontes number of image in that animation 
+        if(typeof bluePlayerImgList != "undefined") this.images = bluePlayerImgList ?? null;
+        if(typeof animationSpeed != "undefined") this.animationSpeed = animationSpeed ?? null;
         this.pressed={
             'KeyA':0,
             'KeyW':0,
@@ -58,8 +62,31 @@ class Player extends Entity{
         };
     }
     display(){
+        if(this.ax==0 && this.ay ==0 ){
+            this.animationIndex = 12;
+        } else if(this.ax==0){
+            if(this.ay<0){
+                this.animationIndex = 9;
+            } else if(this.ay>0){
+                this.animationIndex = 6;
+            }
+        } else {
+            if(this.ax>=0){
+                this.animationIndex = 3;
+            } else{
+                this.animationIndex = 0;
+            }
+        }
+        // this.areaDisplay();
+        console.log(`speed: ${this.vx}, ${this.vy}, acc : ${this.ax},${this.ay}`);
+        let index = floor(this.index)%3+this.animationIndex;
+        image(this.images[index],this.x,this.y);
+        this.index += this.animationSpeed* Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+    }
+    areaDisplay(){
         fill(this.color);
         ellipse(this.x,this.y,this.d,this.d); // circle representing player
+       
         stroke(255, 255, 255); // white color to draw shapes
         textSize(20);
         fill("#FFF");
@@ -68,11 +95,11 @@ class Player extends Entity{
         textFont('Georgia');
         text(this.username,this.x,this.y+2*this.radius);
         // this.theta=atan2((mouseY-this.y),(mouseX-this.x));
-        this.vx=this.v*Math.cos(this.theta);
-        this.vy=this.v*Math.sin(this.theta); 
+        // this.vx=this.v*Math.cos(this.theta);
+        // this.vy=this.v*Math.sin(this.theta); 
         fill("#FFF");
         strokeWeight(2);
-        line(this.x,this.y,this.x+this.radius*Math.cos(this.theta),this.y+this.radius*Math.sin(this.theta)); // line showing  the dirction where player is pointing
+        // line(this.x,this.y,this.x+this.radius*Math.cos(this.theta),this.y+this.radius*Math.sin(this.theta)); // line showing  the dirction where player is pointing
     }
     collide (ball2){
         let dx=ball2.x-this.x,
