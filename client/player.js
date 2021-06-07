@@ -77,10 +77,10 @@ class Player extends Entity{
                 this.animationIndex = 0;
             }
         }
-        // this.areaDisplay();
+        this.areaDisplay();
         console.log(`speed: ${this.vx}, ${this.vy}, acc : ${this.ax},${this.ay}`);
         let index = floor(this.index)%3+this.animationIndex;
-        image(this.images[index],this.x,this.y);
+        image(this.images[index],this.x - picWidth*0.4, this.y - picHeight*0.7);
         this.index += this.animationSpeed* Math.sqrt(this.vx*this.vx + this.vy*this.vy);
     }
     areaDisplay(){
@@ -105,6 +105,7 @@ class Player extends Entity{
         let dx=ball2.x-this.x,
 			dy=ball2.y-this.y,
 			radSum=ball2.radius+this.radius;
+            // console.log(`r1 = ${ball2.radius}, r2 = ${this.radius}`);
 		if(dx*dx + dy*dy< radSum*radSum){
 			let dist=Math.sqrt(dx*dx + dy*dy),
 				dif=radSum-dist;

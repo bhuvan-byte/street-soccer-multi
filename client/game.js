@@ -2,6 +2,7 @@
 if(typeof module !="undefined"){
     // const { Player } = require("./player");
     global.Player = require("./player").Player;
+    global.playerRadius = require("./constants.js").playerRadius;
     console.log("inside this",this);
     console.log("Player=",Player);   
 }
@@ -13,7 +14,7 @@ class Game{
         this.ready = false;
     }
     addPlayer(sock){
-        let player = new Player(sock.playerNo,Math.random()*400,Math.random()*400,20,false,sock.username,sock);
+        let player = new Player(sock.playerNo,Math.random()*400,Math.random()*400,playerRadius,false,sock.username,sock);
         this.players[sock.id] = player;
     }
     update(){
