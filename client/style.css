@@ -5,6 +5,9 @@
 .game-screen-div {
     margin: 10px;
 }
+.card{
+    background-color: rgba(113, 150, 230, 0.418);
+}
 
 body {
     height: 95vh;
