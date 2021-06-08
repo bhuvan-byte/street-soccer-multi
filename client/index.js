@@ -9,6 +9,7 @@
 const welcomePage = document.getElementById('welcomePage');
 const createBtn = document.getElementById('createButton');
 const joinBtn = document.getElementById('joinButton');
+const joinDefaultRoomBtn = document.getElementById('joinDefaultRoom');
 const roomNameInput = document.getElementById('roomCode');
 const roomCodeDisplay = document.getElementById('roomCodeDisplay');
 const roomCodeDiv = document.getElementById('roomCodeDiv');
@@ -27,6 +28,8 @@ const teamB = document.getElementById('teamB');
 
 createBtn.addEventListener('click', newRoom);
 joinBtn.addEventListener('click', joinRoom);
+joinDefaultRoomBtn.addEventListener('click',joinDefaultRoom);
+
 
 configBtn.addEventListener('click',confModalShow);
 closeConfBtn.addEventListener('click',confModalClose);
@@ -39,15 +42,24 @@ let bluePlayerImgList;
 let redPlayerImgList;
 
 function newRoom() {
-    const username = document.getElementById('username').value;
+    const username_raw = document.getElementById('username').value;
+    const username = username_raw.substr(0,Math.min(10,username_raw.length));    
     console.log("new room make");
     sock.emit('newRoom',username);
 }
 
 function joinRoom() {
     const roomName =  roomNameInput.value;
-    const username = document.getElementById('username2').value;
+    const username_raw = document.getElementById('username2').value;
+    const username = username_raw.substr(0,Math.min(10,username_raw.length));
     sock.emit('joinRoom',{roomName:roomName,username:username});
+}
+
+function joinDefaultRoom(){
+    const username_raw = document.getElementById('username3').value;
+    const username = username_raw.substr(0,Math.min(10,username_raw.length));
+    console.log(`${username} joining default room`);
+    sock.emit('joinDefaultRoom',username);
 }
 
 function confModalShow(){

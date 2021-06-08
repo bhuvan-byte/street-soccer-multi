@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Create A New Room</h5>
-                        <input type="text" class="form-control" id="username" placeholder="Enter your name">
+                        <input type="text" class="form-control" id="username" placeholder="Enter your name" maxlength="10">
                         <button id="createButton" class="btn btn-primary">Create</button>
                     </div>
                 </div>
@@ -30,12 +30,25 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Join A Room</h5>
-                        <input type="text" class="form-control" id="username2" placeholder="Enter your name">
-                        <input type="text" class="form-control" id="roomCode" placeholder="room code">
+                        <input type="text" class="form-control" id="username2" placeholder="Enter your name" maxlength="10">
+                        <input type="text" class="form-control" id="roomCode" placeholder="room code" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
                         <button id="joinButton" class="btn btn-success">Join</button>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Join Default Room</h5>
+                        <input type="text" class="form-control" id="username3" placeholder="Enter your name" maxlength="10">
+                        <button id="joinDefaultRoom" class="btn btn-primary">Join</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3"></div>
         </div>
     </div>
     <div class="game-screen-div">

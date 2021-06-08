@@ -1,21 +1,26 @@
 .container {
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 .game-screen-div {
-    margin: 10px;
+    margin: 30px;
 }
 .card{
     background-color: rgba(113, 150, 230, 0.418);
 }
-
+html{
+    height: 100%;
+    width: 100%;
+}
 body {
     height: 95vh;
     width: 100vw;
     background-image: url(assets/wp1.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-
+}
+.row{
+    margin: 20px;
 }
 
 #ping_element {
