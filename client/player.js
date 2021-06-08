@@ -78,7 +78,7 @@ class Player extends Entity{
             }
         }
         this.areaDisplay();
-        console.log(`speed: ${this.vx}, ${this.vy}, acc : ${this.ax},${this.ay}`);
+        // console.log(`speed: ${this.vx}, ${this.vy}, acc : ${this.ax},${this.ay}`);
         let index = floor(this.index)%3+this.animationIndex;
         image(this.images[index],this.x - picWidth*0.4, this.y - picHeight*0.7);
         this.index += this.animationSpeed* Math.sqrt(this.vx*this.vx + this.vy*this.vy);

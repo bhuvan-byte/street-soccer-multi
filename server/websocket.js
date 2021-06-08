@@ -53,6 +53,7 @@ io.on("connection", (sock) => {
     });
     sock.on('newRoom',handleNewRoom);
     sock.on('joinRoom',handleJoinRoom);
+    sock.on('joinDefaultRoom',handleJoinDefaultRoom);
     sock.on('joinTeamA',handleJoinTeamA);
     sock.on('joinTeamB',handleJoinTeamB);
 
@@ -90,8 +91,16 @@ io.on("connection", (sock) => {
         } else{
             sock.emit('failedToJoinRoom','room does not exist');
         }
-
     }
+    function handleJoinDefaultRoom(username){
+        let roomName = "ROOM";
+        if(!games[roomName]) {
+            games[roomName] = new Game(roomName,io);
+            games[roomName].ready = true;
+        }
+        newPlayer(roomName,username);        
+    }
+
     function handleJoinTeamA(){
         // sock.teamName="A";
         games[sock.roomName].players[sock.id].teamName="A";
