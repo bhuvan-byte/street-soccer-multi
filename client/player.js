@@ -43,7 +43,8 @@ class Player extends Entity{
     constructor(playerNo,x,y,radius,isAdmin,username,sock){
         super(x,y,radius);
         this.sock=sock;
-        this.color= "#000";
+        // this.color= "#000";
+        this.strokeColor="rgba(255,255,255,0.6)";
         this.d = 2*radius;
         this.theta = 0;
         this.username=username ?? "stillUnamed";
@@ -98,10 +99,11 @@ class Player extends Entity{
         this.index += this.animationSpeed* Math.sqrt(this.vx*this.vx + this.vy*this.vy);
     }
     areaDisplay(){
-        fill(this.color);
+        // fill(this.color);
+        stroke(this.strokeColor);
         ellipse(this.x,this.y,this.d,this.d); // circle representing player
        
-        stroke(255, 255, 255); // white color to draw shapes
+        stroke(this.strokeColor); // white color to draw shapes
         textSize(20);
         fill("#FFF");
         strokeWeight(1);
