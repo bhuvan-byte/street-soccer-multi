@@ -22,11 +22,24 @@ sock.on('failedToJoinRoom',handleFailedToJoinRoom);
 
 //     game.players[data.id]  = player;
 // });
+sock.on("joinTeam",(data)=>{
+    try {
+        game.players[data.id].changeTeam(data.team);
+    } catch (err) {
+        console.error(err);
+    }
+});
+const COUNTER_MAX = 20;
+let clock_counter = COUNTER_MAX;
 sock.on('clock',(playerData)=>{
     game.updateData(playerData);
     if(apna_player) apna_player.mouseSend();
-    extractOnlinePlayers(playerData);
-    handleUpdateTeams(playerData);
+    clock_counter -= 1;
+    if(clock_counter == 0){
+        clock_counter = COUNTER_MAX;
+        extractOnlinePlayers(playerData);
+        handleUpdateTeams(playerData);
+    }
 });
 function init(data) {
     let {playerNo,roomName} = data;
@@ -79,7 +92,7 @@ function handleGameCode(gameCode) {
 
 function handleFailedToJoinRoom(msg){
     console.log(msg);
-    reset();
+    // reset(); // does not work
 }
 
 
@@ -88,6 +101,7 @@ function preload(){
     ball_img = loadImage('assets/ball.png');
     BlueFullImg = loadImage('assets/blue.png');
     RedFullImg = loadImage('assets/red.png');
+    WhiteFullImg = loadImage('assets/white.png');
 }
 
 function extractImage(fullImage){
@@ -118,18 +132,13 @@ function setup() {
         ball = new Ball(ball_img);
         bluePlayerImgList = extractImage(BlueFullImg);
         redPlayerImgList = extractImage(RedFullImg);        
-        
-    }
-}
-
-function drawPlayers(players) {
-    for (player of players) {
-        player.display();
+        whitePlayerImgList = extractImage(WhiteFullImg);
     }
 }
 
 function draw() {
     if (allowSetup) {
+        console.log("draw");
         field.display();
         ball.display();
         game.display();

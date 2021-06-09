@@ -27,6 +27,13 @@ configBtn.addEventListener('click',confModalShow);
 closeConfBtn.addEventListener('click',confModalClose);
 teamAJoinBtn.addEventListener('click',JoinATeam);
 teamBJoinBtn.addEventListener('click',JoinBTeam);
+$(".card").each(function(index){
+    $(this).keyup(function(e){
+        if(e.keyCode === 13){
+            $(this).find("button").click();
+        }
+    });
+});
 
 function newRoom() {
     const username_raw = document.getElementById('username').value;
@@ -61,12 +68,14 @@ function confModalClose(){
 
 function JoinATeam(){
     console.log('joining a team');
-    sock.emit('joinTeamA');
+    sock.emit('joinTeam',"A");
+    // sock.emit('joinTeamA');
 }
 
 function JoinBTeam(){
     console.log('joining b team');
-    sock.emit('joinTeamB');
+    sock.emit('joinTeam',"B");
+    // sock.emit('joinTeamB');
 }
 
 function getPing(){

@@ -3,6 +3,7 @@ const socketio = require('socket.io');
 const { server } = require("./server.js");
 const { newRoomName } = require('./utils');
 const {Game} = require("../client/game");
+const assert = require('assert');
 let games = {};
 let idToRoom = {};
 
@@ -34,8 +35,8 @@ io.on("connection", (sock) => {
                 console.log(`deleting room ${sock.roomName}`);
                 delete games[sock.roomName];
             }
-        console.log(`Client Id ${sock.id} disconnected`);
         }
+        console.log(`Client Id ${sock.id} disconnected`);
     });
     sock.on("update",(keyInfo)=>{
         if(sock.roomName in games && sock.id in games[sock.roomName].players){
@@ -54,8 +55,7 @@ io.on("connection", (sock) => {
     sock.on('newRoom',handleNewRoom);
     sock.on('joinRoom',handleJoinRoom);
     sock.on('joinDefaultRoom',handleJoinDefaultRoom);
-    sock.on('joinTeamA',handleJoinTeamA);
-    sock.on('joinTeamB',handleJoinTeamB);
+    sock.on('joinTeam',handleJoinTeam);
 
     function newPlayer(roomName,username){
         idToRoom[sock.id] =roomName;
@@ -100,15 +100,23 @@ io.on("connection", (sock) => {
         }
         newPlayer(roomName,username);        
     }
-
-    function handleJoinTeamA(){
-        // sock.teamName="A";
-        games[sock.roomName].players[sock.id].teamName="A";
+    function handleJoinTeam(team){
+        try{
+            assert(team=='A' || team=='B');
+            io.in(sock.roomName).emit("joinTeam",{id:sock.id,team:team});
+            games[sock.roomName].players[sock.id].teamName=team;
+        }catch(err){
+            console.log(err);
+        }
     }
-    function handleJoinTeamB(){
-        // sock.teamName="B";
-        games[sock.roomName].players[sock.id].teamName="B";
-    }
+    // function handleJoinTeamA(){
+    //     // sock.teamName="A";
+    //     games[sock.roomName].players[sock.id].teamName="A";
+    // }
+    // function handleJoinTeamB(){
+    //     // sock.teamName="B";
+    //     games[sock.roomName].players[sock.id].teamName="B";
+    // }
     
     
 });

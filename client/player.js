@@ -52,14 +52,28 @@ class Player extends Entity{
         this.teamName="notYetDecided";
         this.animationIndex = 0; // denotes the direction movement
         this.index = 0; // deontes number of image in that animation 
-        if(typeof bluePlayerImgList != "undefined") this.images = bluePlayerImgList ?? null;
-        if(typeof animationSpeed != "undefined") this.animationSpeed = animationSpeed ?? null;
         this.pressed={
             'KeyA':0,
             'KeyW':0,
             'KeyD':0,
             'KeyS':0
         };
+        if(typeof module === "undefined") this.clientInit(); 
+    }
+    clientInit(){
+        this.images = whitePlayerImgList;
+        this.animationSpeed = animationSpeed;
+    }
+    changeTeam(team){
+        if(team == "A"){
+            this.images = redPlayerImgList;
+        }else if(team == "B"){
+            this.images = bluePlayerImgList;
+        }else {
+            this.images = whitePlayerImgList;
+            return;
+        }
+        this.teamName = team;
     }
     display(){
         if(this.ax==0 && this.ay ==0 ){
