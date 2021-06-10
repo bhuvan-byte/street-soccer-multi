@@ -1,79 +1,18 @@
 // const { Game } = require("./game");
 // const {Player} = "./player";
 
+// const { picHeight, picWidth } = require("./constants");
+
 // const player = require("./player");
 
 // const { reset } = require("nodemon");
-const welcomePage = document.getElementById('welcomePage');
-const createBtn = document.getElementById('createButton');
-const joinBtn = document.getElementById('joinButton');
-const roomNameInput = document.getElementById('roomCode');
-const roomCodeDisplay = document.getElementById('roomCodeDisplay');
-const roomCodeDiv = document.getElementById('roomCodeDiv');
-const sock = io();
-const pingElem = document.querySelector('#ping_element');
-
-const configBtn = document.getElementById('config');
-const closeConfBtn = document.getElementById('close-config');
-const overlay = document.getElementById('overlay');
-const modal = document.querySelector(configBtn.dataset.modalTarget);
-const OnlinePlayers = document.getElementById('OnlinePlayers');
-const teamAJoinBtn = document.getElementById('TeamAJoin');
-const teamBJoinBtn = document.getElementById('TeamBJoin');
-const teamA = document.getElementById('teamA');
-const teamB = document.getElementById('teamB');
-
-createBtn.addEventListener('click', newRoom);
-joinBtn.addEventListener('click', joinRoom);
-
-configBtn.addEventListener('click',confModalShow);
-closeConfBtn.addEventListener('click',confModalClose);
-teamAJoinBtn.addEventListener('click',JoinATeam);
-teamBJoinBtn.addEventListener('click',JoinBTeam);
 
 var allowSetup = false,apna_player;
 let game ;
-function newRoom() {
-    const username = document.getElementById('username').value;
-    console.log("new room make");
-    sock.emit('newRoom',username);
-}
+let bluePlayerImgList;
+let redPlayerImgList;
 
-function joinRoom() {
-    const roomName =  roomNameInput.value;
-    const username = document.getElementById('username2').value;
-    sock.emit('joinRoom',{roomName:roomName,username:username});
-}
-
-function confModalShow(){
-    modal.classList.add('active');
-    overlay.classList.add('active');
-}
-
-function confModalClose(){
-    modal.classList.remove('active');
-    overlay.classList.remove('active');
-}
-
-function JoinATeam(){
-    console.log('joining a team');
-    sock.emit('joinTeamA');
-}
-
-function JoinBTeam(){
-    console.log('joining b team');
-    sock.emit('joinTeamB');
-}
-
-setInterval(() => {
-    let sendtime = Date.now();
-    sock.emit("ping",sendtime);
-}, 1000);
-let pingArray = [];
-sock.on("ping",(sendtime)=>{
-    let ping = Date.now() - sendtime;
-    pingElem.innerText = `Ping ${ping}ms`;
-});
+getPing();
 sock.on('init', init);
 sock.on('gameCode', handleGameCode);
 sock.on('failedToJoinRoom',handleFailedToJoinRoom);
@@ -83,11 +22,27 @@ sock.on('failedToJoinRoom',handleFailedToJoinRoom);
 
 //     game.players[data.id]  = player;
 // });
-sock.on('clock',(playerData)=>{
-    game.updateData(playerData);
+sock.on("joinTeam",(data)=>{
+    try {
+        game.players[data.id].changeTeam(data.team);
+    } catch (err) {
+        console.error(err);
+    }
+});
+const COUNTER_MAX = 20;
+let clock_counter = COUNTER_MAX;
+sock.on('clock',(data)=>{
+    const {playerData,ballData} = data;
+    game.updateClient(playerData,ballData); 
     if(apna_player) apna_player.mouseSend();
-    extractOnlinePlayers(playerData);
-    handleUpdateTeams(playerData);
+    
+    
+    clock_counter -= 1;
+    if(clock_counter == 0){
+        clock_counter = COUNTER_MAX;
+        extractOnlinePlayers(playerData);
+        handleUpdateTeams(playerData);
+    }
 });
 function init(data) {
     let {playerNo,roomName} = data;
@@ -140,13 +95,33 @@ function handleGameCode(gameCode) {
 
 function handleFailedToJoinRoom(msg){
     console.log(msg);
-    reset();
+    // reset(); // does not work
 }
 
 
 let ball_img;
 function preload(){
     ball_img = loadImage('assets/ball.png');
+    BlueFullImg = loadImage('assets/blue.png');
+    RedFullImg = loadImage('assets/red.png');
+    WhiteFullImg = loadImage('assets/white.png');
+}
+
+function extractImage(fullImage){
+    let x=0,y=0,imageList = [];
+    for(let r=0;r<4;r++){
+        // let oneAnimation = [];
+        y=r*picHeight;
+        x=0;
+        for(let c=0;c<3;c++){
+            let img = fullImage.get(x,y,picWidth,picHeight);
+            imageList.push(img);
+            x+=picWidth;
+        }
+    }
+    let img = fullImage.get(0,picHeight,picWidth,picHeight);
+    imageList.push(img); imageList.push(img); imageList.push(img);
+    return imageList;
 }
 
 function setup() {
@@ -157,21 +132,18 @@ function setup() {
         const canvas = createCanvas(Width, Height);
         canvas.parent('canvasDiv');
         field = new Field();
-        ball = new Ball(ball_img);
-        
-    }
-}
-
-function drawPlayers(players) {
-    for (player of players) {
-        player.display();
+        // ball = new Ball(ball_img);
+        bluePlayerImgList = extractImage(BlueFullImg);
+        redPlayerImgList = extractImage(RedFullImg);        
+        whitePlayerImgList = extractImage(WhiteFullImg);
     }
 }
 
 function draw() {
     if (allowSetup) {
+        // console.log("draw");
         field.display();
-        ball.display();
+        // ball.display();
         game.display();
     }
 }

@@ -1,8 +1,15 @@
+"use strict";
+
+// const player = require("./player");
+
 if(typeof module !="undefined"){
     // const { Player } = require("./player");
-    Player = require("./player").Player;
+    global.Entity = require("./player").Entity;
+    global.Player = require("./player").Player;
+    global.Ball = require("./ball.js").Ball;
+    global.playerRadius = require("./constants.js").playerRadius;
     console.log("inside this",this);
-    console.log("Player=",Player);   
+    console.log("Player=",Player,"Ball=",Ball);   
 }
 class Game{
     constructor(roomName,io){
@@ -10,14 +17,29 @@ class Game{
         this.roomName = roomName;
         this.io = io;
         this.ready = false;
+        this.ball = new Ball();
     }
     addPlayer(sock){
-        let player = new Player(sock.playerNo,Math.random()*400,Math.random()*400,20,false,sock.username,sock);
+        let player = new Player(sock.id,Math.random()*400,Math.random()*400,playerRadius,false,sock.username,sock);
         this.players[sock.id] = player;
     }
     update(){
-        for(let [key,player] of Object.entries(this.players)){
-            player.update();
+        let playerId = null;
+        for(let key in this.players){
+            let collides = this.ball.isCollide(this.players[key]);
+            if(collides){
+                if(playerId == null){
+
+                    playerId = key;
+                }else {
+                    playerId = null;
+                    break;
+                }
+            }
+        }
+        if(!playerId)this.ball.update();
+        else {
+            this.ball.updateFollow(this.players[playerId]);
         }
         for(let [key,player] of Object.entries(this.players)){
             player.update();
@@ -29,14 +51,17 @@ class Game{
                 players[i].collide(players[j]);
             }
         }
+        
     }
     display(){
+        this.ball.display();
         for(let key in this.players){
             this.players[key].display();
         }
     }
-    updateData(playerData){
+    updateClient(playerData,ballData){
         // const t0 = performance.now();
+        Object.assign(this.ball,ballData);
         for(let key in playerData){
             // console.log(`key = ${key}`);
             // console.log(`playerDat[key].username= ${playerData[key].username}`);
@@ -44,11 +69,11 @@ class Game{
                 this.players[key] = new Player(key,0,0,playerRadius,playerData[key].username);
             }
             Object.assign(this.players[key],playerData[key]);
-            if(this.players[key].teamName == 'A'){
-                this.players[key].color = "#F00";
-            } else if(this.players[key].teamName == 'B'){
-                this.players[key].color = "#00B";
-            }
+            // if(this.players[key].teamName == 'A'){
+            //     this.players[key].strokeColor = "rgba(255,0,0,0.6)";
+            // } else if(this.players[key].teamName == 'B'){
+            //     this.players[key].strokeColor = "rgba(0,0,255,0.6)";
+            // }
         }
         for(let key in this.players){
             if(!(key in playerData)){
@@ -65,12 +90,13 @@ class Game{
             playerData[key] = this.players[key].getData();
         }
         // WHY is below code not working !!?
+        // console.info(Object.entries);
         // for(let [key,value] in Object.entries(this.players)){
         //     console.log(key,value);
         //     // playerData[key] = value.getData();
         // }
         // console.info(playerData);
-        this.io.in(this.roomName).emit("clock",playerData);
+        this.io.in(this.roomName).emit("clock",{playerData:playerData,ballData:this.ball.getData()});
     }
 }
 if (typeof module != "undefined"){

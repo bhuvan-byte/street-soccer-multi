@@ -1,9 +1,9 @@
     /// <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
-// "use strict";
+"use strict";
 if(typeof module !="undefined"){
-    Width = require("./constants.js").Width;
-    Height = require("./constants.js").Height;
-    playerAcc = require("./constants.js").playerAcc;
+    global.Width = require("./constants.js").Width;
+    global.Height = require("./constants.js").Height;
+    global.playerAcc = require("./constants.js").playerAcc;
     console.log("Width=",Width);
 }
 
@@ -29,10 +29,22 @@ class Entity{
     update(){
         this.x+=this.vx;
         this.y+=this.vy;
-        if(this.x<this.radius) this.x=this.radius;
-        if(this.x+this.radius>Width)this.x=Width-this.radius;
-        if(this.y<this.radius)this.y=this.radius;
-        if(this.y+this.radius>Height)this.y=Height-this.radius;
+        if(this.x<this.radius){
+            this.x=this.radius;
+            this.vx =0;
+        }
+        if(this.x+this.radius>Width){
+            this.x=Width-this.radius;
+            this.vx = 0;
+        }
+        if(this.y<this.radius){
+            this.y=this.radius;
+            this.vy = 0;
+        }
+        if(this.y+this.radius>Height) {
+            this.y=Height-this.radius;
+            this.vy = 0;
+        }
         this.vx+=this.ax;
         this.vy+=this.ay;
         this.vx*=this.friction;
@@ -40,27 +52,71 @@ class Entity{
     }
 }
 class Player extends Entity{
-    constructor(playerNo,x,y,radius,isAdmin,username,sock){
+    constructor(id,x,y,radius,isAdmin,username,sock){
         super(x,y,radius);
+        this.id = id;
         this.sock=sock;
-        this.color= "#000";
+        // this.color= "#000";
+        this.strokeColor="rgba(255,255,255,0.6)";
         this.d = 2*radius;
         this.theta = 0;
         this.username=username ?? "stillUnamed";
-        this.friction=0.9;
+        this.friction=0.99;
         this.exists=true;
         this.teamName="notYetDecided";
+        this.animationIndex = 0; // denotes the direction movement
+        this.index = 0; // deontes number of image in that animation 
         this.pressed={
             'KeyA':0,
             'KeyW':0,
             'KeyD':0,
             'KeyS':0
         };
+        if(typeof module === "undefined") this.clientInit(); 
+    }
+    clientInit(){
+        this.images = whitePlayerImgList;
+        this.animationSpeed = animationSpeed;
+    }
+    changeTeam(team){
+        if(team == "A"){
+            this.images = redPlayerImgList;
+        }else if(team == "B"){
+            this.images = bluePlayerImgList;
+        }else {
+            this.images = whitePlayerImgList;
+            return;
+        }
+        this.teamName = team;
     }
     display(){
-        fill(this.color);
+        if(this.ax==0 && this.ay ==0 ){
+            this.animationIndex = 12;
+        } else if(this.ax==0){
+            if(this.ay<0){
+                this.animationIndex = 9;
+            } else if(this.ay>0){
+                this.animationIndex = 6;
+            }
+        } else {
+            if(this.ax>=0){
+                this.animationIndex = 3;
+            } else{
+                this.animationIndex = 0;
+            }
+        }
+        this.areaDisplay();
+        // console.log(`speed: ${this.vx}, ${this.vy}, acc : ${this.ax},${this.ay}`);
+        let index = floor(this.index)%3+this.animationIndex;
+        image(this.images[index],this.x - picWidth*0.4, this.y - picHeight*0.7);
+        this.index += this.animationSpeed* Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+    }
+    areaDisplay(){
+        fill("rgba(255,255,255,0)");
+        stroke(this.strokeColor);
         ellipse(this.x,this.y,this.d,this.d); // circle representing player
-        stroke(255, 255, 255); // white color to draw shapes
+       
+        stroke(this.strokeColor); // white color to draw shapes
         textSize(20);
         fill("#FFF");
         strokeWeight(1);
@@ -68,16 +124,17 @@ class Player extends Entity{
         textFont('Georgia');
         text(this.username,this.x,this.y+2*this.radius);
         // this.theta=atan2((mouseY-this.y),(mouseX-this.x));
-        this.vx=this.v*Math.cos(this.theta);
-        this.vy=this.v*Math.sin(this.theta); 
-        fill("#FFF");
-        strokeWeight(2);
-        line(this.x,this.y,this.x+this.radius*Math.cos(this.theta),this.y+this.radius*Math.sin(this.theta)); // line showing  the dirction where player is pointing
+        // this.vx=this.v*Math.cos(this.theta);
+        // this.vy=this.v*Math.sin(this.theta); 
+        // fill("#FFF");
+        // strokeWeight(2);
+        // line(this.x,this.y,this.x+this.radius*Math.cos(this.theta),this.y+this.radius*Math.sin(this.theta)); // line showing  the dirction where player is pointing
     }
     collide (ball2){
         let dx=ball2.x-this.x,
 			dy=ball2.y-this.y,
 			radSum=ball2.radius+this.radius;
+            // console.log(`r1 = ${ball2.radius}, r2 = ${this.radius}`);
 		if(dx*dx + dy*dy< radSum*radSum){
 			let dist=Math.sqrt(dx*dx + dy*dy),
 				dif=radSum-dist;
@@ -149,6 +206,7 @@ class Player extends Entity{
 if(typeof module != "undefined"){
     module.exports = {
         Player:Player,
+        Entity:Entity,
     }
 }
 // class Player{

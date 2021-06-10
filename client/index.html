@@ -8,8 +8,9 @@
     <title>Soccer</title>
     <script src="libraries/p5.js"></script>
     <!-- CSS only -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="./libraries/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -21,7 +22,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Create A New Room</h5>
-                        <input type="text" class="form-control" id="username" placeholder="Enter your name">
+                        <input type="text" class="form-control" id="username" placeholder="Enter your name" maxlength="10">
                         <button id="createButton" class="btn btn-primary">Create</button>
                     </div>
                 </div>
@@ -30,12 +31,25 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Join A Room</h5>
-                        <input type="text" class="form-control" id="username2" placeholder="Enter your name">
-                        <input type="text" class="form-control" id="roomCode" placeholder="room code">
+                        <input type="text" class="form-control" id="username2" placeholder="Enter your name" maxlength="10">
+                        <input type="text" class="form-control" id="roomCode" placeholder="room code" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
                         <button id="joinButton" class="btn btn-success">Join</button>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Join Default Room</h5>
+                        <input type="text" class="form-control" id="username3" placeholder="Enter your name" maxlength="10">
+                        <button id="joinDefaultRoom" class="btn btn-primary">Join</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3"></div>
         </div>
     </div>
     <div class="game-screen-div">
@@ -70,14 +84,15 @@
             </div>
             <div id="overlay"></div>
         </div>
-
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
-        </script>
-
+    </div>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script> -->
+    <script src="./libraries/jquery.min.js"></script>
+    <script src="./libraries/bootstrap.bundle.min.js"></script>
 
         <script src="constants.js"></script>
         <script src="/socket.io/socket.io.js"></script>
@@ -86,6 +101,7 @@
         <script src="player.js"></script>
         <script src="game.js"></script>
         <script src="ball.js"></script>
+        <script src="html_events.js"></script>
         <script src="index.js"></script>
 </body>
 
