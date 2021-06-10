@@ -99,7 +99,7 @@ class Player extends Entity{
         this.index += this.animationSpeed* Math.sqrt(this.vx*this.vx + this.vy*this.vy);
     }
     areaDisplay(){
-        // fill(this.color);
+        fill("rgba(255,255,255,0)");
         stroke(this.strokeColor);
         ellipse(this.x,this.y,this.d,this.d); // circle representing player
        
@@ -113,8 +113,8 @@ class Player extends Entity{
         // this.theta=atan2((mouseY-this.y),(mouseX-this.x));
         // this.vx=this.v*Math.cos(this.theta);
         // this.vy=this.v*Math.sin(this.theta); 
-        fill("#FFF");
-        strokeWeight(2);
+        // fill("#FFF");
+        // strokeWeight(2);
         // line(this.x,this.y,this.x+this.radius*Math.cos(this.theta),this.y+this.radius*Math.sin(this.theta)); // line showing  the dirction where player is pointing
     }
     collide (ball2){
