@@ -31,9 +31,12 @@ sock.on("joinTeam",(data)=>{
 });
 const COUNTER_MAX = 20;
 let clock_counter = COUNTER_MAX;
-sock.on('clock',(playerData)=>{
-    game.updateData(playerData);
+sock.on('clock',(data)=>{
+    const {playerData,ballData} = data;
+    game.updateClient(playerData,ballData); 
     if(apna_player) apna_player.mouseSend();
+    
+    
     clock_counter -= 1;
     if(clock_counter == 0){
         clock_counter = COUNTER_MAX;
@@ -129,7 +132,7 @@ function setup() {
         const canvas = createCanvas(Width, Height);
         canvas.parent('canvasDiv');
         field = new Field();
-        ball = new Ball(ball_img);
+        // ball = new Ball(ball_img);
         bluePlayerImgList = extractImage(BlueFullImg);
         redPlayerImgList = extractImage(RedFullImg);        
         whitePlayerImgList = extractImage(WhiteFullImg);
@@ -138,9 +141,9 @@ function setup() {
 
 function draw() {
     if (allowSetup) {
-        console.log("draw");
+        // console.log("draw");
         field.display();
-        ball.display();
+        // ball.display();
         game.display();
     }
 }

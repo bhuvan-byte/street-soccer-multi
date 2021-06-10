@@ -193,6 +193,7 @@ class Player extends Entity{
 if(typeof module != "undefined"){
     module.exports = {
         Player:Player,
+        Entity:Entity,
     }
 }
 // class Player{
