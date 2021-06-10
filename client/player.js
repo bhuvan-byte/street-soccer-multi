@@ -18,8 +18,8 @@ class Entity{
     constructor(x,y,radius){
         this.x=x;
         this.y=y;
-        this.vx=-Math.random()*4;
-        this.vy=Math.random()*5;
+        this.vx=0;
+        this.vy=0;
         this.ax=0;
         this.ay=0;
         this.radius=radius;
@@ -61,7 +61,7 @@ class Player extends Entity{
         this.d = 2*radius;
         this.theta = 0;
         this.username=username ?? "stillUnamed";
-        this.friction=0.99;
+        this.friction=0.9;
         this.exists=true;
         this.teamName="notYetDecided";
         this.animationIndex = 0; // denotes the direction movement
