@@ -29,10 +29,22 @@ class Entity{
     update(){
         this.x+=this.vx;
         this.y+=this.vy;
-        if(this.x<this.radius) this.x=this.radius;
-        if(this.x+this.radius>Width)this.x=Width-this.radius;
-        if(this.y<this.radius)this.y=this.radius;
-        if(this.y+this.radius>Height)this.y=Height-this.radius;
+        if(this.x<this.radius){
+            this.x=this.radius;
+            this.vx =0;
+        }
+        if(this.x+this.radius>Width){
+            this.x=Width-this.radius;
+            this.vx = 0;
+        }
+        if(this.y<this.radius){
+            this.y=this.radius;
+            this.vy = 0;
+        }
+        if(this.y+this.radius>Height) {
+            this.y=Height-this.radius;
+            this.vy = 0;
+        }
         this.vx+=this.ax;
         this.vy+=this.ay;
         this.vx*=this.friction;
@@ -40,15 +52,16 @@ class Entity{
     }
 }
 class Player extends Entity{
-    constructor(playerNo,x,y,radius,isAdmin,username,sock){
+    constructor(id,x,y,radius,isAdmin,username,sock){
         super(x,y,radius);
+        this.id = id;
         this.sock=sock;
         // this.color= "#000";
         this.strokeColor="rgba(255,255,255,0.6)";
         this.d = 2*radius;
         this.theta = 0;
         this.username=username ?? "stillUnamed";
-        this.friction=0.9;
+        this.friction=0.99;
         this.exists=true;
         this.teamName="notYetDecided";
         this.animationIndex = 0; // denotes the direction movement

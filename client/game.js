@@ -1,4 +1,7 @@
 "use strict";
+
+// const player = require("./player");
+
 if(typeof module !="undefined"){
     // const { Player } = require("./player");
     global.Entity = require("./player").Entity;
@@ -17,11 +20,27 @@ class Game{
         this.ball = new Ball();
     }
     addPlayer(sock){
-        let player = new Player(sock.playerNo,Math.random()*400,Math.random()*400,playerRadius,false,sock.username,sock);
+        let player = new Player(sock.id,Math.random()*400,Math.random()*400,playerRadius,false,sock.username,sock);
         this.players[sock.id] = player;
     }
     update(){
-        this.ball.update();
+        let playerId = null;
+        for(let key in this.players){
+            let collides = this.ball.isCollide(this.players[key]);
+            if(collides){
+                if(playerId == null){
+
+                    playerId = key;
+                }else {
+                    playerId = null;
+                    break;
+                }
+            }
+        }
+        if(!playerId)this.ball.update();
+        else {
+            this.ball.updateFollow(this.players[playerId]);
+        }
         for(let [key,player] of Object.entries(this.players)){
             player.update();
         }
@@ -32,6 +51,7 @@ class Game{
                 players[i].collide(players[j]);
             }
         }
+        
     }
     display(){
         this.ball.display();
