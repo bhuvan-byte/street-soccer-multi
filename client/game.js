@@ -3,11 +3,10 @@
 // const player = require("./player");
 
 if(typeof module !="undefined"){
-    // const { Player } = require("./player");
     global.Entity = require("./player").Entity;
     global.Player = require("./player").Player;
     global.Ball = require("./ball.js").Ball;
-    global.playerRadius = require("./constants.js").playerRadius;
+    // global.C.playerRadius = require("./constants.js").C.playerRadius;
     console.log("inside this",this);
     console.log("Player=",Player,"Ball=",Ball);   
 }
@@ -20,7 +19,7 @@ class Game{
         this.ball = new Ball();
     }
     addPlayer(sock){
-        let player = new Player(sock.id,Math.random()*400,Math.random()*400,playerRadius,false,sock.username,sock);
+        let player = new Player(sock.id,Math.random()*400,Math.random()*400,C.playerRadius,false,sock.username,sock);
         this.players[sock.id] = player;
     }
     update(){
@@ -66,7 +65,7 @@ class Game{
             // console.log(`key = ${key}`);
             // console.log(`playerDat[key].username= ${playerData[key].username}`);
             if(!(key in this.players)){
-                this.players[key] = new Player(key,0,0,playerRadius,playerData[key].username);
+                this.players[key] = new Player(key,0,0,C.playerRadius,playerData[key].username);
             }
             Object.assign(this.players[key],playerData[key]);
             // if(this.players[key].teamName == 'A'){

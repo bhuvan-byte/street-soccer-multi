@@ -1,14 +1,14 @@
     /// <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
 "use strict";
 if(typeof module !="undefined"){
-    global.Width = require("./constants.js").Width;
-    global.Height = require("./constants.js").Height;
-    global.playerAcc = require("./constants.js").playerAcc;
-    console.log("Width=",Width);
+    // global.C.Width = require("./constants.js").C.Width;
+    // global.C.Height = require("./constants.js").C.Height;
+    // global.C.playerAcc = require("./constants.js").C.playerAcc;
+    console.log("C.Width=",C.Width);
 }
 
 // const { text } = require("express");
-// const {Width,Height} = require("./constants");
+// const {C.Width,C.Height} = require("./constants");
 try {
     console.log(Player);
 } catch (error) {
@@ -33,16 +33,16 @@ class Entity{
             this.x=this.radius;
             this.vx =0;
         }
-        if(this.x+this.radius>Width){
-            this.x=Width-this.radius;
+        if(this.x+this.radius>C.Width){
+            this.x=C.Width-this.radius;
             this.vx = 0;
         }
         if(this.y<this.radius){
             this.y=this.radius;
             this.vy = 0;
         }
-        if(this.y+this.radius>Height) {
-            this.y=Height-this.radius;
+        if(this.y+this.radius>C.Height) {
+            this.y=C.Height-this.radius;
             this.vy = 0;
         }
         this.vx+=this.ax;
@@ -76,7 +76,7 @@ class Player extends Entity{
     }
     clientInit(){
         this.images = whitePlayerImgList;
-        this.animationSpeed = animationSpeed;
+        // this.C.animationSpeed = C.animationSpeed;
     }
     changeTeam(team){
         if(team == "A"){
@@ -108,8 +108,8 @@ class Player extends Entity{
         this.areaDisplay();
         // console.log(`speed: ${this.vx}, ${this.vy}, acc : ${this.ax},${this.ay}`);
         let index = floor(this.index)%3+this.animationIndex;
-        image(this.images[index],this.x - picWidth*0.4, this.y - picHeight*0.7);
-        this.index += this.animationSpeed* Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+        image(this.images[index],this.x - C.picWidth*0.4, this.y - C.picHeight*0.7);
+        this.index += C.animationSpeed* Math.sqrt(this.vx*this.vx + this.vy*this.vy);
     }
     areaDisplay(){
         fill("rgba(255,255,255,0)");
@@ -176,7 +176,7 @@ class Player extends Entity{
         });
     }
     moveHandler(ecode,direction){
-        const acc=playerAcc ;
+        const acc=C.playerAcc ;
         this.pressed[ecode]=direction;
         this.ax=this.ay=0
         if(this.pressed['KeyA']) this.ax-=acc;
@@ -271,8 +271,8 @@ if(typeof module != "undefined"){
 
 //         // if(this.x<0) this.x=0; // boundary collisions
 //         // if(this.y<0) this.y=0;
-//         // if(this.x+this.d>Width) this.x=Width-this.d;
-//         // if(this.y+this.d>Height) this.y=Height-this.d;
+//         // if(this.x+this.d>C.Width) this.x=C.Width-this.d;
+//         // if(this.y+this.d>C.Height) this.y=C.Height-this.d;
 
 //         // this.centreX=this.x+this.r; // recaclulating center coordinates
 //         // this.centreY=this.y+this.r;
