@@ -27,6 +27,11 @@ configBtn.addEventListener('click',confModalShow);
 closeConfBtn.addEventListener('click',confModalClose);
 teamAJoinBtn.addEventListener('click',JoinATeam);
 teamBJoinBtn.addEventListener('click',JoinBTeam);
+document.addEventListener("keyup",(e)=>{
+    if(e.keyCode === 13){
+        joinDefaultRoomBtn.click();
+    }
+});
 $(".card").each(function(index){
     $(this).keyup(function(e){
         if(e.keyCode === 13){

@@ -60,6 +60,7 @@ class Player extends Entity{
         this.strokeColor="rgba(255,255,255,0.6)";
         this.d = 2*radius;
         this.theta = 0;
+        this.moveDir = 0;
         this.username=username ?? "stillUnamed";
         this.friction=0.9;
         this.exists=true;

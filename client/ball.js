@@ -28,8 +28,10 @@ class Ball extends Entity{
         }
     }
     updateFollow(player){
-        this.x = player.x+player.radius;
-        this.y = player.y;
+        // if(player.ax!=0 || player.ay!=0) player.moveDir = Math.atan2(player.ax,player.ay);
+        player.moveDir = Math.atan2(player.vx,player.vy);
+        this.x = player.x+player.radius*Math.sin(player.moveDir);
+        this.y = player.y+player.radius*Math.cos(player.moveDir);
     }
     display(){
         // console.log("Ball display"); 
