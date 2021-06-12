@@ -12,7 +12,7 @@ app.use(express.static("client"));
 app.get("/",function(req,res) {
     res.sendFile(__dirname+"/client/index.html")
 })
-
+const unnamed_ = require("../client/constants.js");
 const websocket=require('./websocket.js');
 console.log(websocket);
 server.on('error', (err) => {

@@ -1,15 +1,16 @@
-// const { ballRadius } = require("./constants.js");
+// const { C.ballRadius } = require("./constants.js");
 
-// const { Width, Height } = require("./constants.js");
+// const { C.Width, C.Height } = require("./constants.js");
 
 if(typeof module !="undefined"){
-    Width = require("./constants.js").Width;
-    Height = require("./constants.js").Height;
-    ballRadius = require("./constants.js").ballRadius;
+    global.Entity = require("./player").Entity;
+    // C.Width = require("./constants.js").C.Width;
+    // C.Height = require("./constants.js").C.Height;
+    // C.ballRadius = require("./constants.js").C.ballRadius;
 }
 class Ball extends Entity{
     constructor(){
-        super(Width/2,Height/2,ballRadius); 
+        super(C.Width/2,C.Height/2,C.ballRadius); 
         this.player = 0;
         if(typeof module == "undefined") this.clientInit();
     }
@@ -27,8 +28,10 @@ class Ball extends Entity{
         }
     }
     updateFollow(player){
-        this.x = player.x+player.radius;
-        this.y = player.y;
+        // if(player.ax!=0 || player.ay!=0) player.moveDir = Math.atan2(player.ax,player.ay);
+        player.moveDir = Math.atan2(player.vx,player.vy);
+        this.x = player.x+player.radius*Math.sin(player.moveDir);
+        this.y = player.y+player.radius*Math.cos(player.moveDir);
     }
     display(){
         // console.log("Ball display"); 
