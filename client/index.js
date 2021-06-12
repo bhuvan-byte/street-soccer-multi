@@ -11,6 +11,7 @@ var allowSetup = false,apna_player;
 let game ;
 let bluePlayerImgList;
 let redPlayerImgList;
+let roomList;
 
 getPing();
 sock.on('init', init);
@@ -44,6 +45,24 @@ sock.on('clock',(data)=>{
         handleUpdateTeams(playerData);
     }
 });
+
+let intervalID = setInterval(() => {
+    sock.emit('get-room-list');
+}, 1000);
+
+sock.on('get-room-list',(data)=>{
+    let room_list = document.getElementById('room-name-list');
+    let newRoomList = '';
+    for(let room in data){
+        newRoomList+=`<button class="btn btn-primary room-list-item">${room} ${data[room]}</button>`;
+        // console.log(`room -> ${room}, no of players -> ${data[room]}`);
+    }
+    if(newRoomList!==roomList){
+        room_list.innerHTML = newRoomList;
+        roomList = newRoomList;
+    }
+});
+
 function init(data) {
     let {playerNo,roomName} = data;
     console.log(`playerNo = ${playerNo}`);

@@ -23,34 +23,45 @@ joinBtn.addEventListener('click', joinRoom);
 joinDefaultRoomBtn.addEventListener('click',joinDefaultRoom);
 
 
+document.addEventListener('click',function(e){
+    roomName = e.toElement.innerText.split(" ")[0];
+    console.log(roomName);
+    const username_raw = document.getElementById('username').value;
+    const username = username_raw.substr(0,Math.min(10,username_raw.length));
+    sock.emit('joinRoom',{roomName:roomName,username:username});
+    clearInterval(intervalID);
+});
+
 configBtn.addEventListener('click',confModalShow);
 closeConfBtn.addEventListener('click',confModalClose);
 teamAJoinBtn.addEventListener('click',JoinATeam);
 teamBJoinBtn.addEventListener('click',JoinBTeam);
-$(".card").each(function(index){
-    $(this).keyup(function(e){
-        if(e.keyCode === 13){
-            $(this).find("button").click();
-        }
-    });
-});
+// $(".card").each(function(index){
+//     $(this).keyup(function(e){
+//         if(e.keyCode === 13){
+//             $(this).find("button").click();
+//         }
+//     });
+// });
+// stopped working as html changed and we removed card class
+
 
 function newRoom() {
     const username_raw = document.getElementById('username').value;
     const username = username_raw.substr(0,Math.min(10,username_raw.length));    
     console.log("new room make");
-    sock.emit('newRoom',username);
+    sock.emit('newRoom',{roomName:null,username:username});
 }
 
 function joinRoom() {
     const roomName =  roomNameInput.value;
-    const username_raw = document.getElementById('username2').value;
+    const username_raw = document.getElementById('username').value;
     const username = username_raw.substr(0,Math.min(10,username_raw.length));
     sock.emit('joinRoom',{roomName:roomName,username:username});
 }
 
 function joinDefaultRoom(){
-    const username_raw = document.getElementById('username3').value;
+    const username_raw = document.getElementById('username').value;
     const username = username_raw.substr(0,Math.min(10,username_raw.length));
     console.log(`${username} joining default room`);
     sock.emit('joinDefaultRoom',username);

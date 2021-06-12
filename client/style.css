@@ -1,5 +1,10 @@
-.container {
+.my-container{
     margin-top: 15px;
+}
+#welcomePage{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .game-screen-div {
@@ -7,6 +12,12 @@
 }
 .card{
     background-color: rgba(113, 150, 230, 0.418);
+}
+.room-list{
+    background-color: rgba(53, 46, 46, 0.623);
+    color: rgb(0, 255, 0);
+    min-width: 330px;
+    max-width: 430px;
 }
 html{
     height: 100%;
@@ -21,6 +32,33 @@ body {
 }
 .row{
     margin: 20px;
+}
+
+
+/* .my-btn{
+    font-size: 1rem;
+    display: inline-block;
+    background-color: rgba(53, 46, 46, 0.623);
+    color: greenyellow;
+    cursor: pointer;
+    text-decoration: none;
+    border: greenyellow 0.125em solid;
+    border-radius: 0.25em;
+    padding: 0.25em 1em;
+    text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.4), 0 0 0.125em greenyellow;
+    box-shadow: 0 0 0.5em 0 greenyellow;
+}
+.my-btn:hover{
+    color: greenyellow;
+} */
+
+.room-names{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.room-names button{
+    margin: 5px 5px 5px 5px;
 }
 
 #ping_element {

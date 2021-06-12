@@ -16,41 +16,33 @@
 
 <body>
 
-    <div class="container" id="welcomePage">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Create A New Room</h5>
-                        <input type="text" class="form-control" id="username" placeholder="Enter your name" maxlength="10">
-                        <button id="createButton" class="btn btn-primary">Create</button>
-                    </div>
-                </div>
+    <div class="my-container base" id="welcomePage">
+        <div class="my-container card">
+            <div class="row">
+                <input type="text" class="form-control col-sm-12" id="username" placeholder="Enter your name"
+                    maxlength="10">
             </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Join A Room</h5>
-                        <input type="text" class="form-control" id="username2" placeholder="Enter your name" maxlength="10">
-                        <input type="text" class="form-control" id="roomCode" placeholder="room code" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
-                        <button id="joinButton" class="btn btn-success">Join</button>
-                    </div>
-                </div>
+            <div class="row">
+                <button id="createButton" class="btn btn-primary col-sm-12">Create Room</button>
+            </div>
+            <div class="row">
+                <input type="text" class="form-control col-sm-6" id="roomCode" placeholder="room code"
+                    oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
+                <button id="joinButton" class="btn btn-success col-sm-6">Join</button>
+            </div>
+            <div class="row">
+                <button id="joinDefaultRoom" class="btn btn-primary col-sm-12">Join Default Room</button>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Join Default Room</h5>
-                        <input type="text" class="form-control" id="username3" placeholder="Enter your name" maxlength="10">
-                        <button id="joinDefaultRoom" class="btn btn-primary">Join</button>
-                    </div>
-                </div>
+        <div class="my-container card room-list">
+            <div class="row">
+                Rooms Online (room name,no of players)
             </div>
-            <div class="col-sm-3"></div>
+            <div class="room-names">
+                <div id="room-name-list"></div>
+            </div>
         </div>
+
     </div>
     <div class="game-screen-div">
         <div id="canvasDiv"></div>
@@ -77,9 +69,9 @@
                             <header><button class="btn btn-dark">Team B</button></header>
                             <div id="teamB"></div>
                         </div>
-                        
+
                     </div>
-                    
+
                 </div>
             </div>
             <div id="overlay"></div>
@@ -94,15 +86,15 @@
     <script src="./libraries/jquery.min.js"></script>
     <script src="./libraries/bootstrap.bundle.min.js"></script>
 
-        <script src="constants.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="client_socket.js"></script>
-        <script src="field.js"></script>
-        <script src="player.js"></script>
-        <script src="game.js"></script>
-        <script src="ball.js"></script>
-        <script src="html_events.js"></script>
-        <script src="index.js"></script>
+    <script src="constants.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client_socket.js"></script>
+    <script src="field.js"></script>
+    <script src="player.js"></script>
+    <script src="game.js"></script>
+    <script src="ball.js"></script>
+    <script src="html_events.js"></script>
+    <script src="index.js"></script>
 </body>
 
 </html>
