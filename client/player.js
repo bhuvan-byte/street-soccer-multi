@@ -90,16 +90,16 @@ class Player extends Entity{
         this.teamName = team;
     }
     display(){
-        if(this.ax==0 && this.ay ==0 ){
+        if(this.vx==0 && this.vy ==0 ){
             this.animationIndex = 12;
-        } else if(this.ax==0){
-            if(this.ay<0){
+        } else if(this.vx==0){
+            if(this.vy<0){
                 this.animationIndex = 9;
-            } else if(this.ay>0){
+            } else if(this.vy>0){
                 this.animationIndex = 6;
             }
         } else {
-            if(this.ax>=0){
+            if(this.vx>=0){
                 this.animationIndex = 3;
             } else{
                 this.animationIndex = 0;
@@ -176,13 +176,16 @@ class Player extends Entity{
         });
     }
     moveHandler(ecode,direction){
-        const acc=C.playerAcc ;
+        let acc=C.playerAcc ;
+        this.friction = 1;             // comment these for acc
+        acc *= 9;                      // comment these for acc
+        this.vx=this.vy=0;             // comment these for acc
         this.pressed[ecode]=direction;
-        this.ax=this.ay=0
-        if(this.pressed['KeyA']) this.ax-=acc;
-        if(this.pressed['KeyW']) this.ay-=acc;
-        if(this.pressed['KeyD']) this.ax+=acc;
-        if(this.pressed['KeyS']) this.ay+=acc;
+        this.ax=this.ay=0;
+        this.vx-=acc * this.pressed['KeyA'];
+        this.vy-=acc * this.pressed['KeyW'];
+        this.vx+=acc * this.pressed['KeyD'];
+        this.vy+=acc * this.pressed['KeyS'];
     }
     thetaHandler(mousex,mousey){
         this.theta = Math.atan2((mousey-this.y),(mousex-this.x));
