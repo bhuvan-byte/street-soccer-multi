@@ -56,6 +56,7 @@ io.on("connection", (sock) => {
     sock.on('joinRoom',handleJoinRoom);
     sock.on('joinDefaultRoom',handleJoinDefaultRoom);
     sock.on('joinTeam',handleJoinTeam);
+    sock.on('get-room-list',handleGetRoomList);
 
     function newPlayer(roomName,username){
         idToRoom[sock.id] =roomName;
@@ -72,11 +73,12 @@ io.on("connection", (sock) => {
         // io.in(roomName).emit('newPlayer',{id:sock.id,playerNo:sock.number,username:sock.username});
     }
     
-    function handleNewRoom(username){
-        let roomName = newRoomName(4);
+    function handleNewRoom(data){
+        let {roomName,username} = data;
+        if(roomName===null) roomName = newRoomName(4);
         console.log(`${username} joined the room telling this from handle join room in websocket.js`);
         games[roomName] = new Game(roomName,io);
-        console.log("roomName",games[roomName].roomName);
+        // console.log("roomName",games[roomName].roomName);
         newPlayer(roomName,username);
         games[roomName].ready = true;
     }
@@ -95,8 +97,7 @@ io.on("connection", (sock) => {
     function handleJoinDefaultRoom(username){
         let roomName = "ROOM";
         if(!games[roomName]) {
-            games[roomName] = new Game(roomName,io);
-            games[roomName].ready = true;
+            handleNewRoom({roomName:"ROOM",username:username});
         }
         newPlayer(roomName,username);        
     }
@@ -107,6 +108,14 @@ io.on("connection", (sock) => {
             games[sock.roomName].players[sock.id].teamName=team;
         }catch(err){
             console.log(err);
+        }
+    }
+
+    function handleGetRoomList(){
+        let roomList = {};
+        for(let room in games){
+            roomList[room] = io.sockets.adapter.rooms.get(room).size;
+            sock.emit('get-room-list',roomList);
         }
     }
     // function handleJoinTeamA(){

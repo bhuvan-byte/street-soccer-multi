@@ -1,7 +1,7 @@
 // const { Game } = require("./game");
 // const {Player} = "./player";
 
-// const { picHeight, picWidth } = require("./constants");
+// const { C.picHeight, C.picWidth } = require("./constants");
 
 // const player = require("./player");
 
@@ -11,6 +11,7 @@ var allowSetup = false,apna_player;
 let game ;
 let bluePlayerImgList;
 let redPlayerImgList;
+let roomList;
 
 getPing();
 sock.on('init', init);
@@ -18,7 +19,7 @@ sock.on('gameCode', handleGameCode);
 sock.on('failedToJoinRoom',handleFailedToJoinRoom);
 // sock.on('newPlayer',(data)=>{
 //     console.info(data);
-//     let player = new Player(data.playerNo,0,0,playerRadius,false,data.username);
+//     let player = new Player(data.playerNo,0,0,C.playerRadius,false,data.username);
 
 //     game.players[data.id]  = player;
 // });
@@ -44,6 +45,24 @@ sock.on('clock',(data)=>{
         handleUpdateTeams(playerData);
     }
 });
+
+let intervalID = setInterval(() => {
+    sock.emit('get-room-list');
+}, 1000);
+
+sock.on('get-room-list',(data)=>{
+    let room_list = document.getElementById('room-name-list');
+    let newRoomList = '';
+    for(let room in data){
+        newRoomList+=`<button class="btn btn-primary room-list-item">${room} ${data[room]}</button>`;
+        // console.log(`room -> ${room}, no of players -> ${data[room]}`);
+    }
+    if(newRoomList!==roomList){
+        room_list.innerHTML = newRoomList;
+        roomList = newRoomList;
+    }
+});
+
 function init(data) {
     let {playerNo,roomName} = data;
     console.log(`playerNo = ${playerNo}`);
@@ -111,15 +130,15 @@ function extractImage(fullImage){
     let x=0,y=0,imageList = [];
     for(let r=0;r<4;r++){
         // let oneAnimation = [];
-        y=r*picHeight;
+        y=r*C.picHeight;
         x=0;
         for(let c=0;c<3;c++){
-            let img = fullImage.get(x,y,picWidth,picHeight);
+            let img = fullImage.get(x,y,C.picWidth,C.picHeight);
             imageList.push(img);
-            x+=picWidth;
+            x+=C.picWidth;
         }
     }
-    let img = fullImage.get(0,picHeight,picWidth,picHeight);
+    let img = fullImage.get(0,C.picHeight,C.picWidth,C.picHeight);
     imageList.push(img); imageList.push(img); imageList.push(img);
     return imageList;
 }
@@ -129,7 +148,7 @@ function setup() {
         console.log('setup');
         welcomePage.style.display = 'none';
         others.style.display = 'block';
-        const canvas = createCanvas(Width, Height);
+        const canvas = createCanvas(C.Width, C.Height);
         canvas.parent('canvasDiv');
         field = new Field();
         // ball = new Ball(ball_img);
