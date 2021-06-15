@@ -29,8 +29,12 @@ class Game{
         if(canShoot){
             this.ballHolder = null;
             let theta = this.players[id].theta;
-            this.ball.x += Math.cos(theta)*C.playerRadius; // to change playerRad
-            this.ball.y += Math.sin(theta)*C.playerRadius;
+            // while(theta != this.players[id].ballDir){
+            //     theta += 0.1*(this.players[id].ballDir-theta);
+            // }
+            let radSum =1+ C.playerRadius + C.ballBigRadius;
+            this.ball.x = this.players[id].x + Math.cos(theta)*radSum; // to change playerRad
+            this.ball.y = this.players[id].y + Math.sin(theta)*radSum;
             this.ball.vx = this.players[id].vx + Math.cos(theta)*C.shootSpeed;
             this.ball.vy = this.players[id].vy + Math.sin(theta)*C.shootSpeed;
         }

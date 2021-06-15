@@ -23,17 +23,19 @@ class Ball extends Entity{
     isCollide(player){
         let dx=player.x-this.x,
 			dy=player.y-this.y,
-			radSum=player.radius+this.radius;
+			radSum=player.radius+C.ballBigRadius;
             // console.log(`r1 = ${player.radius}, r2 = ${this.radius}`);
 		return (dx*dx + dy*dy< radSum*radSum);
 
     }
     updateFollow(player){
-        // if(player.ax!=0 || player.ay!=0) player.moveDir = Math.atan2(player.ax,player.ay);
-        player.moveDir = Math.atan2(player.vx,player.vy);
-        let dist = player.radius + this.radius -5;
-        this.x = player.x+dist*Math.sin(player.moveDir);
-        this.y = player.y+dist*Math.cos(player.moveDir);
+        // if(player.ax!=0 || player.ay!=0) player.ballDir = Math.atan2(player.ax,player.ay);
+        let moveDir = Math.atan2(player.vy,player.vx);
+        let ratio = Math.sqrt(player.vx*player.vx+player.vy*player.vy)/3 ; // hardcoded
+        player.ballDir = ratio*moveDir + (1-ratio)*player.theta;
+        let dist = player.radius + this.radius -2;
+        this.x = player.x+dist*Math.cos(player.ballDir);
+        this.y = player.y+dist*Math.sin(player.ballDir);
         this.vx = player.vx;
         this.vy = player.vy;
     }
