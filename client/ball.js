@@ -8,10 +8,12 @@ if(typeof module !="undefined"){
     // C.Height = require("./constants.js").C.Height;
     // C.ballRadius = require("./constants.js").C.ballRadius;
 }
+
 class Ball extends Entity{
     constructor(){
         super(C.Width/2,C.Height/2,C.ballRadius); 
         this.player = 0;
+        this.friction = 0.96;
         if(typeof module == "undefined") this.clientInit();
     }
     clientInit(){
@@ -23,20 +25,24 @@ class Ball extends Entity{
 			dy=player.y-this.y,
 			radSum=player.radius+this.radius;
             // console.log(`r1 = ${player.radius}, r2 = ${this.radius}`);
-		if(dx*dx + dy*dy< radSum*radSum){
-			return true;
-        }
+		return (dx*dx + dy*dy< radSum*radSum);
+
     }
     updateFollow(player){
         // if(player.ax!=0 || player.ay!=0) player.moveDir = Math.atan2(player.ax,player.ay);
         player.moveDir = Math.atan2(player.vx,player.vy);
-        this.x = player.x+player.radius*Math.sin(player.moveDir);
-        this.y = player.y+player.radius*Math.cos(player.moveDir);
+        let dist = player.radius + this.radius -5;
+        this.x = player.x+dist*Math.sin(player.moveDir);
+        this.y = player.y+dist*Math.cos(player.moveDir);
+        this.vx = player.vx;
+        this.vy = player.vy;
     }
     display(){
         // console.log("Ball display"); 
         let diameter = this.radius*2;
+        let bigDiameter = C.ballBigRadius*2; 
         ellipse(this.x,this.y,diameter,diameter);
+        ellipse(this.x,this.y,bigDiameter,bigDiameter);
         imageMode(CENTER);
         image(this.img,this.x,this.y);
         imageMode(CORNER);

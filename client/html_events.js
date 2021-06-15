@@ -23,14 +23,8 @@ joinBtn.addEventListener('click', joinRoom);
 joinDefaultRoomBtn.addEventListener('click',joinDefaultRoom);
 
 
-document.addEventListener('click',function(e){
-    roomName = e.toElement.innerText.split(" ")[0];
-    console.log(roomName);
-    const username_raw = document.getElementById('username').value;
-    const username = username_raw.substr(0,Math.min(10,username_raw.length));
-    sock.emit('joinRoom',{roomName:roomName,username:username});
-    clearInterval(intervalID);
-});
+document.addEventListener('mousedown',roomJoinDynamicClick);
+
 
 configBtn.addEventListener('click',confModalShow);
 closeConfBtn.addEventListener('click',confModalClose);
@@ -44,7 +38,20 @@ teamBJoinBtn.addEventListener('click',JoinBTeam);
 //     });
 // });
 // stopped working as html changed and we removed card class
+document.addEventListener("keydown",(e)=>{
+    if(e.key == "Enter"){
+        joinDefaultRoomBtn.click();
+    }
+});
 
+function roomJoinDynamicClick(e){
+    roomName = e.toElement.innerText.split(" ")[0];
+    console.log(roomName);
+    const username_raw = document.getElementById('username').value;
+    const username = username_raw.substr(0,Math.min(10,username_raw.length));
+    sock.emit('joinRoom',{roomName:roomName,username:username});
+    clearInterval(intervalID);
+}
 
 function newRoom() {
     const username_raw = document.getElementById('username').value;

@@ -16,30 +16,49 @@ class Game{
         this.roomName = roomName;
         this.io = io;
         this.ready = false;
+        this.ballHolder = null;
         this.ball = new Ball();
     }
     addPlayer(sock){
         let player = new Player(sock.id,Math.random()*400,Math.random()*400,C.playerRadius,false,sock.username,sock);
         this.players[sock.id] = player;
     }
+    shoot(mouse,id){
+        this.players[id].thetaHandler(mouse.x,mouse.y);
+        let canShoot = this.ball.isCollide(this.players[id]);
+        if(canShoot){
+            this.ballHolder = null;
+            let theta = this.players[id].theta;
+            this.ball.x += Math.cos(theta)*C.playerRadius; // to change playerRad
+            this.ball.y += Math.sin(theta)*C.playerRadius;
+            this.ball.vx = this.players[id].vx + Math.cos(theta)*C.shootSpeed;
+            this.ball.vy = this.players[id].vy + Math.sin(theta)*C.shootSpeed;
+        }
+    }
     update(){
-        let playerId = null;
+        // Ball collision and possession
+        let newHolder = null;
         for(let key in this.players){
             let collides = this.ball.isCollide(this.players[key]);
             if(collides){
-                if(playerId == null){
-
-                    playerId = key;
+                if(newHolder == null){
+                    newHolder = key;
                 }else {
-                    playerId = null;
+                    newHolder = null;
                     break;
                 }
             }
         }
-        if(!playerId)this.ball.update();
-        else {
-            this.ball.updateFollow(this.players[playerId]);
+        if(!newHolder) { // nobody has the ball
+            this.ball.update();
+        } else if(newHolder === this.ballHolder){
+            // dont do anything 
+            this.ball.updateFollow(this.players[newHolder]);
+        } else { // possesion change
+            this.ball.updateFollow(this.players[newHolder]);
         }
+        this.ballHolder = newHolder;
+        
         for(let [key,player] of Object.entries(this.players)){
             player.update();
         }

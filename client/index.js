@@ -147,6 +147,7 @@ function setup() {
     if (allowSetup) {
         console.log('setup');
         welcomePage.style.display = 'none';
+        document.removeEventListener("mousedown",roomJoinDynamicClick);
         others.style.display = 'block';
         const canvas = createCanvas(C.Width, C.Height);
         canvas.parent('canvasDiv');

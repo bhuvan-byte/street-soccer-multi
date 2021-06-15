@@ -10,7 +10,7 @@ if(typeof module !="undefined"){
 // const { text } = require("express");
 // const {C.Width,C.Height} = require("./constants");
 try {
-    console.log(Player);
+    console.log(Player); 
 } catch (error) {
     // console.log("error",error); // made only for debug
 }
@@ -64,6 +64,7 @@ class Player extends Entity{
         this.username=username ?? "stillUnamed";
         this.friction=0.9;
         this.exists=true;
+        this.hasBall=false;
         this.teamName="notYetDecided";
         this.animationIndex = 0; // denotes the direction movement
         this.index = 0; // deontes number of image in that animation 
@@ -163,6 +164,9 @@ class Player extends Entity{
         sock.emit('mouse',{x:mouseX,y:mouseY});
     }
     client(){
+        document.addEventListener('mousedown',(e)=>{
+            sock.emit("shoot",{x:mouseX,y:mouseY});
+        });
         document.addEventListener('keydown',(e)=>{
             if(!e.repeat && (e.code in this.pressed)){
                 sock.emit("update",{ecode:e.code,direction:1});
