@@ -25,25 +25,26 @@ class Entity{
         this.radius=radius;
         this.friction=0.99;
         this.mass=1;
+        this.wall_e = 0;
     }
     update(){
         this.x+=this.vx;
         this.y+=this.vy;
         if(this.x<this.radius){
             this.x=this.radius;
-            this.vx =0;
+            this.vx *= -this.wall_e;
         }
         if(this.x+this.radius>C.Width){
             this.x=C.Width-this.radius;
-            this.vx = 0;
+            this.vx *= -this.wall_e;
         }
         if(this.y<this.radius){
             this.y=this.radius;
-            this.vy = 0;
+            this.vy *= -this.wall_e;
         }
         if(this.y+this.radius>C.Height) {
             this.y=C.Height-this.radius;
-            this.vy = 0;
+            this.vy *= -this.wall_e;
         }
         this.vx+=this.ax;
         this.vy+=this.ay;
