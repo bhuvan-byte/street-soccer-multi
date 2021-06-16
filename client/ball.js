@@ -15,6 +15,8 @@ class Ball extends Entity{
         this.player = 0;
         this.friction = 0.96;
         this.wall_e = 1;
+        this.xgap = C.xgap;
+        this.ygap = C.ygap;
         if(typeof module == "undefined") this.clientInit();
     }
     clientInit(){

@@ -7,7 +7,7 @@ class Field{
         
         // stroke(20, 130, 60);
         // for (var i = 0; i < 20; i++) {
-        //     line(0, i * C.Height / 20, C.Width, i * C.Height / 20); // horizontal
+        //     line(0, i * C.ygap, C.Width, i * C.ygap); // horizontal
         // }
         // for (var i = 0; i < 40; i++) {
         //     line(i * C.Width / 40, 0, i * C.Width / 40, C.Height); // vertical
@@ -19,19 +19,19 @@ class Field{
         circle(C.Width / 2, C.Height / 2, 70);
         
         // center line
-        line(C.Width / 2, C.Height / 20, C.Width / 2, 19 * C.Height / 20);
+        line(C.Width / 2, C.ygap, C.Width / 2, C.Height -  C.ygap);
         
         //left goalpost + line
-        rect(C.gap, C.Height / 2 - C.goalH / 2, C.goalW, C.goalH);
-        line(C.gap + C.goalW, C.Height / 20, C.gap + C.goalW, 19 * C.Height / 20);
+        rect(C.xgap, C.Height / 2 - C.goalH / 2, C.goalW, C.goalH);
+        line(C.xgap + C.goalW, C.ygap, C.xgap + C.goalW, 19 * C.ygap);
         
         //right goalpost + line
-        rect(C.Width - C.goalW - C.gap, C.Height / 2 - C.goalH / 2, C.goalW, C.goalH);
-        line(C.Width - C.goalW - C.gap, C.Height / 20, C.Width - C.goalW - C.gap, 19 * C.Height / 20);
+        rect(C.Width - C.goalW - C.xgap, C.Height / 2 - C.goalH / 2, C.goalW, C.goalH);
+        line(C.Width - C.goalW - C.xgap, C.ygap, C.Width - C.goalW - C.xgap, 19 * C.ygap);
         
         // top and bottom outside lines
-        line(C.Width / 20 + C.gap, C.Height / 20, 19 * C.Width / 20 - C.gap, C.Height / 20);
-        line(C.Width / 20 + C.gap, 19 * C.Height / 20, 19 * C.Width / 20 - C.gap, 19 * C.Height / 20);
+        line(C.Width / 20 + C.xgap, C.ygap, 19 * C.Width / 20 - C.xgap, C.ygap);
+        line(C.Width / 20 + C.xgap, 19 * C.ygap, 19 * C.Width / 20 - C.xgap, 19 * C.ygap);
         
         
         // goal keeper's rectangles
