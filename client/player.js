@@ -15,45 +15,11 @@ class Entity{
         this.wall_e = 0;
         this.width = C.Width;
         this.height = C.Height;
-        this.xgap = 0;
-        this.ygap = 0;
         this.hasBall = 0;
     }
     update(){ // used by player and ball. gap values different for them
         this.x+=this.vx;
         this.y+=this.vy;
-        if(this.x-this.radius<this.xgap){ // left wall collision
-            if(this.xgap>0 && this.y>=C.Height/2-C.goalH/2 && this.y<=C.Height/2+C.goalH/2){ // check for goal
-                this.x = C.Width/2;
-                this.y = C.Height/2;
-                this.vx = 0;
-                this.vy = 0;
-            } else{
-                this.x=this.radius+this.xgap;
-                this.vx *= -this.wall_e;
-            }
-            
-        }
-        if(this.x+this.radius>C.Width-this.xgap){ // right wall collision
-            if(this.xgap>0 && this.y>=C.Height/2-C.goalH/2 && this.y<=C.Height/2+C.goalH/2){ // check for goal
-                this.x = C.Width/2;
-                this.y = C.Height/2;
-                this.vx = 0;
-                this.vy = 0;
-            } else{
-                this.x=C.Width -this.xgap-this.radius;
-                this.vx *= -this.wall_e;
-            }
-            
-        }
-        if(this.y-this.radius<this.ygap){ // top wall collision
-            this.y= this.ygap + this.radius;
-            this.vy *= -this.wall_e;
-        }
-        if(this.y+this.radius>C.Height-this.ygap) { // bottom wall collision
-            this.y=C.Height - this.ygap -this.radius;
-            this.vy *= -this.wall_e;
-        }
         this.vx+=this.ax;
         this.vy+=this.ay;
         this.vx*=this.friction;
@@ -84,6 +50,24 @@ class Player extends Entity{
             'KeyS':0
         };
         if(typeof module === "undefined") this.clientInit(); 
+    }
+    wallCollide(){
+        if(this.x-this.radius<0){ // left wall collision
+            this.x=this.radius;
+            this.vx *= -this.wall_e;
+        }
+        if(this.x+this.radius>C.Width){ // right wall collision
+            this.x=C.Width -this.radius;
+            this.vx *= -this.wall_e;
+        }
+        if(this.y-this.radius<0){ // top wall collision
+            this.y= this.radius;
+            this.vy *= -this.wall_e;
+        }
+        if(this.y+this.radius>C.Height) { // bottom wall collision
+            this.y=C.Height -this.radius;
+            this.vy *= -this.wall_e;
+        }
     }
     clientInit(){
         this.images = whitePlayerImgList;
@@ -224,9 +208,15 @@ class Player extends Entity{
             ay:this.ay,
             theta:this.theta,
             username:this.username,
-            teamName:this.teamName,
             // color:this.color,
         };
+    }
+    getInitData(){
+        // if later player characterisitcs are addded then this will be updated
+        return {
+            username:this.username,
+            teamName:this.teamName,
+        }
     }
 }
 
