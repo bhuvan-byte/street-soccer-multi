@@ -86,14 +86,14 @@ function confModalClose(){
 
 function JoinATeam(){
     console.log('joining a team');
-    sock.emit('joinTeam',"A");
-    // sock.emit('joinTeamA');
+    sock.emit('changeTeam',"A");
+    // sock.emit('changeTeamA');
 }
 
 function JoinBTeam(){
     console.log('joining b team');
-    sock.emit('joinTeam',"B");
-    // sock.emit('joinTeamB');
+    sock.emit('changeTeam',"B");
+    // sock.emit('changeTeamB');
 }
 
 function getPing(){

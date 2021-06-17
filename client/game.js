@@ -18,7 +18,7 @@ class Game{
         clearInterval(this.intervalId);
     }
     addPlayer(sock){
-        let player = new Player(sock.id,Math.random()*400,Math.random()*400,C.playerRadius,false,sock.username,sock);
+        let player = new Player(sock.id,Math.random()*C.Width,Math.random()*C.Height,C.playerRadius,false,sock.username,sock);
         this.players[sock.id] = player;
     }
     shoot(mouse,id){
@@ -39,6 +39,7 @@ class Game{
         let newHolder = null;
         for(let key in this.players){
             let collides = this.ball.isCollide(this.players[key]);
+            this.players[key].hasBall = false; // all set to false
             if(collides){
                 if(newHolder == null){
                     newHolder = key;
@@ -55,6 +56,7 @@ class Game{
         } else { // possesion change
             this.ball.updateFollow(this.players[newHolder]);
         }
+        if(newHolder) this.players[newHolder].hasBall = true;
         this.ballHolder = newHolder;
         
         for(let [key,player] of Object.entries(this.players)){
@@ -106,11 +108,6 @@ class Game{
         // console.log(Object.keys(this.players).length);
         for(let key in this.players){
             playerData[key] = this.players[key].getData();
-            if(key==this.ballHolder){
-                playerData[key].hasBall = 1;
-            } else{
-                playerData[key].hasBall = 0;
-            }
         }
         // WHY is below code not working !!?
         // console.info(Object.entries);

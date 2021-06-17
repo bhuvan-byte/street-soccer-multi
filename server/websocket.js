@@ -57,7 +57,7 @@ io.on("connection", (sock) => {
     sock.on('newRoom',handleNewRoom);
     sock.on('joinRoom',handleJoinRoom);
     sock.on('joinDefaultRoom',handleJoinDefaultRoom);
-    sock.on('joinTeam',handleJoinTeam);
+    sock.on('changeTeam',handlechangeTeam);
     sock.on('get-room-list',handleGetRoomList);
 
     function newPlayer(roomName,username){
@@ -103,10 +103,10 @@ io.on("connection", (sock) => {
         }
         newPlayer(roomName,username);        
     }
-    function handleJoinTeam(team){
+    function handlechangeTeam(team){
         try{
             assert(team=='A' || team=='B');
-            io.in(sock.roomName).emit("joinTeam",{id:sock.id,team:team});
+            io.in(sock.roomName).emit("changeTeam",{id:sock.id,team:team});
             games[sock.roomName].players[sock.id].teamName=team;
         }catch(err){
             console.log(err);
@@ -120,11 +120,11 @@ io.on("connection", (sock) => {
             sock.emit('get-room-list',roomList);
         }
     }
-    // function handleJoinTeamA(){
+    // function handlechangeTeamA(){
     //     // sock.teamName="A";
     //     games[sock.roomName].players[sock.id].teamName="A";
     // }
-    // function handleJoinTeamB(){
+    // function handlechangeTeamB(){
     //     // sock.teamName="B";
     //     games[sock.roomName].players[sock.id].teamName="B";
     // }

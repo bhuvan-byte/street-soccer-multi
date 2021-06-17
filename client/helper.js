@@ -15,10 +15,11 @@ function init(data) {
     let {playerNo,roomName} = data;
     console.log(`playerNo = ${playerNo}`);
     game = new Game(roomName);
-    let isAdmin=false;
-    if(playerNo===1)isAdmin=true;
     allowSetup = true;
     setup();
+    welcomePage.style.display = 'none';
+    document.removeEventListener("mousedown",roomJoinDynamicClick);
+    others.style.display = 'block'; // what is this
     setTimeout(() => {
         if(sock.id in game.players){
             apna_player = game.players[sock.id];

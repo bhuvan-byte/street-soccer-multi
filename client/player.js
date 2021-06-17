@@ -223,6 +223,7 @@ class Player extends Entity{
             ax:this.ax,
             ay:this.ay,
             theta:this.theta,
+            hasBall:this.hasBall,
             username:this.username,
             teamName:this.teamName,
             // color:this.color,
