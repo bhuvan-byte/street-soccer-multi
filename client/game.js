@@ -77,10 +77,18 @@ class Game{
         
     }
     display(){ // client side function 
-        this.ball.display();
-        for(let key in this.players){
-            this.players[key].display();
+        // displays ball on top if no one has the ball to prevent ball covering
+        let ballDone = false; 
+        let arr = Object.values(this.players);
+        arr.sort((a,b)=>(a.y>b.y)? 1: -1);
+        for(let key in arr){
+            if(arr[key].hasBall) {
+                ballDone = true;
+                this.ball.display();
+            }
+            arr[key].display();
         }
+        if(!ballDone)this.ball.display();
     }
     updateClient(playerData,ballData){ // client side update called every clock cycle
         // const t0 = performance.now();
