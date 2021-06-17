@@ -17,23 +17,40 @@ class Entity{
         this.height = C.Height;
         this.xgap = 0;
         this.ygap = 0;
+        this.hasBall = 0;
     }
-    update(){
+    update(){ // used by player and ball. gap values different for them
         this.x+=this.vx;
         this.y+=this.vy;
-        if(this.x-this.radius  < this.xgap){
-            this.x=this.radius+this.xgap;
-            this.vx *= -this.wall_e;
+        if(this.x-this.radius<this.xgap){ // left wall collision
+            if(this.xgap>0 && this.y>=C.Height/2-C.goalH/2 && this.y<=C.Height/2+C.goalH/2){ // check for goal
+                this.x = C.Width/2;
+                this.y = C.Height/2;
+                this.vx = 0;
+                this.vy = 0;
+            } else{
+                this.x=this.radius+this.xgap;
+                this.vx *= -this.wall_e;
+            }
+            
         }
-        if(this.x+this.radius>C.Width - this.xgap){
-            this.x=C.Width -this.xgap-this.radius;
-            this.vx *= -this.wall_e;
+        if(this.x+this.radius>C.Width-this.xgap){ // right wall collision
+            if(this.xgap>0 && this.y>=C.Height/2-C.goalH/2 && this.y<=C.Height/2+C.goalH/2){ // check for goal
+                this.x = C.Width/2;
+                this.y = C.Height/2;
+                this.vx = 0;
+                this.vy = 0;
+            } else{
+                this.x=C.Width -this.xgap-this.radius;
+                this.vx *= -this.wall_e;
+            }
+            
         }
-        if(this.y <this.ygap + this.radius){
+        if(this.y-this.radius<this.ygap){ // top wall collision
             this.y= this.ygap + this.radius;
             this.vy *= -this.wall_e;
         }
-        if(this.y+this.radius>C.Height-this.ygap) {
+        if(this.y+this.radius>C.Height-this.ygap) { // bottom wall collision
             this.y=C.Height - this.ygap -this.radius;
             this.vy *= -this.wall_e;
         }
@@ -83,9 +100,9 @@ class Player extends Entity{
         }
         this.teamName = team;
     }
-    display(){
+    display(){ // (called from index.js)
         if(this.ax==0 && this.ay ==0 ){
-            this.animationIndex = 12;
+            // this.animationIndex = 12;
         } else if(this.ax==0){
             if(this.ay<0){
                 this.animationIndex = 9;
@@ -100,12 +117,14 @@ class Player extends Entity{
             }
         }
         this.areaDisplay();
+        if(this.hasBall) this.highlightDisplay();
         // console.log(`speed: ${this.vx}, ${this.vy}, acc : ${this.ax},${this.ay}`);
-        let index = floor(this.index)%3+this.animationIndex;
+        let index = this.animationIndex;
+        index += (this.ax==0 && this.ay==0) ? 0: floor(this.index)%3;
         image(this.images[index],this.x - C.picWidth*0.4, this.y - C.picHeight*0.7);
         this.index += C.animationSpeed* Math.sqrt(this.vx*this.vx + this.vy*this.vy);
     }
-    areaDisplay(){
+    areaDisplay(){ // (called from index.js)
         fill("rgba(255,255,255,0)");
         stroke(this.strokeColor);
         ellipse(this.x,this.y,this.d,this.d); // circle representing player
@@ -123,6 +142,17 @@ class Player extends Entity{
         // fill("#FFF");
         // strokeWeight(2);
         // line(this.x,this.y,this.x+this.radius*Math.cos(this.theta),this.y+this.radius*Math.sin(this.theta)); // line showing  the dirction where player is pointing
+    }
+    highlightDisplay(){ // to highlight the player who is in possesion of the ball (called from index.js)
+        let d1 = 35; // height of lower point of triangle
+        let d2 = 45; // height of two upper points to make a downward pointing traingle
+        let twidht = 10; // width of top base of triangle
+        fill("rgb(92, 3, 78)")
+        triangle(this.x,this.y-d1,this.x-twidht,this.y-d2,this.x+twidht,this.y-d2); // needs 3 points (x,y)
+        ellipse(this.x+200*Math.cos(this.theta),this.y+200*sin(this.theta),5,5);
+        line(this.x,this.y,this.x+200*Math.cos(this.theta),this.y+200*sin(this.theta));
+        fill("rgba(255,255,255,0)");
+
     }
     collide (ball2){
         let dx=ball2.x-this.x,
