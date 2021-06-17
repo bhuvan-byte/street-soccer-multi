@@ -161,13 +161,13 @@ class Player extends Entity{
         });
         document.addEventListener('keydown',(e)=>{
             if(!e.repeat && (e.code in this.pressed)){
-                sock.emit("update",{ecode:e.code,direction:1});
+                sock.emit("keypress",{ecode:e.code,direction:1});
                 // this.moveHandler(e.code,1);
             }
         });
         document.addEventListener('keyup',(e)=>{
             if((e.code in this.pressed)){
-                sock.emit("update",{ecode:e.code,direction:0});
+                sock.emit("keypress",{ecode:e.code,direction:0});
                 // this.moveHandler(e.code,0);
             }
         });

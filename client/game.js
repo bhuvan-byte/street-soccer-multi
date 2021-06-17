@@ -1,12 +1,21 @@
 "use strict";
 class Game{
-    constructor(roomName,io){
+    constructor(roomName){
         this.players = {};
         this.roomName = roomName;
-        this.io = io;
-        this.ready = false;
+        this.ready = false; // currently unused
+        this.intervalId = null;
         this.ballHolder = null;
         this.ball = new Ball();
+    }
+    run(){
+        this.intervalId = setInterval(() => {
+            this.update();
+            this.serverSend();
+        }, 16);
+    }
+    stop(){
+        clearInterval(this.intervalId);
     }
     addPlayer(sock){
         let player = new Player(sock.id,Math.random()*400,Math.random()*400,C.playerRadius,false,sock.username,sock);
@@ -107,7 +116,8 @@ class Game{
         //     // playerData[key] = value.getData();
         // }
         // console.info(playerData);
-        this.io.in(this.roomName).emit("clock",{playerData:playerData,ballData:this.ball.getData()});
+        io.in(this.roomName).emit("clock",{playerData:playerData,ballData:this.ball.getData()});
+        return playerData;
     }
 }
 if (typeof module != "undefined"){

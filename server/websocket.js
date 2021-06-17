@@ -12,14 +12,8 @@ const io = socketio(server,{
         origin:'*',
     },
 });
-let intervalId = setInterval(() => {
-    
-    for(let [key,game] of Object.entries(games)){
-        if(!game.ready) continue;
-        game.update();
-        game.serverSend();
-    }
-}, 16);
+global.io = io;
+
 //io.sockets.something and io.something are same thing
 io.on("connection", (sock) => {
     console.log(`Client Id ${sock.id} connected`);
@@ -38,7 +32,7 @@ io.on("connection", (sock) => {
         }
         console.log(`Client Id ${sock.id} disconnected`);
     });
-    sock.on("update",(keyInfo)=>{
+    sock.on("keypress",(keyInfo)=>{
         if(sock.roomName in games && sock.id in games[sock.roomName].players){
             games[sock.roomName].players[sock.id].moveHandler(keyInfo.ecode,keyInfo.direction);
         }else {
@@ -85,10 +79,10 @@ io.on("connection", (sock) => {
         let {roomName,username} = data;
         if(roomName===null) roomName = newRoomName(4);
         console.log(`${username} joined the room telling this from handle join room in websocket.js`);
-        games[roomName] = new Game(roomName,io);
+        games[roomName] = new Game(roomName);
         // console.log("roomName",games[roomName].roomName);
         newPlayer(roomName,username);
-        games[roomName].ready = true;
+        games[roomName].run();
     }
     
     function handleJoinRoom(data){

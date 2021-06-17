@@ -6,10 +6,9 @@ if(typeof module !="undefined"){
     console.log("Player=",Player);   
 }
 class Game{
-    constructor(roomName,io){
+    constructor(roomName){
         this.players = {};
         this.roomName = roomName;
-        this.io = io;
         this.ready = false;
     }
     addPlayer(sock){
@@ -33,7 +32,7 @@ class Game{
         //     console.log(key,value);
         //     // playerData[key] = value.getData();
         // }
-        this.io.in(this.roomName).emit("clock",playerData);
+        io.in(this.roomName).emit("clock",playerData);
     }
 }
 if (typeof module != "undefined"){

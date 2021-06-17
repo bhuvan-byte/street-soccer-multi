@@ -16,6 +16,7 @@ getPing();
 sock.on('init', init);
 sock.on('gameCode', handleGameCode);
 sock.on('failedToJoinRoom',handleFailedToJoinRoom);
+sock.on('get-room-list', showRoomList);
 // sock.on('newPlayer',(data)=>{
 //     console.info(data);
 //     let player = new Player(data.playerNo,0,0,C.playerRadius,false,data.username);
@@ -49,7 +50,6 @@ let intervalID = setInterval(() => {
     sock.emit('get-room-list');
 }, 1000);
 
-sock.on('get-room-list', showRoomList);
 
 function handleGameCode(gameCode) {
     roomCodeDisplay.innerText = gameCode;
