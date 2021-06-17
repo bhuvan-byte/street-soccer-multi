@@ -1,17 +1,16 @@
 // const { Game } = require("./game");
 // const {Player} = "./player";
-
 // const { C.picHeight, C.picWidth } = require("./constants");
 
 // const player = require("./player");
 
 // const { reset } = require("nodemon");
-
+"use strict";
 var allowSetup = false,apna_player;
 let game ;
-let bluePlayerImgList;
-let redPlayerImgList;
-let roomList;
+let bluePlayerImgList,redPlayerImgList,whitePlayerImgList;
+let BlueFullImg, RedFullImg, WhiteFullImg ;
+let roomList,field;
 
 getPing();
 sock.on('init', init);
@@ -50,63 +49,7 @@ let intervalID = setInterval(() => {
     sock.emit('get-room-list');
 }, 1000);
 
-sock.on('get-room-list',(data)=>{
-    let room_list = document.getElementById('room-name-list');
-    let newRoomList = '';
-    for(let room in data){
-        newRoomList+=`<button class="btn btn-primary room-list-item">${room} ${data[room]}</button>`;
-        // console.log(`room -> ${room}, no of players -> ${data[room]}`);
-    }
-    if(newRoomList!==roomList){
-        room_list.innerHTML = newRoomList;
-        roomList = newRoomList;
-    }
-});
-
-function init(data) {
-    let {playerNo,roomName} = data;
-    console.log(`playerNo = ${playerNo}`);
-    game = new Game(roomName);
-    let isAdmin=false;
-    if(playerNo===1)isAdmin=true;
-    allowSetup = true;
-    setup();
-    setTimeout(() => {
-        if(sock.id in game.players){
-            apna_player = game.players[sock.id];
-            apna_player.client();
-        }else{
-            console.log("my player undefined");
-            alert("rejoin!");
-        }
-    }, 400);
-}
-
-function extractOnlinePlayers(playerData){
-    let online_players='<ul>OnlinePlayers';
-    for(let key in playerData){
-        // console.log(playerData[key].username);
-        online_players+=`<li>`+playerData[key].username+`</li>`;
-    }
-    online_players+='</ul>';
-    OnlinePlayers.innerHTML=online_players;
-}
-
-function handleUpdateTeams(playerData){
-    let team_a = '<ul>';
-    let team_b = '<ul>';
-    for(let key in playerData){
-        // console.log(playerData[key].teamName);
-        if(playerData[key].teamName==="A")
-            team_a+=`<li>`+playerData[key].username+`</li>`;
-        if(playerData[key].teamName==="B") 
-            team_b+=`<li>`+playerData[key].username+`</li>`;
-    }
-    team_a+='</ul>';
-    team_b+='</ul>';
-    teamA.innerHTML=team_a;
-    teamB.innerHTML=team_b;
-}
+sock.on('get-room-list', showRoomList);
 
 function handleGameCode(gameCode) {
     roomCodeDisplay.innerText = gameCode;
@@ -124,23 +67,6 @@ function preload(){
     BlueFullImg = loadImage('assets/blue.png');
     RedFullImg = loadImage('assets/red.png');
     WhiteFullImg = loadImage('assets/white.png');
-}
-
-function extractImage(fullImage){
-    let x=0,y=0,imageList = [];
-    for(let r=0;r<4;r++){
-        // let oneAnimation = [];
-        y=r*C.picHeight;
-        x=0;
-        for(let c=0;c<3;c++){
-            let img = fullImage.get(x,y,C.picWidth,C.picHeight);
-            imageList.push(img);
-            x+=C.picWidth;
-        }
-    }
-    let img = fullImage.get(0,C.picHeight,C.picWidth,C.picHeight);
-    imageList.push(img); imageList.push(img); imageList.push(img);
-    return imageList;
 }
 
 function setup() {
@@ -161,9 +87,7 @@ function setup() {
 
 function draw() {
     if (allowSetup) {
-        // console.log("draw");
         field.display();
-        // ball.display();
         game.display();
     }
 }
