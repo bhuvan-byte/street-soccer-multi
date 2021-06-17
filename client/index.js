@@ -1,10 +1,3 @@
-// const { Game } = require("./game");
-// const {Player} = "./player";
-// const { C.picHeight, C.picWidth } = require("./constants");
-
-// const player = require("./player");
-
-// const { reset } = require("nodemon");
 "use strict";
 var allowSetup = false,apna_player;
 let game ;
@@ -32,13 +25,11 @@ sock.on("joinTeam",(data)=>{
 const COUNTER_MAX = 20;
 let clock_counter = COUNTER_MAX;
 sock.on('clock',(data)=>{
-    const {playerData,ballData} = data;
-    game.updateClient(playerData,ballData); 
-    if(apna_player) apna_player.mouseSend();
-    
-    
+    const {playerData,ballData} = data; // get player data every clock cycle
+    game.updateClient(playerData,ballData);  // update it in game.js
+    if(apna_player) apna_player.mouseSend(); 
     clock_counter -= 1;
-    if(clock_counter == 0){
+    if(clock_counter == 0){ // after every 20 cycles get list of online players and their teams
         clock_counter = COUNTER_MAX;
         extractOnlinePlayers(playerData);
         handleUpdateTeams(playerData);
@@ -46,12 +37,12 @@ sock.on('clock',(data)=>{
 });
 
 let intervalID = setInterval(() => {
-    sock.emit('get-room-list');
+    sock.emit('get-room-list'); // ask for room list from websockets.js every 1 second
 }, 1000);
 
-sock.on('get-room-list', showRoomList);
+sock.on('get-room-list', showRoomList); // to display all rooms on homescreen
 
-function handleGameCode(gameCode) {
+function handleGameCode(gameCode) { //to display room code
     roomCodeDisplay.innerText = gameCode;
 }
 

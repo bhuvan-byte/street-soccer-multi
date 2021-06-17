@@ -10,7 +10,7 @@ class Field{
         //     line(0, i * C.ygap, C.Width, i * C.ygap); // horizontal
         // }
         // for (var i = 0; i < 40; i++) {
-        //     line(i * C.Width / 40, 0, i * C.Width / 40, C.Height); // vertical
+        //     line(i * C.xGoalGap , 0, i * C.xGoalGap , C.Height); // vertical
         // }
         
         strokeWeight(2);
@@ -21,26 +21,24 @@ class Field{
         // center line
         line(C.Width / 2, C.ygap, C.Width / 2, C.Height -  C.ygap);
         
-        //left goalpost + line
-        rect(C.xgap, C.Height / 2 - C.goalH / 2, C.goalW, C.goalH);
-        line(C.xgap + C.goalW, C.ygap, C.xgap + C.goalW, 19 * C.ygap);
+        //left goalpost + right goalpost
+        rect(C.xGoalGap, C.Height / 2 - C.goalH / 2, C.goalW, C.goalH);
+        rect(C.Width - C.xgap, C.Height / 2 - C.goalH / 2, C.goalW, C.goalH);
         
-        //right goalpost + line
-        rect(C.Width - C.goalW - C.xgap, C.Height / 2 - C.goalH / 2, C.goalW, C.goalH);
-        line(C.Width - C.goalW - C.xgap, C.ygap, C.Width - C.goalW - C.xgap, 19 * C.ygap);
-        
-        // top and bottom outside lines
-        line(C.Width / 20 + C.xgap, C.ygap, 19 * C.Width / 20 - C.xgap, C.ygap);
-        line(C.Width / 20 + C.xgap, 19 * C.ygap, 19 * C.Width / 20 - C.xgap, 19 * C.ygap);
+        // boudary lines top, bottom right left 
+        line(C.xgap, C.ygap, C.Width - C.xgap, C.ygap);
+        line(C.xgap, C.Height - C.ygap, C.Width - C.xgap, C.Height - C.ygap);
+        line(C.Width - C.xgap, C.ygap, C.Width - C.xgap, C.Height - C.ygap);        
+        line(C.xgap, C.ygap, C.xgap, C.Height - C.ygap);
         
         
         // goal keeper's rectangles
         // left,right
-        rect(3 * C.Width / 40, C.Height / 2 - C.goalH, C.goalW * 2, C.goalH * 2);
-        rect(C.Width - 7 * C.Width / 40, C.Height / 2 - C.goalH, C.goalW * 2, C.goalH * 2);
+        rect(C.xgap, C.Height / 2 - C.goalH, C.goalW * 2, C.goalH * 2);
+        rect(C.Width - 7 * C.xGoalGap, C.Height / 2 - C.goalH, C.goalW * 2, C.goalH * 2);
         
         // bigger rectangles
-        rect(3 * C.Width / 40, C.Height / 4, 6 * C.Width / 40, C.Height / 2);
-        rect(C.Width - 9 * C.Width / 40, C.Height / 4, 6 * C.Width / 40, C.Height / 2);
+        rect(C.xgap, C.Height / 4, 6 * C.xGoalGap, C.Height / 2);
+        rect(C.Width - 9 * C.xGoalGap, C.Height / 4, 6 * C.xGoalGap, C.Height / 2);
     }
 }

@@ -29,9 +29,6 @@ class Game{
         if(canShoot){
             this.ballHolder = null;
             let theta = this.players[id].theta;
-            // while(theta != this.players[id].ballDir){
-            //     theta += 0.1*(this.players[id].ballDir-theta);
-            // }
             let radSum =1+ C.playerRadius + C.ballBigRadius;
             this.ball.x = this.players[id].x + Math.cos(theta)*radSum; // to change playerRad
             this.ball.y = this.players[id].y + Math.sin(theta)*radSum;
@@ -39,7 +36,7 @@ class Game{
             this.ball.vy = this.players[id].vy + Math.sin(theta)*C.shootSpeed;
         }
     }
-    update(){
+    update(){ // server side update
         // Ball collision and possession
         let newHolder = null;
         for(let key in this.players){
@@ -56,7 +53,6 @@ class Game{
         if(!newHolder) { // nobody has the ball
             this.ball.update();
         } else if(newHolder === this.ballHolder){
-            // dont do anything 
             this.ball.updateFollow(this.players[newHolder]);
         } else { // possesion change
             this.ball.updateFollow(this.players[newHolder]);
@@ -75,13 +71,15 @@ class Game{
         }
         
     }
-    display(){
+    display(){ // client side function 
         this.ball.display();
         for(let key in this.players){
             this.players[key].display();
         }
     }
-    updateClient(playerData,ballData){
+    updateClient(playerData,ballData){ // client side update called every clock cycle
+        // why is client sending ball data to server?
+
         // const t0 = performance.now();
         Object.assign(this.ball,ballData);
         for(let key in playerData){
@@ -110,6 +108,11 @@ class Game{
         // console.log(Object.keys(this.players).length);
         for(let key in this.players){
             playerData[key] = this.players[key].getData();
+            if(key==this.ballHolder){
+                playerData[key].hasBall = 1;
+            } else{
+                playerData[key].hasBall = 0;
+            }
         }
         // WHY is below code not working !!?
         // console.info(Object.entries);
