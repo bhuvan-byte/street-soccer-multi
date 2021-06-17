@@ -115,7 +115,7 @@ class Player extends Entity{
     }
     display(){ // (called from index.js)
         if(this.ax==0 && this.ay ==0 ){
-            this.animationIndex = 12;
+            // this.animationIndex = 12;
         } else if(this.ax==0){
             if(this.ay<0){
                 this.animationIndex = 9;
@@ -132,7 +132,8 @@ class Player extends Entity{
         this.areaDisplay();
         if(this.hasBall) this.highlightDisplay();
         // console.log(`speed: ${this.vx}, ${this.vy}, acc : ${this.ax},${this.ay}`);
-        let index = floor(this.index)%3+this.animationIndex;
+        let index = this.animationIndex;
+        index += (this.ax==0 && this.ay==0) ? 0: floor(this.index)%3;
         image(this.images[index],this.x - C.picWidth*0.4, this.y - C.picHeight*0.7);
         this.index += C.animationSpeed* Math.sqrt(this.vx*this.vx + this.vy*this.vy);
     }
