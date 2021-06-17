@@ -14,6 +14,7 @@ C.shootSpeed = 9;
 C.playerAcc = 0.3 ;
 C.picWidth = 48 ;
 C.picHeight = 48 ;
+C.wall_e_ball = 0.9;
 C.animationSpeed = 0.04 ; // it is ratio by which vel is multiplied
 if(typeof module != "undefined"){
     global.C = C;

@@ -51,16 +51,21 @@ class Game{
         }
         if(!newHolder) { // nobody has the ball
             this.ball.update();
+            this.ball.wallCollide(C.wall_e_ball);
         } else if(newHolder === this.ballHolder){
             this.ball.updateFollow(this.players[newHolder]);
+            this.ball.wallCollide(C.wall_e_ball/9);
         } else { // possesion change
             this.ball.updateFollow(this.players[newHolder]);
+            this.ball.wallCollide(C.wall_e_ball/9);
         }
         if(newHolder) this.players[newHolder].hasBall = true;
+        // this.ball.wallCollide();
         this.ballHolder = newHolder;
         
         for(let [key,player] of Object.entries(this.players)){
             player.update();
+            player.wallCollide();
         }
         // Object.keys(dictionary).length
         let players = Object.values(this.players);
@@ -78,22 +83,13 @@ class Game{
         }
     }
     updateClient(playerData,ballData){ // client side update called every clock cycle
-        // why is client sending ball data to server?
-
         // const t0 = performance.now();
         Object.assign(this.ball,ballData);
         for(let key in playerData){
-            // console.log(`key = ${key}`);
-            // console.log(`playerDat[key].username= ${playerData[key].username}`);
             if(!(key in this.players)){
                 this.players[key] = new Player(key,0,0,C.playerRadius,playerData[key].username);
             }
             Object.assign(this.players[key],playerData[key]);
-            // if(this.players[key].teamName == 'A'){
-            //     this.players[key].strokeColor = "rgba(255,0,0,0.6)";
-            // } else if(this.players[key].teamName == 'B'){
-            //     this.players[key].strokeColor = "rgba(0,0,255,0.6)";
-            // }
         }
         for(let key in this.players){
             if(!(key in playerData)){
@@ -103,7 +99,7 @@ class Game{
         // const t1 = performance.now();
         // console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
     }
-    serverSend(){
+    serverSend(){ // sends data 
         let playerData={};
         // console.log(Object.keys(this.players).length);
         for(let key in this.players){
@@ -117,7 +113,13 @@ class Game{
         // }
         // console.info(playerData);
         io.in(this.roomName).emit("clock",{playerData:playerData,ballData:this.ball.getData()});
-        return playerData;
+    }
+    sendInitData(){
+        let playerData={};
+        for(let key in this.players){
+            playerData[key] = this.players[key].getInitData();
+        }
+        io.in(this.roomName).emit("init",{playerData:playerData,ballData:this.ball.getData()});
     }
 }
 if (typeof module != "undefined"){
