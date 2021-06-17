@@ -1,14 +1,3 @@
-// const { C.ballRadius } = require("./constants.js");
-
-// const { C.Width, C.Height } = require("./constants.js");
-
-if(typeof module !="undefined"){
-    global.Entity = require("./player").Entity;
-    // C.Width = require("./constants.js").C.Width;
-    // C.Height = require("./constants.js").C.Height;
-    // C.ballRadius = require("./constants.js").C.ballRadius;
-}
-
 class Ball extends Entity{
     constructor(){
         super(C.Width/2,C.Height/2,C.ballRadius); 
@@ -70,7 +59,5 @@ class Ball extends Entity{
 }
 
 if(typeof module != "undefined"){
-    module.exports = {
-        Ball:Ball,
-    }
+    global.Ball = Ball;
 }

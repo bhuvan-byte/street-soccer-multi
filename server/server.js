@@ -12,7 +12,11 @@ app.use(express.static("client"));
 app.get("/",function(req,res) {
     res.sendFile(__dirname+"/client/index.html")
 })
-const unnamed_ = require("../client/constants.js");
+// required only to run the file once
+const constants_ = require("../client/constants.js");
+const player_ = require("../client/player.js");
+const ball_ = require("../client/ball.js");
+
 const websocket=require('./websocket.js');
 console.log(websocket);
 server.on('error', (err) => {

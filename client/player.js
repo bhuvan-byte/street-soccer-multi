@@ -1,19 +1,6 @@
-    /// <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
+/// <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
 "use strict";
-if(typeof module !="undefined"){
-    // global.C.Width = require("./constants.js").C.Width;
-    // global.C.Height = require("./constants.js").C.Height;
-    // global.C.playerAcc = require("./constants.js").C.playerAcc;
-    console.log("C.Width=",C.Width);
-}
 
-// const { text } = require("express");
-// const {C.Width,C.Height} = require("./constants");
-try {
-    console.log(Player); 
-} catch (error) {
-    // console.log("error",error); // made only for debug
-}
 class Entity{
     constructor(x,y,radius){
         this.x=x;
@@ -214,10 +201,8 @@ class Player extends Entity{
 }
 
 if(typeof module != "undefined"){
-    module.exports = {
-        Player:Player,
-        Entity:Entity,
-    }
+    global.Player = Player;
+    global.Entity = Entity;
 }
 // class Player{
 //     constructor(playerNo,R,G,B,x,y,d,theta,isAdmin){

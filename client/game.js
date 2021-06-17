@@ -1,15 +1,4 @@
 "use strict";
-
-// const player = require("./player");
-
-if(typeof module !="undefined"){
-    global.Entity = require("./player").Entity;
-    global.Player = require("./player").Player;
-    global.Ball = require("./ball.js").Ball;
-    // global.C.playerRadius = require("./constants.js").C.playerRadius;
-    console.log("inside this",this);
-    console.log("Player=",Player,"Ball=",Ball);   
-}
 class Game{
     constructor(roomName,io){
         this.players = {};
