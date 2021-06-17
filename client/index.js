@@ -4,7 +4,7 @@ var allowSetup = false,apna_player;
 let game ;
 let bluePlayerImgList,redPlayerImgList,whitePlayerImgList;
 let BlueFullImg, RedFullImg, WhiteFullImg ;
-let roomList,field;
+let roomList,field,slowIntervalId;
 
 getPing();
 sock.on('init', init);
@@ -25,16 +25,13 @@ sock.on("changeTeam",(data)=>{
     }
 });
 
-// let slowIntervalId = setInterval(() => {
-//     extractOnlinePlayers(game.players);
-//     handleUpdateTeams(game.players);
-// }, 1000);
 
-sock.on('clock',(data)=>{
+sock.on('clock',onClock);
+function onClock(data){
     const {playerData,ballData} = data; // get player data every clock cycle
     game.updateClient(playerData,ballData);  // update it in game.js
     if(apna_player) apna_player.mouseSend(); 
-});
+}
 
 let intervalID = setInterval(() => {
     sock.emit('get-room-list'); // ask for room list from websockets.js every 1 second

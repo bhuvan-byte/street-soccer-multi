@@ -74,6 +74,7 @@ class Player extends Entity{
         // this.C.animationSpeed = C.animationSpeed;
     }
     changeTeam(team){
+        team = team ?? this.teamName;
         if(team == "A"){
             this.images = redPlayerImgList;
         }else if(team == "B"){
@@ -208,7 +209,6 @@ class Player extends Entity{
             ay:this.ay,
             theta:this.theta,
             hasBall:this.hasBall,
-            username:this.username,
             // color:this.color,
         };
     }

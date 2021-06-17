@@ -119,7 +119,7 @@ class Game{
         for(let key in this.players){
             playerData[key] = this.players[key].getInitData();
         }
-        io.in(this.roomName).emit("init",{playerData:playerData,ballData:this.ball.getData()});
+        io.in(this.roomName).emit("init",{roomName:this.roomName,playerData:playerData,ballData:this.ball.getData()});
     }
 }
 if (typeof module != "undefined"){
