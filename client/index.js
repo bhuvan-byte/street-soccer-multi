@@ -11,12 +11,17 @@ sock.on('init', init);
 sock.on('gameCode', handleGameCode);
 sock.on('failedToJoinRoom',handleFailedToJoinRoom);
 sock.on('get-room-list', showRoomList);
+setTimeout(function askRoomList() {
+    sock.emit('get-room-list'); // ask for room list from websockets.js every 1 second
+    if(!allowSetup) setTimeout(askRoomList,1000);
+}, 1000);
 // sock.on('newPlayer',(data)=>{
 //     console.info(data);
 //     let player = new Player(data.playerNo,0,0,C.playerRadius,false,data.username);
 
 //     game.players[data.id]  = player;
 // });
+
 sock.on("changeTeam",(data)=>{
     try {
         game.players[data.id].changeTeam(data.team);
@@ -26,16 +31,13 @@ sock.on("changeTeam",(data)=>{
 });
 
 
+
 sock.on('clock',onClock);
 function onClock(data){
     const {playerData,ballData} = data; // get player data every clock cycle
     game.updateClient(playerData,ballData);  // update it in game.js
     if(apna_player) apna_player.mouseSend(); 
 }
-
-let intervalID = setInterval(() => {
-    sock.emit('get-room-list'); // ask for room list from websockets.js every 1 second
-}, 1000);
 
 
 function handleGameCode(gameCode) { //to display room code
@@ -65,6 +67,7 @@ function setup() {
     bluePlayerImgList = extractImage(BlueFullImg);
     redPlayerImgList = extractImage(RedFullImg);        
     whitePlayerImgList = extractImage(WhiteFullImg);
+    fullscreen();
 }
 
 function draw() {

@@ -118,8 +118,8 @@ io.on("connection", (sock) => {
         let roomList = {};
         for(let room in games){
             roomList[room] = io.sockets.adapter.rooms.get(room).size;
-            sock.emit('get-room-list',roomList);
         }
+        sock.emit('get-room-list',roomList);
     }
     // function handlechangeTeamA(){
     //     // sock.teamName="A";

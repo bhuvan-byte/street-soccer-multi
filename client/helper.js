@@ -6,6 +6,9 @@ function showRoomList(data){
         newRoomList+=`<button class="btn btn-primary room-list-item">${room} ${data[room]}</button>`;
         // console.log(`room -> ${room}, no of players -> ${data[room]}`);
     }
+    if(newRoomList.length ==0) {
+        newRoomList = "<center>No rooms online.<br>Create one.</center>";
+    }
     if(newRoomList!==roomList){
         room_list.innerHTML = newRoomList;
         roomList = newRoomList;
