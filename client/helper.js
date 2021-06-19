@@ -1,3 +1,4 @@
+"use strict";
 function showRoomList(data){
     let room_list = document.getElementById('room-name-list');
     let newRoomList = '';
@@ -5,20 +6,29 @@ function showRoomList(data){
         newRoomList+=`<button class="btn btn-primary room-list-item">${room} ${data[room]}</button>`;
         // console.log(`room -> ${room}, no of players -> ${data[room]}`);
     }
+    if(newRoomList.length ==0) {
+        newRoomList = "<center>No rooms online.<br>Create one.</center>";
+    }
     if(newRoomList!==roomList){
         room_list.innerHTML = newRoomList;
         roomList = newRoomList;
     }
 }
-
 function init(data) {
     let {playerNo,roomName} = data;
     console.log(`playerNo = ${playerNo}`);
     game = new Game(roomName);
-    let isAdmin=false;
-    if(playerNo===1)isAdmin=true;
     allowSetup = true;
     setup();
+    welcomePage.style.display = 'none';
+    document.removeEventListener("mousedown",roomJoinDynamicClick);
+    others.style.display = 'block'; // what is this
+    onClock(data);
+    for(const key in game.players) game.players[key].changeTeam();
+    slowIntervalId = setInterval(() => {
+        extractOnlinePlayers(game.players);
+        handleUpdateTeams(game.players);
+    }, 1000);
     setTimeout(() => {
         if(sock.id in game.players){
             apna_player = game.players[sock.id];

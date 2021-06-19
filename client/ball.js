@@ -54,13 +54,15 @@ class Ball extends Entity{
     updateFollow(player){
         // if(player.ax!=0 || player.ay!=0) player.ballDir = Math.atan2(player.ax,player.ay);
         let moveDir = Math.atan2(player.vy,player.vx);
-        let ratio = Math.sqrt(player.vx*player.vx+player.vy*player.vy)/3 ; // hardcoded
-        player.ballDir = ratio*moveDir + (1-ratio)*player.theta;
+        let ratio = Math.min(1,player.getVel()/3) ; // hardcoded
+        let c1 = ratio*moveDir + (1-ratio)*player.theta;
+        let c2 = ratio;
+        player.ballDir = c1;
         let dist = player.radius + this.radius -2;
         const pi = Math.PI;
         let diff = player.ballDir - (-pi/2);
         // console.log(diff);
-        if(Math.abs(diff)<pi/4) player.ballDir = -pi/2 + Math.sign(diff)*pi/4;    
+        if(Math.abs(diff)<pi/5) player.ballDir = -pi/2 + Math.sign(diff)*pi/5;    
         this.x = player.x+dist*Math.cos(player.ballDir);
         this.y = player.y+dist*Math.sin(player.ballDir);
         this.vx = player.vx;

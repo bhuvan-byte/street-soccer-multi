@@ -25,6 +25,9 @@ class Entity{
         this.vx*=this.friction;
         this.vy*=this.friction;
     }
+    getVel(){
+        return Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+    }
 }
 class Player extends Entity{
     constructor(id,x,y,radius,isAdmin,username,sock){
@@ -73,6 +76,7 @@ class Player extends Entity{
         // this.C.animationSpeed = C.animationSpeed;
     }
     changeTeam(team){
+        team = team ?? this.teamName;
         if(team == "A"){
             this.images = redPlayerImgList;
         }else if(team == "B"){
@@ -84,6 +88,7 @@ class Player extends Entity{
         this.teamName = team;
     }
     display(){ // (called from index.js)
+        push(); // necessary to save p5 state then restore with pop()
         if(this.ax==0 && this.ay ==0 ){
             // this.animationIndex = 12;
         } else if(this.ax==0){
@@ -106,6 +111,7 @@ class Player extends Entity{
         index += (this.ax==0 && this.ay==0) ? 0: floor(this.index)%3;
         image(this.images[index],this.x - C.picWidth*0.4, this.y - C.picHeight*0.7);
         this.index += C.animationSpeed* Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+        pop();
     }
     areaDisplay(){ // (called from index.js)
         fill("rgba(255,255,255,0)");
@@ -207,7 +213,7 @@ class Player extends Entity{
             ax:this.ax,
             ay:this.ay,
             theta:this.theta,
-            username:this.username,
+            hasBall:this.hasBall,
             // color:this.color,
         };
     }

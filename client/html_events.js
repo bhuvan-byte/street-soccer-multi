@@ -19,13 +19,14 @@ const teamAJoinBtn = document.getElementById('TeamAJoin');
 const teamBJoinBtn = document.getElementById('TeamBJoin');
 const teamA = document.getElementById('teamA');
 const teamB = document.getElementById('teamB');
+const roomListElem = document.getElementById('room-name-list');
 
 createBtn.addEventListener('click', newRoom);
 joinBtn.addEventListener('click', joinRoom);
 joinDefaultRoomBtn.addEventListener('click',joinDefaultRoom);
 
 
-document.addEventListener('mousedown',roomJoinDynamicClick);
+roomListElem.addEventListener('mouseup',roomJoinDynamicClick);
 
 
 configBtn.addEventListener('click',confModalShow);
@@ -47,12 +48,11 @@ document.addEventListener("keydown",(e)=>{
 });
 
 function roomJoinDynamicClick(e){
-    roomName = e.toElement.innerText.split(" ")[0];
+    roomName = e.target.innerText.split(" ")[0];
     console.log(roomName);
     const username_raw = document.getElementById('username').value;
     const username = username_raw.substr(0,Math.min(10,username_raw.length));
     sock.emit('joinRoom',{roomName:roomName,username:username});
-    clearInterval(intervalID);
 }
 
 function newRoom() {
@@ -88,14 +88,14 @@ function confModalClose(){
 
 function JoinATeam(){
     console.log('joining a team');
-    sock.emit('joinTeam',"A");
-    // sock.emit('joinTeamA');
+    sock.emit('changeTeam',"A");
+    // sock.emit('changeTeamA');
 }
 
 function JoinBTeam(){
     console.log('joining b team');
-    sock.emit('joinTeam',"B");
-    // sock.emit('joinTeamB');
+    sock.emit('changeTeam',"B");
+    // sock.emit('changeTeamB');
 }
 
 function getPing(){

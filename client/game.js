@@ -18,7 +18,7 @@ class Game{
         clearInterval(this.intervalId);
     }
     addPlayer(sock){
-        let player = new Player(sock.id,Math.random()*400,Math.random()*400,C.playerRadius,false,sock.username,sock);
+        let player = new Player(sock.id,Math.random()*C.Width,Math.random()*C.Height,C.playerRadius,false,sock.username,sock);
         this.players[sock.id] = player;
     }
     shoot(mouse,id){
@@ -39,6 +39,7 @@ class Game{
         let newHolder = null;
         for(let key in this.players){
             let collides = this.ball.isCollide(this.players[key]);
+            this.players[key].hasBall = false; // all set to false
             if(collides){
                 if(newHolder == null){
                     newHolder = key;
@@ -58,6 +59,7 @@ class Game{
             this.ball.updateFollow(this.players[newHolder]);
             this.ball.wallCollide(C.wall_e_ball/9);
         }
+        if(newHolder) this.players[newHolder].hasBall = true;
         // this.ball.wallCollide();
         this.ballHolder = newHolder;
         
@@ -74,10 +76,12 @@ class Game{
         }
         
     }
-    display(){ // client side function 
+    display(){ // client side function  
         this.ball.display();
-        for(let key in this.players){
-            this.players[key].display();
+        let arr = Object.values(this.players);
+        arr.sort((a,b)=>(a.y>b.y)? 1: -1);
+        for(let key in arr){
+            arr[key].display();
         }
     }
     updateClient(playerData,ballData){ // client side update called every clock cycle
@@ -102,11 +106,6 @@ class Game{
         // console.log(Object.keys(this.players).length);
         for(let key in this.players){
             playerData[key] = this.players[key].getData();
-            if(key==this.ballHolder){
-                playerData[key].hasBall = 1;
-            } else{
-                playerData[key].hasBall = 0;
-            }
         }
         // WHY is below code not working !!?
         // console.info(Object.entries);
@@ -122,7 +121,7 @@ class Game{
         for(let key in this.players){
             playerData[key] = this.players[key].getInitData();
         }
-        io.in(this.roomName).emit("init",{playerData:playerData,ballData:this.ball.getData()});
+        io.in(this.roomName).emit("init",{roomName:this.roomName,playerData:playerData,ballData:this.ball.getData()});
     }
 }
 if (typeof module != "undefined"){
