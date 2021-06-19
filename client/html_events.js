@@ -24,7 +24,7 @@ joinBtn.addEventListener('click', joinRoom);
 joinDefaultRoomBtn.addEventListener('click',joinDefaultRoom);
 
 
-roomListElem.addEventListener('mousedown',roomJoinDynamicClick);
+roomListElem.addEventListener('mouseup',roomJoinDynamicClick);
 
 
 configBtn.addEventListener('click',confModalShow);

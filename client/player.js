@@ -25,6 +25,9 @@ class Entity{
         this.vx*=this.friction;
         this.vy*=this.friction;
     }
+    getVel(){
+        return Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+    }
 }
 class Player extends Entity{
     constructor(id,x,y,radius,isAdmin,username,sock){

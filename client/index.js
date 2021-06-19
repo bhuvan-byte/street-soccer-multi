@@ -61,17 +61,18 @@ function preload(){
 function setup() {
     if(!allowSetup) return;
     console.log('setup');
-    const canvas = createCanvas(C.Width, C.Height);
+    const canvas = createCanvas(0.75*window.innerWidth, 0.9*window.innerHeight);
     canvas.parent('canvasDiv');
     field = new Field();
     bluePlayerImgList = extractImage(BlueFullImg);
     redPlayerImgList = extractImage(RedFullImg);        
     whitePlayerImgList = extractImage(WhiteFullImg);
-    fullscreen();
+    // fullscreen(1);
 }
 
 function draw() {
     if(!allowSetup) return;
+    // scale(1.1);
     field.display();
     game.display();
 }
