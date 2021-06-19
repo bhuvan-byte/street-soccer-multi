@@ -31,7 +31,6 @@ class Player extends Entity{
         super(x,y,radius);
         this.id = id;
         this.sock=sock;
-        // this.color= "#000";
         this.strokeColor="rgba(255,255,255,0.6)";
         this.d = 2*radius;
         this.theta = 0;
@@ -131,11 +130,12 @@ class Player extends Entity{
         let d1 = 35; // height of lower point of triangle
         let d2 = 45; // height of two upper points to make a downward pointing traingle
         let twidht = 10; // width of top base of triangle
-        fill("rgb(92, 3, 78)")
+        fill("rgb(92, 3, 78)");
         triangle(this.x,this.y-d1,this.x-twidht,this.y-d2,this.x+twidht,this.y-d2); // needs 3 points (x,y)
         ellipse(this.x+200*Math.cos(this.theta),this.y+200*sin(this.theta),5,5);
         line(this.x,this.y,this.x+200*Math.cos(this.theta),this.y+200*sin(this.theta));
         fill("rgba(255,255,255,0)");
+     
 
     }
     collide (ball2){

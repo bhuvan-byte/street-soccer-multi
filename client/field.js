@@ -35,10 +35,10 @@ class Field{
         // goal keeper's rectangles
         // left,right
         rect(C.xgap, C.Height / 2 - C.goalH, C.goalW * 2, C.goalH * 2);
-        rect(C.Width - 7 * C.xGoalGap, C.Height / 2 - C.goalH, C.goalW * 2, C.goalH * 2);
+        rect(C.Width - C.xgap - C.goalW*2, C.Height / 2 - C.goalH, C.goalW * 2, C.goalH * 2);
         
         // bigger rectangles
         rect(C.xgap, C.Height / 4, 6 * C.xGoalGap, C.Height / 2);
-        rect(C.Width - 9 * C.xGoalGap, C.Height / 4, 6 * C.xGoalGap, C.Height / 2);
+        rect(C.Width - C.xgap - 6 * C.xGoalGap, C.Height / 4, 6 * C.xGoalGap, C.Height / 2);
     }
 }

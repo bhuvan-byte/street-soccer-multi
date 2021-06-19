@@ -7,6 +7,8 @@ const roomNameInput = document.getElementById('roomCode');
 const roomCodeDisplay = document.getElementById('roomCodeDisplay');
 const roomCodeDiv = document.getElementById('roomCodeDiv');
 const pingElem = document.querySelector('#ping_element');
+const gameTimer = document.getElementById('game-timer');
+const topRow = document.querySelector('.top-row');
 
 const configBtn = document.getElementById('config');
 const closeConfBtn = document.getElementById('close-config');

@@ -63,7 +63,8 @@ function preload(){
 
 function setup() {
     if (allowSetup) {
-        console.log('setup');
+        console.log('setup'); 
+        topRow.classList.remove('dont-show-at-welcome');
         welcomePage.style.display = 'none';
         document.removeEventListener("mousedown",roomJoinDynamicClick);
         others.style.display = 'block';
@@ -83,3 +84,6 @@ function draw() {
         game.display();
     }
 }
+function windowResized() { // use this to handle full screen mode
+    // resizeCanvas(windowWidth, windowHeight);
+ }
