@@ -5,6 +5,7 @@ class Ball extends Entity{
         this.friction = 0.96;
         this.xgap = C.xgap;
         this.ygap = C.ygap;
+        this.spriteAng = 0;
         if(typeof module == "undefined") this.clientInit();
     }
     clientInit(){
@@ -72,11 +73,15 @@ class Ball extends Entity{
         // console.log("Ball display"); 
         let diameter = this.radius*2;
         let bigDiameter = C.ballBigRadius*2; 
-        ellipse(this.x,this.y,diameter,diameter);
-        ellipse(this.x,this.y,bigDiameter,bigDiameter);
+        // ellipse(this.x,this.y,diameter,diameter);
+        // ellipse(this.x,this.y,bigDiameter,bigDiameter);
+        push();
+        translate(this.x,this.y);
+        this.spriteAng += this.vx/20 + Math.sign(this.vx)*Math.abs(this.vy)/40;
+        rotate(this.spriteAng);
         imageMode(CENTER);
-        image(this.img,this.x,this.y);
-        imageMode(CORNER);
+        image(this.img,0,0);
+        pop();
     }
     getData(){
         return {

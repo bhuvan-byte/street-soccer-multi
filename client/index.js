@@ -52,7 +52,7 @@ function handleFailedToJoinRoom(msg){
 
 let ball_img;
 function preload(){
-    ball_img = loadImage('assets/ball.png');
+    ball_img = loadImage('assets/ball-dark-light.png');
     BlueFullImg = loadImage('assets/blue.png');
     RedFullImg = loadImage('assets/red.png');
     WhiteFullImg = loadImage('assets/white.png');
