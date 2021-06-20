@@ -7,15 +7,34 @@ class Game{
         this.intervalId = null;
         this.ballHolder = null;
         this.ball = new Ball();
+        this.isRunning = false;
+        this.timeLeft = 300;
+        this.curTime;
     }
     run(){
+        // this.isRunning = true;
         this.intervalId = setInterval(() => {
             this.update();
             this.serverSend();
         }, 16);
+        this.startTimer();
     }
     stop(){
+        // this.isRunning = false;
         clearInterval(this.intervalId);
+    }
+    startTimer(){
+        setInterval(() => {
+            let newTime = Date.now();
+            if(this.isRunning){
+                this.timeLeft  -= ((newTime-this.curTime)/1000) ;
+                this.curTime = newTime;
+                io.in(this.roomName).emit('timeLeft',this.timeLeft); 
+            } else{
+                this.curTime = newTime;
+            }
+        }, 1000);
+        // Date.
     }
     addPlayer(sock){
         let player = new Player(sock.id,Math.random()*C.Width,Math.random()*C.Height,C.playerRadius,false,sock.username,sock);
@@ -101,7 +120,7 @@ class Game{
         // const t1 = performance.now();
         // console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
     }
-    serverSend(){ // sends data 
+    serverSend(){ // sends data from server to client
         let playerData={};
         // console.log(Object.keys(this.players).length);
         for(let key in this.players){
@@ -116,7 +135,7 @@ class Game{
         // console.info(playerData);
         io.in(this.roomName).emit("clock",{playerData:playerData,ballData:this.ball.getData()});
     }
-    sendInitData(){
+    sendInitData(){ // send player teamnames to newly joined ppl
         let playerData={};
         for(let key in this.players){
             playerData[key] = this.players[key].getInitData();

@@ -123,7 +123,6 @@ class Player extends Entity{
         fill("#FFF");
         strokeWeight(1);
         textAlign(CENTER);
-        textFont('Georgia');
         text(this.username,this.x,this.y+2*this.radius);
         // this.theta=atan2((mouseY-this.y),(mouseX-this.x));
         // this.vx=this.v*Math.cos(this.theta);
@@ -176,7 +175,7 @@ class Player extends Entity{
         sock.emit('mouse',{x:mouseX,y:mouseY});
     }
     client(){
-        document.addEventListener('mousedown',(e)=>{
+        canvasDiv.addEventListener('mousedown',(e)=>{
             sock.emit("shoot",{x:mouseX,y:mouseY});
         });
         document.addEventListener('keydown',(e)=>{

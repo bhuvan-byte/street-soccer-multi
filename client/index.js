@@ -5,6 +5,7 @@ let game ;
 let bluePlayerImgList,redPlayerImgList,whitePlayerImgList;
 let BlueFullImg, RedFullImg, WhiteFullImg ;
 let roomList,field,slowIntervalId;
+let fps;
 
 getPing();
 sock.on('init', init);
@@ -36,7 +37,7 @@ sock.on('clock',onClock);
 function onClock(data){
     const {playerData,ballData} = data; // get player data every clock cycle
     game.updateClient(playerData,ballData);  // update it in game.js
-    if(apna_player) apna_player.mouseSend(); 
+    if(apna_player) apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
 }
 
 
@@ -61,8 +62,11 @@ function preload(){
 function setup() {
     if(!allowSetup) return;
     console.log('setup');
-    const canvas = createCanvas(0.75*window.innerWidth, 0.9*window.innerHeight);
+    const canvas = createCanvas(C.Width,C.Height);
     canvas.parent('canvasDiv');
+    textFont('Georgia');
+    strokeWeight(1);
+    textSize(20);
     field = new Field();
     bluePlayerImgList = extractImage(BlueFullImg);
     redPlayerImgList = extractImage(RedFullImg);        
@@ -74,5 +78,9 @@ function draw() {
     if(!allowSetup) return;
     // scale(1.1);
     field.display();
+    push();
+    fill('#0000FF');
+    text(`fps:${Math.floor(fps)}`,15,15);
+    pop();
     game.display();
 }

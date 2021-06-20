@@ -7,8 +7,9 @@ const roomNameInput = document.getElementById('roomCode');
 const roomCodeDisplay = document.getElementById('roomCodeDisplay');
 const roomCodeDiv = document.getElementById('roomCodeDiv');
 const pingElem = document.querySelector('#ping_element');
-const gameTimer = document.getElementById('game-timer');
+let timeLeftHtml = document.getElementById('time-left');
 const topRow = document.querySelector('.top-row');
+const startBtn = document.getElementById('start-btn');
 
 const configBtn = document.getElementById('config');
 const closeConfBtn = document.getElementById('close-config');
@@ -20,6 +21,8 @@ const teamBJoinBtn = document.getElementById('TeamBJoin');
 const teamA = document.getElementById('teamA');
 const teamB = document.getElementById('teamB');
 const roomListElem = document.getElementById('room-name-list');
+const canvasDiv = document.getElementById('canvasDiv');
+let isRunning = false;
 
 createBtn.addEventListener('click', newRoom);
 joinBtn.addEventListener('click', joinRoom);
@@ -33,6 +36,7 @@ configBtn.addEventListener('click',confModalShow);
 closeConfBtn.addEventListener('click',confModalClose);
 teamAJoinBtn.addEventListener('click',JoinATeam);
 teamBJoinBtn.addEventListener('click',JoinBTeam);
+startBtn.addEventListener('click',handleStartPause);
 // $(".card").each(function(index){
 //     $(this).keyup(function(e){
 //         if(e.keyCode === 13){
@@ -75,6 +79,34 @@ function joinDefaultRoom(){
     console.log(`${username} joining default room`);
     sock.emit('joinDefaultRoom',username);
 }
+
+function handleStartPause(){
+    // if(isRunning){
+    //     isRunning=false;
+    // } else{
+    //     isRunning=true;
+    // }
+    sock.emit('start/pause-signal');
+}
+// let curTime=300;
+// const gameTimerInterval = setInterval(updateClock,1000);
+// function updateClock(){
+//     if(isRunning){
+//         curTime--;
+//         let min = Math.floor(curTime/60);
+//         let sec = curTime%60;
+//         if(sec<10){sec='0'+sec.toString(10); }
+//         timeLeft.innerText=`${min}:${sec}`;
+//     }
+// }
+sock.on('timeLeft',(timeLeft)=>{
+    timeLeft = Math.floor(timeLeft);
+    console.log(`timeLeft = ${timeLeft}`);
+    let min = Math.floor(timeLeft/60);
+    let sec = timeLeft%60;
+    if(sec<10){sec='0'+sec.toString(10); }
+    timeLeftHtml.innerText=`${min}:${sec}`;
+});
 
 function confModalShow(){
     modal.classList.add('active');
