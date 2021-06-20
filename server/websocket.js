@@ -59,6 +59,7 @@ io.on("connection", (sock) => {
     sock.on('joinDefaultRoom',handleJoinDefaultRoom);
     sock.on('changeTeam',handlechangeTeam);
     sock.on('get-room-list',handleGetRoomList);
+    sock.on('start/pause-signal',handleStartPause);
 
     function newPlayer(roomName,username){
         idToRoom[sock.id] =roomName;
@@ -78,7 +79,12 @@ io.on("connection", (sock) => {
     
     function handleNewRoom(data){
         let {roomName,username} = data;
-        if(roomName===null) roomName = newRoomName(4);
+        if(roomName===null) {
+            roomName = newRoomName(4);
+            while(io.sockets.adapter.rooms.has(roomName)){
+                roomName = newRoomName(4);
+            }
+        }
         console.log(`${username} joined the room telling this from handle join room in websocket.js`);
         games[roomName] = new Game(roomName);
         // console.log("roomName",games[roomName].roomName);
@@ -121,14 +127,17 @@ io.on("connection", (sock) => {
         }
         sock.emit('get-room-list',roomList);
     }
-    // function handlechangeTeamA(){
-    //     // sock.teamName="A";
-    //     games[sock.roomName].players[sock.id].teamName="A";
-    // }
-    // function handlechangeTeamB(){
-    //     // sock.teamName="B";
-    //     games[sock.roomName].players[sock.id].teamName="B";
-    // }
+
+    function handleStartPause(){
+        console.log(`start pause button pressed`);
+        games[sock.roomName].isRunning = !games[sock.roomName].isRunning;
+        console.log(`isRunning = ${games[sock.roomName].isRunning}`);
+        // if(games[sock.roomName].isRunning){
+        //     games[sock.roomName].stop();
+        // } else{
+        //     games[sock.roomName].run();
+        // }
+    }
     
     
 });

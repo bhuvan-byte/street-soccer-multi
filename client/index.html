@@ -45,7 +45,15 @@
 
     </div>
     <div class="game-screen-div">
-        <div id="canvasDiv"></div>
+        <div class="left-part">
+            <div class="top-row dont-show-at-welcome">
+                <div class="clock-timer">
+                    <span id="time-left" class="btn btn-info btn-sm" style="pointer-events: none;">5:00</span>
+                    <button class="btn btn-warning btn-sm" id="start-btn">Start/Pause</button>
+                </div>
+            </div>
+            <div id="canvasDiv"></div>
+        </div>
         <div id="others" class="dont-show-at-welcome">
             <div id="roomCodeDiv">
                 Room Code: <span id="roomCodeDisplay"></span>

@@ -21,11 +21,13 @@ function init(data) {
     allowSetup = true;
     setup();
     welcomePage.style.display = 'none';
+    topRow.classList.remove('dont-show-at-welcome');
     document.removeEventListener("mousedown",roomJoinDynamicClick);
     others.style.display = 'block'; // what is this
     onClock(data);
     for(const key in game.players) game.players[key].changeTeam();
     slowIntervalId = setInterval(() => {
+        fps = frameRate();
         extractOnlinePlayers(game.players);
         handleUpdateTeams(game.players);
     }, 1000);
