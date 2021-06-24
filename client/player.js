@@ -30,10 +30,9 @@ class Entity{
     }
 }
 class Player extends Entity{
-    constructor(id,x,y,radius,isAdmin,username,sock){
+    constructor(id,x,y,radius,isAdmin,username){
         super(x,y,radius);
         this.id = id;
-        this.sock=sock;
         this.strokeColor="rgba(255,255,255,0.6)";
         this.d = 2*radius;
         this.theta = 0;

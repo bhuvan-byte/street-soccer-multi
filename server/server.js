@@ -1,5 +1,7 @@
 const http=require('http');
 const express=require('express');
+const fs = require('fs');
+const path = require('path');
 // const {Ball,Player}=require('./client/ball')
 console.log(`server.js loaded ${Date.now()}`)
 
@@ -8,10 +10,12 @@ const server=http.createServer(app);
 // use module.exports to export
 module.exports.server = server;
 
-app.use(express.static("client"));
-app.get("/",function(req,res) {
-    res.sendFile(__dirname+"/client/index.html")
+app.get("/",function(req,res) { 
+    fs.writeFile("./log.txt",JSON.stringify(req.headers,null,2),{flag:'w+'},err=>{});
+    res.sendFile("/client/index.html",{root:path.join(__dirname,"../")});
 })
+app.use("/",express.static("client"));
+
 // required only to run the file once
 const constants_ = require("../client/constants.js");
 const player_ = require("../client/player.js");

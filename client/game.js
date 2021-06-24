@@ -37,7 +37,7 @@ class Game{
         // Date.
     }
     addPlayer(sock){
-        let player = new Player(sock.id,Math.random()*C.Width,Math.random()*C.Height,C.playerRadius,false,sock.username,sock);
+        let player = new Player(sock.id,Math.random()*C.Width,Math.random()*C.Height,C.playerRadius,false,sock.username);
         this.players[sock.id] = player;
     }
     shoot(mouse,id){
