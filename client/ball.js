@@ -12,13 +12,14 @@ class Ball extends Entity{
         this.img = ball_img;
         this.img.resize(2*this.radius,2*this.radius);
     }
-    wallCollide(wall_e){
+    wallCollide(wall_e){ //server side
         if(this.x-this.radius<this.xgap){ // left wall collision
             if(this.y>=C.Height/2-C.goalH/2 && this.y<=C.Height/2+C.goalH/2){ // check for goal
                 this.x = C.Width/2;
                 this.y = C.Height/2;
                 this.vx = 0;
                 this.vy = 0;
+                return true;
             } else{
                 this.x=this.radius+this.xgap;
                 this.vx *= -wall_e;
@@ -30,6 +31,7 @@ class Ball extends Entity{
                 this.y = C.Height/2;
                 this.vx = 0;
                 this.vy = 0;
+                return true;
             }else{
                 this.x=C.Width -this.xgap-this.radius;
                 this.vx *= -wall_e;
@@ -43,6 +45,7 @@ class Ball extends Entity{
             this.y=C.Height - this.ygap -this.radius;
             this.vy *= -wall_e;
         }
+        return false;
     }
     isCollide(player){
         let dx=player.x-this.x,
@@ -50,9 +53,8 @@ class Ball extends Entity{
 			radSum=player.radius+C.ballBigRadius;
             // console.log(`r1 = ${player.radius}, r2 = ${this.radius}`);
 		return (dx*dx + dy*dy< radSum*radSum);
-
     }
-    updateFollow(player){
+    updateFollow(player){ //server side
         // if(player.ax!=0 || player.ay!=0) player.ballDir = Math.atan2(player.ax,player.ay);
         let moveDir = Math.atan2(player.vy,player.vx);
         let ratio = Math.min(1,player.getVel()/3) ; // hardcoded

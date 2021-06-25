@@ -6,6 +6,7 @@ let bluePlayerImgList,redPlayerImgList,whitePlayerImgList;
 let BlueFullImg, RedFullImg, WhiteFullImg ;
 let roomList,field,slowIntervalId;
 let fps;
+let kickSound,goalSound;
 
 getPing();
 sock.on('init', init);
@@ -40,6 +41,20 @@ function onClock(data){
     if(apna_player) apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
 }
 
+sock.on('play-sound',(event)=>{
+    console.log('in play-sound', event);
+    let kickVolume = kickVolumeInput.value/100;
+    let goalVolume = goalVolumeInput.value/100;
+    if(event=='kick'){
+        kickSound.volume = kickVolume;
+        kickSound.play();
+    }
+    if(event=='goal'){
+        goalSound.volume = goalVolume;
+        goalSound.play();
+    }
+})
+
 
 function handleGameCode(gameCode) { //to display room code
     roomCodeDisplay.innerText = gameCode;
@@ -57,6 +72,8 @@ function preload(){
     BlueFullImg = loadImage('assets/blue.png');
     RedFullImg = loadImage('assets/red.png');
     WhiteFullImg = loadImage('assets/white.png');
+    // kickSound = loadSound('assets/kick.mp3');
+    // goalSound = loadSound('assets/goal-sound.mp3');
 }
 
 function setup() {
@@ -71,6 +88,8 @@ function setup() {
     bluePlayerImgList = extractImage(BlueFullImg);
     redPlayerImgList = extractImage(RedFullImg);        
     whitePlayerImgList = extractImage(WhiteFullImg);
+    kickSound = new Pizzicato.Sound('./assets/kick.mp3');
+    goalSound = new Pizzicato.Sound('./assets/goal-sound.mp3');
     // fullscreen(1);
 }
 
