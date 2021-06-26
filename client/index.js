@@ -6,6 +6,9 @@ let bluePlayerImgList,redPlayerImgList,whitePlayerImgList;
 let BlueFullImg, RedFullImg, WhiteFullImg ;
 let roomList,field,slowIntervalId;
 let fps;
+let kickSound=document.getElementById('kick-sound');
+let goalSound=document.getElementById('goal-sound');
+let bgm;
 
 getPing();
 sock.on('init', init);
@@ -39,6 +42,20 @@ function onClock(data){
     game.updateClient(playerData,ballData);  // update it in game.js
     if(apna_player) apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
 }
+
+sock.on('play-sound',(event)=>{
+    console.log('in play-sound', event);
+    let kickVolume = kickVolumeInput.value/100;
+    let goalVolume = goalVolumeInput.value/100;
+    if(event=='kick'){
+        kickSound.volume = kickVolume;
+        kickSound.play();
+    }
+    if(event=='goal'){
+        goalSound.volume = goalVolume;
+        goalSound.play();
+    }
+})
 
 
 function handleGameCode(gameCode) { //to display room code

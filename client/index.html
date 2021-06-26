@@ -67,7 +67,7 @@
                     </div>
                     <div class="my-modal-body">
                         <div class="my-col" id="OnlinePlayers">
-                            <header>Players Online</header>
+                            <header>Online</header>
                         </div>
                         <div class="my-col" id="TeamAJoin">
                             <header><button class="btn btn-dark">Team A</button></header>
@@ -77,14 +77,30 @@
                             <header><button class="btn btn-dark">Team B</button></header>
                             <div id="teamB"></div>
                         </div>
-
                     </div>
 
                 </div>
             </div>
+            <div class="volumeSlider">
+                <div class="row">
+                    <input id="kick-volume" type="range" min="0" max="100">
+                    <p>Kick</p>
+                </div>
+                <div class="row">
+                    <input id="goal-volume" type="range" min="0" max="100">
+                    <p>Goal</p>
+                </div>
+                <div class="row">
+                    <input id="bgm-volume" type="range" min="0" max="100">
+                    <p>BGM</p>
+                </div>
+                
+            </div>
             <div id="overlay"></div>
         </div>
     </div>
+    <audio src="./assets/kick.mp3" id="kick-sound" preload="auto"></audio>
+    <audio src="./assets/goal-sound.mp3" id="goal-sound" preload="auto"></audio>
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>

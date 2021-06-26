@@ -20,6 +20,7 @@
   "homepage": "https://github.com/bhuvan-byte/street-soccer-multi#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "pizzicato": "^0.6.4",
     "socket.io": "^4.1.1"
   },
   "devDependencies": {

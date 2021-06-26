@@ -40,7 +40,7 @@ class Game{
         let player = new Player(sock.id,Math.random()*C.Width,Math.random()*C.Height,C.playerRadius,false,sock.username);
         this.players[sock.id] = player;
     }
-    shoot(mouse,id){
+    shoot(mouse,id){ // called from websocket.js
         this.players[id].thetaHandler(mouse.x,mouse.y);
         let canShoot = this.ball.isCollide(this.players[id]);
         if(canShoot){
@@ -51,6 +51,7 @@ class Game{
             this.ball.y = this.players[id].y + Math.sin(theta)*radSum;
             this.ball.vx = this.players[id].vx + Math.cos(theta)*C.shootSpeed;
             this.ball.vy = this.players[id].vy + Math.sin(theta)*C.shootSpeed;
+            io.in(this.roomName).emit('play-sound',"kick");
         }
     }
     update(){ // server side update
@@ -68,17 +69,21 @@ class Game{
                 }
             }
         }
+        let isGoal=false;
         if(!newHolder) { // nobody has the ball
             this.ball.update();
-            this.ball.wallCollide(C.wall_e_ball);
+            isGoal = this.ball.wallCollide(C.wall_e_ball);
         } else if(newHolder === this.ballHolder){
             this.ball.updateFollow(this.players[newHolder]);
-            this.ball.wallCollide(C.wall_e_ball/9);
+            isGoal = this.ball.wallCollide(C.wall_e_ball/9);
         } else { // possesion change
             this.ball.updateFollow(this.players[newHolder]);
-            this.ball.wallCollide(C.wall_e_ball/9);
+            isGoal = this.ball.wallCollide(C.wall_e_ball/9);
         }
         if(newHolder) this.players[newHolder].hasBall = true;
+        if(isGoal){
+            io.in(this.roomName).emit('play-sound',"goal");
+        } 
         // this.ball.wallCollide();
         this.ballHolder = newHolder;
         

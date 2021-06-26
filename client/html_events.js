@@ -10,7 +10,6 @@ const pingElem = document.querySelector('#ping_element');
 let timeLeftHtml = document.getElementById('time-left');
 const topRow = document.querySelector('.top-row');
 const startBtn = document.getElementById('start-btn');
-
 const configBtn = document.getElementById('config');
 const closeConfBtn = document.getElementById('close-config');
 const overlay = document.getElementById('overlay');
@@ -23,7 +22,9 @@ const teamB = document.getElementById('teamB');
 const roomListElem = document.getElementById('room-name-list');
 const canvasDiv = document.getElementById('canvasDiv');
 let isRunning = false;
-
+const others = document.getElementById('others');
+const kickVolumeInput = document.getElementById('kick-volume');
+const goalVolumeInput = document.getElementById('goal-volume');
 createBtn.addEventListener('click', newRoom);
 joinBtn.addEventListener('click', joinRoom);
 joinDefaultRoomBtn.addEventListener('click',joinDefaultRoom);
