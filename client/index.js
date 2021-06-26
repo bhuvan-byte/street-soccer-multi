@@ -6,7 +6,9 @@ let bluePlayerImgList,redPlayerImgList,whitePlayerImgList;
 let BlueFullImg, RedFullImg, WhiteFullImg ;
 let roomList,field,slowIntervalId;
 let fps;
-let kickSound,goalSound;
+let kickSound=document.getElementById('kick-sound');
+let goalSound=document.getElementById('goal-sound');
+let bgm;
 
 getPing();
 sock.on('init', init);
@@ -72,8 +74,6 @@ function preload(){
     BlueFullImg = loadImage('assets/blue.png');
     RedFullImg = loadImage('assets/red.png');
     WhiteFullImg = loadImage('assets/white.png');
-    // kickSound = loadSound('assets/kick.mp3');
-    // goalSound = loadSound('assets/goal-sound.mp3');
 }
 
 function setup() {
@@ -88,8 +88,6 @@ function setup() {
     bluePlayerImgList = extractImage(BlueFullImg);
     redPlayerImgList = extractImage(RedFullImg);        
     whitePlayerImgList = extractImage(WhiteFullImg);
-    kickSound = new Pizzicato.Sound('./assets/kick.mp3');
-    goalSound = new Pizzicato.Sound('./assets/goal-sound.mp3');
     // fullscreen(1);
 }
 
