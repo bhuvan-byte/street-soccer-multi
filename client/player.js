@@ -197,10 +197,15 @@ class Player extends Entity{
             }
         });
     }
+    multiplyAcc(factor){
+        this.ax*=factor;
+        this.ay*=factor;
+    }
     moveHandler(ecode,direction){
-        const acc=C.playerAcc ;
+        let acc=C.playerAcc ;
+        if(this.hasBall) acc *= C.playerAccFac;
         this.pressed[ecode]=direction;
-        this.ax=this.ay=0
+        this.ax=this.ay=0;
         if(this.pressed['KeyA']) this.ax-=acc;
         if(this.pressed['KeyW']) this.ay-=acc;
         if(this.pressed['KeyD']) this.ax+=acc;

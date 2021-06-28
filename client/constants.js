@@ -12,6 +12,7 @@ C.ballBigRadius = 15;
 C.ballRadius = 10 ;
 C.shootSpeed = 9;
 C.playerAcc = 0.3 ;
+C.playerAccFac = 0.7;
 C.picWidth = 48 ;
 C.picHeight = 48 ;
 C.wall_e_ball = 0.9;

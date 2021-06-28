@@ -77,7 +77,7 @@ class Game{
     reset(startTeam){ // server side function
         // reset ball + all players
         console.log(`start team -> ${startTeam}`);
-        startTeam = startTeam ?? "A";
+        startTeam = startTeam ?? "B";
         this.ball.reset();   
         let startPlayer = 0; // set this 1 when the player is assigned centre spot
         let left_ptr = 0;
@@ -120,8 +120,9 @@ class Game{
         this.players[id].thetaHandler(mouse.x,mouse.y);
         let canShoot = this.ball.isCollide(this.players[id]);
         if(canShoot){
-            this.ballHolder = null;
+            // this.ballHolder = null; 
             let theta = this.players[id].theta;
+            // radSum is 1 unit bigger so that ball does not follow the same player again
             let radSum =1+ C.playerRadius + C.ballBigRadius;
             this.ball.x = this.players[id].x + Math.cos(theta)*radSum; // to change playerRad
             this.ball.y = this.players[id].y + Math.sin(theta)*radSum;
@@ -157,6 +158,17 @@ class Game{
             isGoal = this.ball.wallCollide(C.wall_e_ball/9);
         }
         if(newHolder) this.players[newHolder].hasBall = true;
+        // console.log(this.ballHolder,newHolder);
+        if(newHolder != this.ballHolder){
+            if(this.ballHolder){
+                this.players[this.ballHolder].multiplyAcc(1/C.playerAccFac);
+                console.log(`increasing acc of ${this.ballHolder}`);
+            }
+            if(newHolder){
+                this.players[newHolder].multiplyAcc(C.playerAccFac);
+                console.log(`decreasing acc of ${newHolder}`);
+            }
+        }
         if(isGoal){
             io.in(this.roomName).emit('play-sound',"goal");
             this.isRunning = false;
