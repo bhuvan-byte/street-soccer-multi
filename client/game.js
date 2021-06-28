@@ -47,7 +47,7 @@ class Game{
             io.in(this.roomName).emit('play-sound',"kick");
         }
     }
-    update(){ // server side update
+    ballUpdate(){
         // Ball collision and possession
         let newHolder = null;
         for(let key in this.players){
@@ -79,7 +79,10 @@ class Game{
         } 
         // this.ball.wallCollide();
         this.ballHolder = newHolder;
-        
+    }
+    update(){ // server side update
+        if(this.isRunning) this.ballUpdate();
+        else this.ball.update();
         for(let [key,player] of Object.entries(this.players)){
             player.update();
             player.wallCollide();
