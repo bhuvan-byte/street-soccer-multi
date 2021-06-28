@@ -12,13 +12,18 @@ class Ball extends Entity{
         this.img = ball_img;
         this.img.resize(2*this.radius,2*this.radius);
     }
+    reset(){
+        this.x = C.Width/2;
+        this.y = C.Height/2;
+        this.vx = 0;
+        this.vy = 0;
+        this.ax = 0;
+        this.ay = 0;
+    }
     wallCollide(wall_e){ //server side
         if(this.x-this.radius<this.xgap){ // left wall collision
             if(this.y>=C.Height/2-C.goalH/2 && this.y<=C.Height/2+C.goalH/2){ // check for goal
-                this.x = C.Width/2;
-                this.y = C.Height/2;
-                this.vx = 0;
-                this.vy = 0;
+                this.reset();
                 return true;
             } else{
                 this.x=this.radius+this.xgap;
@@ -27,10 +32,7 @@ class Ball extends Entity{
         }
         if(this.x+this.radius>C.Width-this.xgap){ // right wall collision
             if(this.y>=C.Height/2-C.goalH/2 && this.y<=C.Height/2+C.goalH/2){ // check for goal
-                this.x = C.Width/2;
-                this.y = C.Height/2;
-                this.vx = 0;
-                this.vy = 0;
+                this.reset();
                 return true;
             }else{
                 this.x=C.Width -this.xgap-this.radius;

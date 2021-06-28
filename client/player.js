@@ -171,6 +171,14 @@ class Player extends Entity{
 			//if(this.radius>10)this.radius-=5;
         }
     }
+    reset(x,y){ // to send players in their halves in the begining or after a goal
+        this.x = x*C.scaleFieldX; // remove this scaleFieldX,Y from player class and use it from constants 
+        this.y = y*C.scaleFieldY;
+        this.vx = 0;
+        this.vy = 0;
+        this.ax = 0;
+        this.ay = 0;
+    }
     mouseSend(){
         sock.emit('mouse',{x:mouseX,y:mouseY});
     }

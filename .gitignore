@@ -2,3 +2,4 @@ node_modules/
 .vscode/
 gitcommand.txt
 full-source.zip
+./client/assets/placement_coordinates.jpg

@@ -16,6 +16,33 @@ C.picWidth = 48 ;
 C.picHeight = 48 ;
 C.wall_e_ball = 0.9;
 C.animationSpeed = 0.04 ; // it is ratio by which vel is multiplied
+C.scaleFieldX = C.Width/40; // to multiply with coordinates from formation
+C.scaleFieldY = C.Height/20;
+
+// currently made for <=7 players/team
+// |-7-|-6-|-4-||-4-|-6-|-7-|
+const basic_formation = {
+    teamL:[
+            {x:10,y:10},
+            {x:16,y:7},
+            {x:16,y:13},
+            {x:10,y:5},
+            {x:10,y:15},
+            {x:16,y:17},
+            {x:16,y:3}
+            
+    ],
+    teamR:[
+            {x:30,y:10},
+            {x:24,y:13},
+            {x:24,y:7},
+            {x:30,y:15},
+            {x:30,y:5},
+            {x:24,y:3},
+            {x:24,y:17}
+    ]
+}
 if(typeof module != "undefined"){
     global.C = C;
+    global.basic_formation = basic_formation;
 }

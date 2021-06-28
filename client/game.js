@@ -23,6 +23,61 @@ class Game{
         // this.isRunning = false;
         clearInterval(this.intervalId);
     }
+    reset(){ // server side function
+        // reset ball + all players
+        // this.ball.reset();
+        // count all three types of players teamA,teamB,notYetDecided 
+        let teamACount=0;
+        let teamBCount=0;
+        let noTeamCount=0;
+        for(let key in this.players){
+            if(this.players[key].teamName == "A"){
+                teamACount++;
+            } else if(this.players[key].teamName == "B"){
+                teamBCount++;
+            } else{
+                noTeamCount++;
+            }
+        }
+        // total = ateam + bteam + noteam. // target: to divide in two teams of same size as nearly as possible
+        let totalPpl = (teamACount + teamBCount + noTeamCount);
+        let teamAFinalSize,teamBFinalSize; 
+        if(teamACount >= teamBCount){ // if teamA hasa more ppl then lets start by deciding finl size of teamA which would be either its current size or half of total ppl whichever is more
+            teamAFinalSize = Math.max(teamACount,Math.floor(totalPpl/2));
+            teamBFinalSize = totalPpl - teamAFinalSize;
+        } else{
+            teamBFinalSize = Math.max(teamBCount,Math.floor(totalPpl/2));
+            teamAFinalSize = totalPpl - teamBFinalSize;
+        }
+        console.log(`tc->${totalPpl},tc/2->${Math.floor(totalPpl/2)}`);
+        console.log(`a->${teamACount}, fa->${teamAFinalSize}`);
+        console.log(`b->${teamBCount}, fb->${teamBFinalSize}`);
+        let left_ptr = 0;
+        let right_ptr = 0; // these are indexes to refer to array of formations and locate a player
+        for(let key in this.players){
+            if(this.players[key].teamName == "A"){ // team on left side
+                this.players[key].reset(basic_formation.teamL[left_ptr].x,basic_formation.teamL[left_ptr].y);
+                left_ptr++;
+            } else if(this.players[key].teamName == "B"){ // team on right side
+                this.players[key].reset(basic_formation.teamR[right_ptr].x,basic_formation.teamR[right_ptr].y);
+                right_ptr++;
+            } else{ // assign team as per need //  hope that this need does not arrise and players select team themselves 
+                if(teamAFinalSize>teamACount){ // there is space in teamA for this guy
+                    io.in(this.roomName).emit("changeTeam",{id:key,team:"A"});
+                    this.players[key].teamName = "A";
+                    this.players[key].reset(basic_formation.teamL[left_ptr].x,basic_formation.teamL[left_ptr].y);
+                    left_ptr++;
+                    teamACount++;
+                } else{
+                    io.in(this.roomName).emit("changeTeam",{id:key,team:"B"});
+                    this.players[key].teamName = "B";
+                    this.players[key].reset(basic_formation.teamR[right_ptr].x,basic_formation.teamR[right_ptr].y);
+                    right_ptr++;
+                    teamBCount++;
+                }
+            }
+        }
+    }
     startTimer(){
         setInterval(() => {
             let newTime = Date.now();
@@ -83,6 +138,7 @@ class Game{
         if(newHolder) this.players[newHolder].hasBall = true;
         if(isGoal){
             io.in(this.roomName).emit('play-sound',"goal");
+            this.reset();
         } 
         // this.ball.wallCollide();
         this.ballHolder = newHolder;
