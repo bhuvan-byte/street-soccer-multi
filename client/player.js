@@ -15,7 +15,6 @@ class Entity{
         this.wall_e = 0;
         this.width = C.Width;
         this.height = C.Height;
-        this.hasBall = 0;
     }
     update(){ // used by player and ball. gap values different for them
         this.x+=this.vx;
@@ -77,9 +76,9 @@ class Player extends Entity{
     changeTeam(team){
         team = team ?? this.teamName;
         if(team == "A"){
-            this.images = redPlayerImgList;
-        }else if(team == "B"){
             this.images = bluePlayerImgList;
+        }else if(team == "B"){
+            this.images = redPlayerImgList;
         }else {
             this.images = whitePlayerImgList;
             return;

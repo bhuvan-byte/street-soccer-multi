@@ -7,6 +7,7 @@ class Game{
         this.intervalId = null;
         this.ballHolder = null;
         this.ball = new Ball();
+        this.started = false; // game started for the first time
         this.isRunning = false;
         this.timer = new Stopwatch(300*1000);
         // this.curTime;
@@ -19,13 +20,18 @@ class Game{
         }, 16);
         this.sendTime(); //start emitting time left at 1 second interval 
     }
-    stop(){
-        // this.isRunning = false;
-        clearInterval(this.intervalId);
+    start(){
+        this.allotTeams();
+        if(!this.started) this.reset();
+        this.started = true;
+        let countDown = 3000;
+        io.in(this.roomName).emit("countDown",Math.floor(countDown/1000));
+        setTimeout(() => {
+            this.isRunning = true;
+            this.timer.start();
+        }, countDown);
     }
-    reset(){ // server side function
-        // reset ball + all players
-        // this.ball.reset();
+    allotTeams(){
         // count all three types of players teamA,teamB,notYetDecided 
         let teamACount=0;
         let teamBCount=0;
@@ -49,32 +55,53 @@ class Game{
             teamBFinalSize = Math.max(teamBCount,Math.floor(totalPpl/2));
             teamAFinalSize = totalPpl - teamBFinalSize;
         }
-        console.log(`tc->${totalPpl},tc/2->${Math.floor(totalPpl/2)}`);
-        console.log(`a->${teamACount}, fa->${teamAFinalSize}`);
-        console.log(`b->${teamBCount}, fb->${teamBFinalSize}`);
+        // console.log(`tc->${totalPpl},tc/2->${Math.floor(totalPpl/2)}`);
+        // console.log(`a->${teamACount}, fa->${teamAFinalSize}`);
+        // console.log(`b->${teamBCount}, fb->${teamBFinalSize}`);
         let left_ptr = 0;
         let right_ptr = 0; // these are indexes to refer to array of formations and locate a player
         for(let key in this.players){
-            if(this.players[key].teamName == "A"){ // team on left side
-                this.players[key].reset(basic_formation.teamL[left_ptr].x,basic_formation.teamL[left_ptr].y);
-                left_ptr++;
-            } else if(this.players[key].teamName == "B"){ // team on right side
-                this.players[key].reset(basic_formation.teamR[right_ptr].x,basic_formation.teamR[right_ptr].y);
-                right_ptr++;
-            } else{ // assign team as per need //  hope that this need does not arrise and players select team themselves 
+            if(this.players[key].teamName == "notYetDecided"){ // assign team as per need //  hope that this need does not arrise and players select team themselves 
                 if(teamAFinalSize>teamACount){ // there is space in teamA for this guy
                     io.in(this.roomName).emit("changeTeam",{id:key,team:"A"});
                     this.players[key].teamName = "A";
-                    this.players[key].reset(basic_formation.teamL[left_ptr].x,basic_formation.teamL[left_ptr].y);
-                    left_ptr++;
                     teamACount++;
                 } else{
                     io.in(this.roomName).emit("changeTeam",{id:key,team:"B"});
                     this.players[key].teamName = "B";
-                    this.players[key].reset(basic_formation.teamR[right_ptr].x,basic_formation.teamR[right_ptr].y);
-                    right_ptr++;
                     teamBCount++;
                 }
+            }
+        }
+    }
+    reset(startTeam){ // server side function
+        // reset ball + all players
+        console.log(`start team -> ${startTeam}`);
+        startTeam = startTeam ?? "A";
+        this.ball.reset();   
+        let startPlayer = 0; // set this 1 when the player is assigned centre spot
+        let left_ptr = 0;
+        let right_ptr = 0; // these are indexes to refer to array of formations and locate a player
+        for(let key in this.players){
+            if(this.players[key].teamName == "A"){ // team on left side
+                if(startTeam=="A" && startPlayer == 0 ){
+                    this.players[key].reset(20,10);
+                    startPlayer = 1;
+                } else{
+                    this.players[key].reset(basic_formation.teamL[left_ptr].x,basic_formation.teamL[left_ptr].y);
+                    left_ptr++;
+                }                
+            } else if(this.players[key].teamName == "B"){ // team on right side
+                if(startTeam=="B" && startPlayer == 0 ){
+                    this.players[key].reset(20,10);
+                    startPlayer = 1;
+                } else{
+                   
+                    this.players[key].reset(basic_formation.teamR[right_ptr].x,basic_formation.teamR[right_ptr].y);
+                    right_ptr++;
+                }
+            } else{ // assign team as per need //  hope that this need does not arrise and players select team themselves 
+               console.log(`team not alloted u should not be here. fix the bugs`);
             }
         }
     }
@@ -89,6 +116,7 @@ class Game{
         this.players[id] = player;
     }
     shoot(mouse,id){ // called from websocket.js
+        if(!this.isRunning) return ;
         this.players[id].thetaHandler(mouse.x,mouse.y);
         let canShoot = this.ball.isCollide(this.players[id]);
         if(canShoot){
@@ -131,7 +159,12 @@ class Game{
         if(newHolder) this.players[newHolder].hasBall = true;
         if(isGoal){
             io.in(this.roomName).emit('play-sound',"goal");
-            this.reset();
+            this.isRunning = false;
+            this.timer.stop();
+            setTimeout(() => {
+                this.reset(isGoal);
+                this.start();
+            }, 5000);
         } 
         // this.ball.wallCollide();
         this.ballHolder = newHolder;

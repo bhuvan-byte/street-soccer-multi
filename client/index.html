@@ -45,17 +45,21 @@
         </div>
 
     </div>
-    <div class="game-screen-div">
+    <div class="game-screen-div dont-show-at-welcome">
         <div class="left-part">
-            <div class="top-row dont-show-at-welcome">
+            <div class="top-row">
                 <div class="clock-timer">
                     <span id="time-left" class="btn btn-info btn-sm" style="pointer-events: none;">5:00</span>
                     <button class="btn btn-warning btn-sm" id="start-btn">Start/Pause</button>
+                    <span class="btn btn-dark btn-sm" id="three-two-one" style="pointer-events: none;"></span>
+                    
                 </div>
             </div>
-            <div id="canvasDiv"></div>
+            <div id="canvasDiv">
+                <!-- <div id="go321">3</div> -->
+            </div>
         </div>
-        <div id="others" class="dont-show-at-welcome">
+        <div id="others">
             <div id="roomCodeDiv">
                 Room Code: <span id="roomCodeDisplay"></span>
             </div>

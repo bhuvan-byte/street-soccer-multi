@@ -23,8 +23,9 @@ class Ball extends Entity{
     wallCollide(wall_e){ //server side
         if(this.x-this.radius<this.xgap){ // left wall collision
             if(this.y>=C.Height/2-C.goalH/2 && this.y<=C.Height/2+C.goalH/2){ // check for goal
-                this.reset();
-                return true;
+                // this.reset();
+                // goal made in court of teamA. teamA will start next round
+                return "A";
             } else{
                 this.x=this.radius+this.xgap;
                 this.vx *= -wall_e;
@@ -32,8 +33,9 @@ class Ball extends Entity{
         }
         if(this.x+this.radius>C.Width-this.xgap){ // right wall collision
             if(this.y>=C.Height/2-C.goalH/2 && this.y<=C.Height/2+C.goalH/2){ // check for goal
-                this.reset();
-                return true;
+                // this.reset();
+                // goal made in court of teamB. teamB will start next round
+                return "B";
             }else{
                 this.x=C.Width -this.xgap-this.radius;
                 this.vx *= -wall_e;

@@ -21,7 +21,7 @@ function init(data) {
     allowSetup = true;
     setup();
     welcomePage.style.display = 'none';
-    topRow.classList.remove('dont-show-at-welcome');
+    gameScreenDiv.classList.remove('dont-show-at-welcome');
     document.removeEventListener("mousedown",roomJoinDynamicClick);
     others.style.display = 'block'; // what is this
     onClock(data);

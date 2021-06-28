@@ -132,9 +132,14 @@ io.on("connection", (sock) => {
     }
 
     function handleStartPause(){
-        console.log(`start pause button pressed`);
-        games[sock.roomName].isRunning = !games[sock.roomName].isRunning;
-        games[sock.roomName].timer.toggle();
+        console.log(`start pause button pressed by ${sock.id} in room ${sock.roomName}`);
+        let isRunning = games[sock.roomName].isRunning ;
+        if(isRunning){
+            games[sock.roomName].isRunning = false;
+            games[sock.roomName].timer.stop();
+        }else{
+            games[sock.roomName].start();
+        }
         console.log(`isRunning = ${games[sock.roomName].isRunning}`);
         // if(games[sock.roomName].isRunning){
         //     games[sock.roomName].stop();

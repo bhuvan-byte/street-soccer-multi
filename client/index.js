@@ -43,6 +43,16 @@ function onClock(data){
     if(apna_player) apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
 }
 
+sock.on('countDown',(countDownTime)=>{
+    console.log(`countdown-signal recieved`);
+    threeTwoOne.innerText = countDownTime;
+    setTimeout(function doSomething() {
+        countDownTime --;
+        threeTwoOne.innerText = countDownTime;
+        if(countDownTime>0) setTimeout(doSomething, 1000);
+    }, 1000);
+});
+
 sock.on('play-sound',(event)=>{
     console.log('in play-sound', event);
     let kickVolume = kickVolumeInput.value/100;

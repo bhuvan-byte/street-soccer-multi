@@ -10,6 +10,13 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+#go321{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+}
 .my-container{
     margin-top: 15px;
 }
