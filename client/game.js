@@ -8,8 +8,8 @@ class Game{
         this.ballHolder = null;
         this.ball = new Ball();
         this.isRunning = false;
-        this.timeLeft = 300;
-        this.curTime;
+        this.timer = new Stopwatch(300*1000);
+        // this.curTime;
     }
     run(){
         // this.isRunning = true;
@@ -17,7 +17,7 @@ class Game{
             this.update();
             this.serverSend();
         }, 16);
-        this.startTimer();
+        this.sendTime(); //start emitting time left at 1 second interval 
     }
     stop(){
         // this.isRunning = false;
@@ -78,22 +78,15 @@ class Game{
             }
         }
     }
-    startTimer(){
+    sendTime(){
         setInterval(() => {
-            let newTime = Date.now();
-            if(this.isRunning){
-                this.timeLeft  -= ((newTime-this.curTime)/1000) ;
-                this.curTime = newTime;
-                io.in(this.roomName).emit('timeLeft',this.timeLeft); 
-            } else{
-                this.curTime = newTime;
-            }
+            io.in(this.roomName).emit('timeLeft',this.timer.getMilliseconds()/1000); 
         }, 1000);
         // Date.
     }
-    addPlayer(sock){
-        let player = new Player(sock.id,Math.random()*C.Width,Math.random()*C.Height,C.playerRadius,false,sock.username,sock);
-        this.players[sock.id] = player;
+    addPlayer(id,username){
+        let player = new Player(id,Math.random()*C.Width,Math.random()*C.Height,C.playerRadius,false,username);
+        this.players[id] = player;
     }
     shoot(mouse,id){ // called from websocket.js
         this.players[id].thetaHandler(mouse.x,mouse.y);
@@ -109,7 +102,7 @@ class Game{
             io.in(this.roomName).emit('play-sound',"kick");
         }
     }
-    update(){ // server side update
+    ballUpdate(){
         // Ball collision and possession
         let newHolder = null;
         for(let key in this.players){
@@ -142,7 +135,10 @@ class Game{
         } 
         // this.ball.wallCollide();
         this.ballHolder = newHolder;
-        
+    }
+    update(){ // server side update
+        if(this.isRunning) this.ballUpdate();
+        else this.ball.update();
         for(let [key,player] of Object.entries(this.players)){
             player.update();
             player.wallCollide();
@@ -201,7 +197,14 @@ class Game{
         for(let key in this.players){
             playerData[key] = this.players[key].getInitData();
         }
-        io.in(this.roomName).emit("init",{roomName:this.roomName,playerData:playerData,ballData:this.ball.getData()});
+        let playerCount = Object.keys(this.players).length ;
+        let initDict = {
+            roomName:this.roomName,
+            playerData:playerData,
+            ballData:this.ball.getData(),
+            isAdmin: (playerCount == 1),
+        }; 
+        io.in(this.roomName).emit("init",initDict);
     }
 }
 if (typeof module != "undefined"){

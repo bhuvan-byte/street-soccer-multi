@@ -31,15 +31,13 @@ function init(data) {
         extractOnlinePlayers(game.players);
         handleUpdateTeams(game.players);
     }, 1000);
-    setTimeout(() => {
-        if(sock.id in game.players){
-            apna_player = game.players[sock.id];
-            apna_player.client();
-        }else{
-            console.log("my player undefined");
-            alert("rejoin!");
-        }
-    }, 400);
+    if(sock.id in game.players){
+        apna_player = game.players[sock.id];
+        apna_player.client();
+    }else{
+        console.log("my player undefined");
+        alert("rejoin!");
+    }
 }
 
 function handleUpdateTeams(playerData){

@@ -71,7 +71,8 @@ io.on("connection", (sock) => {
         sock.roomName = roomName;
         sock.username = username;
         const game = games[roomName];
-        game.addPlayer(sock);
+        // if(Object.keys(games[roomName].players).length<2)
+        game.addPlayer(sock.id,sock.username);
         // sock.emit('init',{playerNo:sock.number,roomName:roomName});
         game.sendInitData();
         // io.in(roomName).emit('newPlayer',{id:sock.id,playerNo:sock.number,username:sock.username});
@@ -107,8 +108,9 @@ io.on("connection", (sock) => {
         let roomName = "ROOM";
         if(!games[roomName]) {
             handleNewRoom({roomName:"ROOM",username:username});
+        }else{
+            handleJoinRoom({roomName:"ROOM",username:username});
         }
-        newPlayer(roomName,username);        
     }
     function handlechangeTeam(team){
         try{
@@ -123,6 +125,7 @@ io.on("connection", (sock) => {
     function handleGetRoomList(){
         let roomList = {};
         for(let room in games){
+            //Possible error: Cannot read property 'size' of undefined
             roomList[room] = io.sockets.adapter.rooms.get(room).size;
         }
         sock.emit('get-room-list',roomList);
@@ -131,6 +134,7 @@ io.on("connection", (sock) => {
     function handleStartPause(){
         console.log(`start pause button pressed`);
         games[sock.roomName].isRunning = !games[sock.roomName].isRunning;
+        games[sock.roomName].timer.toggle();
         console.log(`isRunning = ${games[sock.roomName].isRunning}`);
         // if(games[sock.roomName].isRunning){
         //     games[sock.roomName].stop();
