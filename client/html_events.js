@@ -1,6 +1,6 @@
 const sock = io();
 const welcomePage = document.getElementById('welcomePage');
-const createBtn = document.getElementById('createButton');
+const createBtn = document.getElementById('createBtn');
 const joinBtn = document.getElementById('joinButton');
 const joinDefaultRoomBtn = document.getElementById('joinDefaultRoom');
 const roomNameInput = document.getElementById('roomCode');

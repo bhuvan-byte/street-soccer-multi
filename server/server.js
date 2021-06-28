@@ -17,6 +17,7 @@ app.get("/",function(req,res) {
 app.use("/",express.static("client"));
 
 // required only to run the file once
+const stopwatch_ = require("../client/stopwatch.js");
 const constants_ = require("../client/constants.js");
 const player_ = require("../client/player.js");
 const ball_ = require("../client/ball.js");

@@ -72,7 +72,7 @@ io.on("connection", (sock) => {
         sock.username = username;
         const game = games[roomName];
         // if(Object.keys(games[roomName].players).length<2)
-        game.addPlayer(sock);
+        game.addPlayer(sock.id,sock.username);
         // sock.emit('init',{playerNo:sock.number,roomName:roomName});
         game.sendInitData();
         // io.in(roomName).emit('newPlayer',{id:sock.id,playerNo:sock.number,username:sock.username});
@@ -134,6 +134,7 @@ io.on("connection", (sock) => {
     function handleStartPause(){
         console.log(`start pause button pressed`);
         games[sock.roomName].isRunning = !games[sock.roomName].isRunning;
+        games[sock.roomName].timer.toggle();
         console.log(`isRunning = ${games[sock.roomName].isRunning}`);
         // if(games[sock.roomName].isRunning){
         //     games[sock.roomName].stop();
