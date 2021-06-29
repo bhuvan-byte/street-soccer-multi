@@ -24,8 +24,8 @@ class Stopwatch {
         this.isRunning = false;
     }
     reset(){
-        this.starttime = this.isRunning ? Date.now() : null;
-    
+        this.isRunning = false;
+        this.timespent = 0;
     }
 }
 if(typeof module != "undefined"){

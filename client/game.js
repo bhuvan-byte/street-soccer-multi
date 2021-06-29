@@ -9,7 +9,8 @@ class Game{
         this.ball = new Ball();
         this.started = false; // game started for the first time
         this.isRunning = false;
-        this.timer = new Stopwatch(300*1000);
+        this.timer = new Stopwatch(10*1000);
+        this.waitList = {};
         // this.curTime;
     }
     run(){
@@ -107,13 +108,29 @@ class Game{
     }
     sendTime(){
         setInterval(() => {
-            io.in(this.roomName).emit('timeLeft',this.timer.getMilliseconds()/1000); 
+            let timeLeft = this.timer.getMilliseconds()/1000;
+            io.in(this.roomName).emit('timeLeft',timeLeft);
+            if(timeLeft<=1){
+                // Complete Game Restart
+                this.isRunning = false;
+                this.timer.reset();
+                this.started = false;
+                this.clearWaitList();
+            } 
         }, 1000);
         // Date.
     }
     addPlayer(id,username){
         let player = new Player(id,Math.random()*C.Width,Math.random()*C.Height,C.playerRadius,false,username);
-        this.players[id] = player;
+        if(!this.started) this.players[id] = player;
+        else this.waitList[id] = player;
+    }
+    clearWaitList(){
+        for(let key in this.waitList){
+            this.players[key] = this.waitList[key];
+        }
+        this.sendInitData();
+        this.waitList={};
     }
     shoot(mouse,id){ // called from websocket.js
         if(!this.isRunning) return ;
@@ -249,6 +266,7 @@ class Game{
             ballData:this.ball.getData(),
             isAdmin: (playerCount == 1),
         }; 
+        // BUG: Client setup function runs each time a new player joins !!
         io.in(this.roomName).emit("init",initDict);
     }
 }
