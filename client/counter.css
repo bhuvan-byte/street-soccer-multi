@@ -1,19 +1,19 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:700");
-html {
+/* html {
   box-sizing: border-box;
-}
+} */
 
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
-body {
+/* body {
   height: 100vh;
   background-color: #47ebb4;
   font-family: "Montserrat", sans-serif;
   -webkit-animation: 3s 0.875s cubic-bezier(0.9, 0, 0.1, 1) forwards background_color;
           animation: 3s 0.875s cubic-bezier(0.9, 0, 0.1, 1) forwards background_color;
-}
+} */
 @-webkit-keyframes background_color {
   33.3333333333% {
     background-color: #ebb447;
@@ -60,6 +60,11 @@ div#go321 {
   color: white;
   border-radius: 50%;
   font-weight: 700;
+  background-color: #47ebb4;
+    font-family: "Montserrat", sans-serif;
+    -webkit-animation: 3s 0.875s cubic-bezier(0.9, 0, 0.1, 1) forwards background_color;
+          animation: 3s 0.875s cubic-bezier(0.9, 0, 0.1, 1) forwards background_color;
+
 }
 @media (min-width: 600px) {
   div#go321 {
