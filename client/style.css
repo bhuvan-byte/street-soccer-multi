@@ -10,12 +10,14 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+#canvasDiv{
+    display: flex;
+    justify-content: center;
+}
 #go321{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 50px;
+    top: 60%;
+    font-size: 100px;
 }
 .my-container{
     margin-top: 15px;

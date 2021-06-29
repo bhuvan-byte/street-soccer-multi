@@ -49,6 +49,7 @@ sock.on('countDown',(countDownTime)=>{
     setTimeout(function doSomething() {
         countDownTime --;
         threeTwoOne.innerText = countDownTime;
+        if(countDownTime==0) threeTwoOne.innerText = "";
         if(countDownTime>0) setTimeout(doSomething, 1000);
     }, 1000);
 });
