@@ -43,6 +43,7 @@ function inithelper(data) {
     }, 1000);
     if(sock.id in game.players){
         apna_player = game.players[sock.id];
+        apna_player.strokeColor="#00ff08";
         apna_player.client();
     }else{
         console.log("my player undefined");
