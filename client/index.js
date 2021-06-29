@@ -1,6 +1,7 @@
 /// <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
 "use strict";
 var allowSetup = false,apna_player;
+let setupDone = false;
 let game ;
 let bluePlayerImgList,redPlayerImgList,whitePlayerImgList;
 let BlueFullImg, RedFullImg, WhiteFullImg ;
@@ -102,7 +103,6 @@ function preload(){
 }
 
 function setup() {
-    if(!allowSetup) return;
     console.log('setup');
     const canvas = createCanvas(C.Width,C.Height);
     canvas.parent('canvasDiv');
@@ -113,6 +113,7 @@ function setup() {
     bluePlayerImgList = extractImage(BlueFullImg);
     redPlayerImgList = extractImage(RedFullImg);        
     whitePlayerImgList = extractImage(WhiteFullImg);
+    setupDone = true;
     // fullscreen(1);
 }
 

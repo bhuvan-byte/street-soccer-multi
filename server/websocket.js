@@ -5,7 +5,7 @@ const { newRoomName } = require('./utils');
 const {Game} = require("../client/game");
 const assert = require('assert');
 let games = {};
-let idToRoom = {};
+// let idToRoom = {};
 
 const io = socketio(server,{
     cors:{
@@ -62,7 +62,7 @@ io.on("connection", (sock) => {
     sock.on('start/pause-signal',handleStartPause);
 
     function newPlayer(roomName,username){
-        idToRoom[sock.id] =roomName;
+        // idToRoom[sock.id] =roomName;
         sock.emit('gameCode',roomName);
         sock.join(roomName);
         console.log(`playerid ${sock.id} joined the room ${roomName}`);
@@ -125,8 +125,12 @@ io.on("connection", (sock) => {
     function handleGetRoomList(){
         let roomList = {};
         for(let room in games){
-            //Possible error: Cannot read property 'size' of undefined
-            roomList[room] = io.sockets.adapter.rooms.get(room).size;
+            // BUG: Possible error: Cannot read property 'size' of undefined
+            if(io.sockets.adapter.rooms.has(room))
+                roomList[room] = io.sockets.adapter.rooms.get(room).size;
+            else {
+                console.log(`SAVED FROM CRASHING!`);
+            }
         }
         sock.emit('get-room-list',roomList);
     }

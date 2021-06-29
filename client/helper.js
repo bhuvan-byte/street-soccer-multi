@@ -14,18 +14,28 @@ function showRoomList(data){
         roomList = newRoomList;
     }
 }
-function init(data) {
+function init(data){
+    if(!setupDone) {
+        setTimeout(init, 100); /* this checks the flag every 100 milliseconds*/
+    } else {
+        inithelper(data);
+    }
+}
+function inithelper(data) {
     let {playerNo,roomName} = data;
     console.log(`playerNo = ${playerNo}`);
-    game = new Game(roomName);
+    if(!allowSetup) game = new Game(roomName);
+    
+    onClock(data);
+    for(const key in game.players) game.players[key].changeTeam();
+    if(allowSetup) return;
+    
     allowSetup = true;
-    setup();
+    // setup();
     welcomePage.style.display = 'none';
     gameScreenDiv.classList.remove('dont-show-at-welcome');
     document.removeEventListener("mousedown",roomJoinDynamicClick);
     others.style.display = 'block'; // what is this
-    onClock(data);
-    for(const key in game.players) game.players[key].changeTeam();
     slowIntervalId = setInterval(() => {
         fps = frameRate();
         extractOnlinePlayers(game.players);

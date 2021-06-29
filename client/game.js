@@ -9,7 +9,7 @@ class Game{
         this.ball = new Ball();
         this.started = false; // game started for the first time
         this.isRunning = false;
-        this.timer = new Stopwatch(30*1000);
+        this.timer = new Stopwatch(300*1000);
         this.waitList = {};
         this.scoreA = 0;
         this.scoreB = 0;
