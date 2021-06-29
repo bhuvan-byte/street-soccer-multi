@@ -9,6 +9,7 @@ let fps;
 let kickSound=document.getElementById('kick-sound');
 let goalSound=document.getElementById('goal-sound');
 let bgm;
+// let scoreAFrontEnd=0,scoreBFrontEnd=0; //to display scores on canvas
 
 getPing();
 sock.on('init', init);
@@ -65,7 +66,15 @@ sock.on('play-sound',(event)=>{
         goalSound.volume = goalVolume;
         goalSound.play();
     }
-})
+});
+
+sock.on('score',({scoreA,scoreB})=>{
+    console.log(`scoreA = ${scoreA}, scoreB = ${scoreB}`);
+    // to display score on canvas
+    // scoreAFrontEnd = scoreA;
+    // scoreBFrontEnd = scoreB;
+    scoreBoard.innerHTML = `${scoreA} - ${scoreB}`;
+});
 
 
 function handleGameCode(gameCode) { //to display room code
