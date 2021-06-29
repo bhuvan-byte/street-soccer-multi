@@ -19,7 +19,7 @@ C.wall_e_ball = 0.9;
 C.animationSpeed = 0.04 ; // it is ratio by which vel is multiplied
 C.scaleFieldX = C.Width/40; // to multiply with coordinates from formation
 C.scaleFieldY = C.Height/20;
-
+C.countDown = 4000; // 3-2-1-go
 // currently made for <=7 players/team
 // |-7-|-6-|-4-||-4-|-6-|-7-|
 const basic_formation = {

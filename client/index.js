@@ -43,16 +43,21 @@ function onClock(data){
     game.updateClient(playerData,ballData);  // update it in game.js
     if(apna_player) apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
 }
-
+// var detached = $('#go321').detach();
+$('#go321').hide();
 sock.on('countDown',(countDownTime)=>{
-    console.log(`countdown-signal recieved`);
-    threeTwoOne.innerText = countDownTime;
-    setTimeout(function doSomething() {
-        countDownTime --;
-        threeTwoOne.innerText = countDownTime;
-        if(countDownTime==0) threeTwoOne.innerText = "";
-        if(countDownTime>0) setTimeout(doSomething, 1000);
-    }, 1000);
+    console.log(`countdown-signal recieved ${countDownTime}`);
+    $('#go321').show();
+    setTimeout(() => {
+        $('#go321').hide();
+    }, countDownTime);
+    // threeTwoOne.innerText = countDownTime;
+    // setTimeout(function doSomething() {
+    //     countDownTime --;
+    //     threeTwoOne.innerText = countDownTime;
+    //     if(countDownTime==0) threeTwoOne.innerText = "";
+    //     if(countDownTime>0) setTimeout(doSomething, 1000);
+    // }, 1000);
 });
 
 sock.on('play-sound',(event)=>{

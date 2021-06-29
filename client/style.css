@@ -13,13 +13,14 @@ body {
 #canvasDiv{
     display: flex;
     justify-content: center;
+    /* align-items: center; */
 }
-#go321{
+/* #go321{
     position: absolute;
-    top: 60%;
+    top: 40%;
     font-size: 100px;
     color: blue;
-}
+} */
 .my-container{
     margin-top: 15px;
 }

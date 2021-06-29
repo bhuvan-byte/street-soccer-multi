@@ -9,7 +9,7 @@ class Game{
         this.ball = new Ball();
         this.started = false; // game started for the first time
         this.isRunning = false;
-        this.timer = new Stopwatch(10*1000);
+        this.timer = new Stopwatch(30*1000);
         this.waitList = {};
         this.scoreA = 0;
         this.scoreB = 0;
@@ -27,12 +27,11 @@ class Game{
         this.allotTeams();
         if(!this.started) this.reset();
         this.started = true;
-        let countDown = 3000;
-        io.in(this.roomName).emit("countDown",Math.floor(countDown/1000));
+        io.in(this.roomName).emit("countDown",C.countDown);
         setTimeout(() => {
             this.isRunning = true;
             this.timer.start();
-        }, countDown);
+        }, C.countDown);
     }
     allotTeams(){
         // count all three types of players teamA,teamB,notYetDecided 
@@ -178,15 +177,19 @@ class Game{
         }
         if(newHolder) this.players[newHolder].hasBall = true;
         // console.log(this.ballHolder,newHolder);
-        if(newHolder != this.ballHolder){
-            if(this.ballHolder){
-                this.players[this.ballHolder].multiplyAcc(1/C.playerAccFac);
-                console.log(`increasing acc of ${this.ballHolder}`);
+        try{
+            if(newHolder != this.ballHolder){
+                if(this.ballHolder){
+                    this.players[this.ballHolder].multiplyAcc(1/C.playerAccFac);
+                    console.log(`increasing acc of ${this.ballHolder}`);
+                }
+                if(newHolder){
+                    this.players[newHolder].multiplyAcc(C.playerAccFac);
+                    console.log(`decreasing acc of ${newHolder}`);
+                }
             }
-            if(newHolder){
-                this.players[newHolder].multiplyAcc(C.playerAccFac);
-                console.log(`decreasing acc of ${newHolder}`);
-            }
+        }catch(err){
+            console.log(`Fix ${err}`);
         }
         if(isGoal){ // ALERT isGoal represents the court in which goal was scored and not the team which scored the goal
             if(isGoal == "A"){ // hence increase score of b if isGoal = "A"
