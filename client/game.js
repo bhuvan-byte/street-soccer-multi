@@ -11,6 +11,8 @@ class Game{
         this.isRunning = false;
         this.timer = new Stopwatch(10*1000);
         this.waitList = {};
+        this.scoreA = 0;
+        this.scoreB = 0;
         // this.curTime;
     }
     run(){
@@ -148,7 +150,7 @@ class Game{
             io.in(this.roomName).emit('play-sound',"kick");
         }
     }
-    ballUpdate(){
+    ballUpdate(){ //server side function
         // Ball collision and possession
         let newHolder = null;
         for(let key in this.players){
@@ -186,7 +188,13 @@ class Game{
                 console.log(`decreasing acc of ${newHolder}`);
             }
         }
-        if(isGoal){
+        if(isGoal){ // ALERT isGoal represents the court in which goal was scored and not the team which scored the goal
+            if(isGoal == "A"){ // hence increase score of b if isGoal = "A"
+                this.scoreB++;
+            } else{
+                this.scoreA++;
+            } 
+            io.in(this.roomName).emit('score',{scoreA:this.scoreA,scoreB:this.scoreB});
             io.in(this.roomName).emit('play-sound',"goal");
             this.isRunning = false;
             this.timer.stop();
@@ -221,6 +229,12 @@ class Game{
         for(let key in arr){
             arr[key].display();
         }
+        // display score on canvas
+        // textSize(20);
+        // fill('#0000FF');
+        // strokeWeight(1);
+        // text(`A -> ${scoreAFrontEnd}`,5*C.scaleFieldX,19.5*C.scaleFieldY);
+        // text(`B -> ${scoreBFrontEnd}`,20*C.scaleFieldX,19.5*C.scaleFieldY);
     }
     updateClient(playerData,ballData){ // client side update called every clock cycle
         // const t0 = performance.now();
