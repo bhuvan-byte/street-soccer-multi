@@ -11,6 +11,20 @@ body {
     background-repeat: no-repeat;
     background-size: cover;    
 }
+
+#loading{
+    position:fixed;
+    background:  #b0c7a2
+                url('./assets/spinner1.gif')
+                no-repeat center;
+    
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+
 #canvasDiv{
     display: flex;
     justify-content: center;
@@ -142,4 +156,76 @@ body {
 #overlay.active {
     opacity: 1;
     pointer-events: all;
+}
+
+#score-board{
+    /* background: #314755;  
+    background: -webkit-linear-gradient(to right, #26a0da, #314755);  
+    background: linear-gradient(to right, #26a0da, #314755); */
+    background: #b92b27;  
+    background: -webkit-linear-gradient(to right, #1565C0, #b92b27);  
+    background: linear-gradient(to right, #1565C0, #b92b27); 
+
+    display: inline-block;
+    color: white;
+    position: relative;
+    /* border-radius: 10%; */
+    /* border: 1px solid black; */
+}
+.teamA{
+    /* background-color: rgba(223, 200, 200, 0.726); */
+    display: inline-block;
+    padding: 0px 15px 0px 15px;
+    position: relative;
+    text-align: center;
+}
+.teamA::before{
+    content: '';
+    background-color: blue;
+    width: 0.1em;
+    height: 1.5em;
+    position: absolute;
+    left: 0em;
+}
+.teamA::after{
+    content: '';
+    position: absolute;
+    right: -1em;
+    border-style: solid;
+    border-width: 12px;
+    border-left-color: blue;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+.teamB{
+    /* background-color: rgba(223, 200, 200, 0.726); */
+    display: inline-block;
+    padding: 0px 15px 0px 15px;
+    position: relative;
+    text-align: center;
+}
+.teamB::before{
+    content: '';
+    position: absolute;
+    left: -1em;
+    border-style: solid;
+    border-width: 12px;
+    border-right-color: red;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+.teamB::after{
+    content: '';
+    background-color: red;
+    width: 0.1em;
+    height: 1.5em;
+    position: absolute;
+    right: 0em;
+}
+.score{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 8px;
 }

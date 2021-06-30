@@ -68,13 +68,28 @@ function handleUpdateTeams(playerData){
 }
 
 function extractOnlinePlayers(playerData){
-    let online_players='<ul>OnlinePlayers';
+    // UNSAFE TOWARDS INJECTIONS
+    // let online_players='<ul>OnlinePlayers';
+
+    // for(let key in playerData){ 
+    //     // console.log(playerData[key].username);
+    //     online_players+=`<li>`+playerData[key].username+`</li>`;
+    // }
+    // online_players+='</ul>';
+    // OnlinePlayers.innerHTML=online_players;
+
+    // other way which is safe towards injections
+    // NEVER USE .INNERHTML TAG ON USER INPUT 
+    // ALWAYS USE .INNETTEXT WHEN DEALING WITH USER INPUT
+    // console.info(playerData);
+    let onlinePlayersNew = document.createElement('ol');
     for(let key in playerData){
-        // console.log(playerData[key].username);
-        online_players+=`<li>`+playerData[key].username+`</li>`;
+        let li = document.createElement('li');
+        li.innerText = playerData[key].username;
+        onlinePlayersNew.appendChild(li);
     }
-    online_players+='</ul>';
-    OnlinePlayers.innerHTML=online_players;
+    // console.log(`onlinePlayersNew -> ${onlinePlayersNew}`);
+    OnlinePlayers.innerHTML = onlinePlayersNew.innerHTML;
 }
 
 function extractImage(fullImage){

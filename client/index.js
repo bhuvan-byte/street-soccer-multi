@@ -80,7 +80,9 @@ sock.on('score',({scoreA,scoreB})=>{
     // to display score on canvas
     // scoreAFrontEnd = scoreA;
     // scoreBFrontEnd = scoreB;
-    scoreBoard.innerHTML = `${scoreA} - ${scoreB}`;
+    // scoreBoard.innerHTML = `${scoreA} - ${scoreB}`;
+    scoreBoardA.innerText = scoreA;
+    scoreBoardB.innerText = scoreB;
 });
 
 
@@ -104,6 +106,7 @@ function preload(){
 
 function setup() {
     console.log('setup');
+    loader.style.display = 'none';
     const canvas = createCanvas(C.Width,C.Height);
     canvas.parent('canvasDiv');
     textFont('Georgia');

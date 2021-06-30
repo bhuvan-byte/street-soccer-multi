@@ -23,6 +23,7 @@
     <audio autoplay loop><source src="./assets/pocket.mp3" type="audio/mp3"></audio>
     <!-- autoplay in these ways both work in edge and firefox not in chrome  works in chrome after doing some stuff on page and reloading it 2 times-->
 
+    <div id="loading"></div>
     <div class="my-container base" id="welcomePage">
         <div class="my-container card">
             <div class="row">
@@ -55,7 +56,19 @@
         <div class="left-part">
             <div class="top-row">
                 <div class="clock-timer">
-                    <span id="score-board" class="btn btn-danger btn-sm" style="pointer-events: none;">0 - 0</span>
+                    <!-- <span id="score-board" class="btn btn-danger btn-sm" style="pointer-events: none;">0 - 0</span> -->
+                    <div id="score-board">
+                        <div class="teamA">
+                            A
+                        </div>
+                        <div class="score">
+                            <span id="score-a">0</span>
+                            <span id="score-b">0</span>
+                        </div>
+                        <div class="teamB">
+                            B
+                        </div>
+                    </div>
                     <span id="time-left" class="btn btn-info btn-sm" style="pointer-events: none;">5:00</span>
                     <button class="btn btn-warning btn-sm" id="start-btn">Start/Pause</button>
                     <span class="btn btn-dark btn-sm" id="three-two-one" style="pointer-events: none;">-</span>
@@ -78,8 +91,9 @@
                         <button data-close-buttom class="my-modal-close-button" id="close-config">&times;</button>
                     </div>
                     <div class="my-modal-body">
-                        <div class="my-col" id="OnlinePlayers">
+                        <div class="my-col">
                             <header>Online</header>
+                            <ol id="OnlinePlayers"></ol>
                         </div>
                         <div class="my-col" id="TeamAJoin">
                             <header><button class="btn btn-dark">Team A</button></header>

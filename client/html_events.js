@@ -27,6 +27,10 @@ const kickVolumeInput = document.getElementById('kick-volume');
 const goalVolumeInput = document.getElementById('goal-volume');
 const threeTwoOne = document.getElementById('go321');
 const scoreBoard = document.getElementById('score-board');
+const scoreBoardA = document.getElementById('score-a');
+const scoreBoardB = document.getElementById('score-b');
+const loader = document.getElementById('loading');
+
 createBtn.addEventListener('click', newRoom);
 joinBtn.addEventListener('click', joinRoom);
 joinDefaultRoomBtn.addEventListener('click',joinDefaultRoom);
