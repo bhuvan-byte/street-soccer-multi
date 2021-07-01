@@ -30,6 +30,7 @@ const scoreBoard = document.getElementById('score-board');
 const scoreBoardA = document.getElementById('score-a');
 const scoreBoardB = document.getElementById('score-b');
 const loader = document.getElementById('loading');
+const pocketSound = document.getElementById('pocket-sound');
 
 createBtn.addEventListener('click', newRoom);
 joinBtn.addEventListener('click', joinRoom);

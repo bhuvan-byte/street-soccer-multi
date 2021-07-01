@@ -30,6 +30,7 @@ function inithelper(data) {
     for(const key in game.players) game.players[key].changeTeam();
     if(allowSetup) return;
     
+    pocketSound.play();
     allowSetup = true;
     // setup();
     welcomePage.style.display = 'none';
@@ -52,19 +53,35 @@ function inithelper(data) {
 }
 
 function handleUpdateTeams(playerData){
-    let team_a = '<ul>';
-    let team_b = '<ul>';
+    // UNSAFE TOWARDS INJECTIONS
+    // let team_a = '<ul>';
+    // let team_b = '<ul>';
+    // for(let key in playerData){
+    //     // console.log(playerData[key].teamName);
+    //     if(playerData[key].teamName==="A")
+    //         team_a+=`<li>`+playerData[key].username+`</li>`;
+    //     if(playerData[key].teamName==="B") 
+    //         team_b+=`<li>`+playerData[key].username+`</li>`;
+    // }
+    // team_a+='</ul>';
+    // team_b+='</ul>';
+    // teamA.innerHTML=team_a;
+    // teamB.innerHTML=team_b;
+    let teamAnew = document.createElement('ol');
+    let teamBnew = document.createElement('ol');
+
     for(let key in playerData){
-        // console.log(playerData[key].teamName);
-        if(playerData[key].teamName==="A")
-            team_a+=`<li>`+playerData[key].username+`</li>`;
-        if(playerData[key].teamName==="B") 
-            team_b+=`<li>`+playerData[key].username+`</li>`;
+        let li = document.createElement('li');
+        li.innerText = playerData[key].username;
+        if(playerData[key].teamName==="A"){
+            teamAnew.appendChild(li);
+        }
+        if(playerData[key].teamName==="B"){
+            teamBnew.appendChild(li);
+        }        
     }
-    team_a+='</ul>';
-    team_b+='</ul>';
-    teamA.innerHTML=team_a;
-    teamB.innerHTML=team_b;
+    teamA.innerHTML = teamAnew.innerHTML;
+    teamB.innerHTML = teamBnew.innerHTML;
 }
 
 function extractOnlinePlayers(playerData){

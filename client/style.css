@@ -14,16 +14,20 @@ body {
 
 #loading{
     position:fixed;
-    background:  #b0c7a2
-                url('./assets/spinner1.gif')
-                no-repeat center;
-    
+    background:  #11616b;
+    /* no-repeat center; */
+    display: flex;
     width: 100%;
     height: 100vh;
     left: 0;
     top: 0;
     z-index: 100;
 }
+#svg-loader{
+    align-items: center;
+    justify-content: center;
+}
+
 
 #canvasDiv{
     display: flex;
