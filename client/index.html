@@ -14,20 +14,40 @@
     <link rel="stylesheet" href="./libraries/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="counter.css">
-    <script data-ad-client="ca-pub-9865751781177606" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script data-ad-client="ca-pub-9865751781177606" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 <body>
     <!-- <iframe src="./assets/goal-sound.mp3" allow="autoplay"></iframe> -->
-    <audio src="./assets/pocket.mp3" loop id="pocket-sound"></audio> 
+    <!-- <audio src="./assets/pocket.mp3" controls loop id="pocket-sound"></audio> -->
     <!-- <audio autoplay loop><source src="./assets/pocket.mp3" type="audio/mp3"></audio> -->
     <!-- autoplay in these ways both work in edge and firefox not in chrome  works in chrome after doing some stuff on page and reloading it 2 times-->
 
-    <div id="loading" >
-        <svg id="svg-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgba(241, 242, 243, 0); display: block;" width="204px" height="204px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-            <g transform="translate(50 50)">  <g transform="translate(-19 -19) scale(0.6)"> <g>
-           <animateTransform attributeName="transform" type="rotate" values="0;45" keyTimes="0;1" dur="0.2s" begin="0s" repeatCount="indefinite"></animateTransform><path d="M31.924705322619776 20.610996823635016 L38.99577313448525 27.682064635500492 L27.682064635500492 38.99577313448525 L20.610996823635016 31.924705322619776 A38 38 0 0 1 8 37.14835124201342 L8 37.14835124201342 L8 47.14835124201342 L-7.999999999999995 47.14835124201342 L-7.999999999999996 37.14835124201342 A38 38 0 0 1 -20.610996823635006 31.92470532261978 L-20.610996823635006 31.92470532261978 L-27.68206463550048 38.995773134485255 L-38.99577313448525 27.68206463550049 L-31.924705322619776 20.610996823635013 A38 38 0 0 1 -37.14835124201342 8.00000000000001 L-37.14835124201342 8.00000000000001 L-47.14835124201342 8.000000000000012 L-47.14835124201342 -8 L-37.14835124201342 -8.000000000000002 A38 38 0 0 1 -31.924705322619783 -20.610996823635006 L-31.924705322619783 -20.610996823635006 L-38.99577313448526 -27.682064635500478 L-27.68206463550051 -38.99577313448523 L-20.61099682363503 -31.924705322619765 A38 38 0 0 1 -7.9999999999999964 -37.14835124201342 L-7.9999999999999964 -37.14835124201342 L-7.999999999999998 -47.14835124201342 L7.9999999999999805 -47.14835124201342 L7.999999999999982 -37.14835124201342 A38 38 0 0 1 20.610996823635016 -31.924705322619776 L20.610996823635016 -31.924705322619776 L27.68206463550049 -38.995773134485255 L38.99577313448524 -27.68206463550051 L31.924705322619765 -20.61099682363503 A38 38 0 0 1 37.14835124201342 -7.999999999999998 L37.14835124201342 -7.999999999999998 L47.14835124201342 -8 L47.148351242013426 7.999999999999978 L37.148351242013426 7.9999999999999805 A38 38 0 0 1 31.924705322619776 20.610996823635013 M0 -23A23 23 0 1 0 0 23 A23 23 0 1 0 0 -23" fill="#62f22d"></path></g></g> <g transform="translate(19 19) scale(0.6)"> <g>
-           <animateTransform attributeName="transform" type="rotate" values="45;0" keyTimes="0;1" dur="0.2s" begin="-0.1s" repeatCount="indefinite"></animateTransform><path d="M-31.924705322619783 -20.610996823635006 L-38.99577313448526 -27.682064635500478 L-27.68206463550051 -38.99577313448523 L-20.61099682363503 -31.924705322619765 A38 38 0 0 1 -7.9999999999999964 -37.14835124201342 L-7.9999999999999964 -37.14835124201342 L-7.999999999999998 -47.14835124201342 L7.9999999999999805 -47.14835124201342 L7.999999999999982 -37.14835124201342 A38 38 0 0 1 20.610996823635016 -31.924705322619776 L20.610996823635016 -31.924705322619776 L27.68206463550049 -38.995773134485255 L38.99577313448524 -27.68206463550051 L31.924705322619765 -20.61099682363503 A38 38 0 0 1 37.14835124201342 -7.999999999999998 L37.14835124201342 -7.999999999999998 L47.14835124201342 -8 L47.148351242013426 7.999999999999978 L37.148351242013426 7.9999999999999805 A38 38 0 0 1 31.924705322619776 20.610996823635013 L31.924705322619776 20.610996823635013 L38.995773134485255 27.68206463550049 L27.682064635500513 38.99577313448523 L20.610996823635034 31.92470532261976 A38 38 0 0 1 8 37.14835124201342 L8 37.14835124201342 L8.000000000000004 47.14835124201342 L-7.999999999999976 47.148351242013426 L-7.999999999999979 37.148351242013426 A38 38 0 0 1 -20.610996823634984 31.924705322619797 L-20.610996823634984 31.924705322619797 L-27.68206463550045 38.99577313448528 L-38.99577313448521 27.682064635500545 L-31.924705322619744 20.610996823635062 A38 38 0 0 1 -37.14835124201342 8.000000000000004 L-37.14835124201342 8.000000000000004 L-47.14835124201342 8.000000000000007 L-47.148351242013426 -7.999999999999972 L-37.148351242013426 -7.999999999999975 A38 38 0 0 1 -31.924705322619758 -20.610996823635038 M0 -23A23 23 0 1 0 0 23 A23 23 0 1 0 0 -23" fill="#00ffa2"></path></g></g></g>
+    <div id="loading">
+        <svg id="svg-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            style="margin: auto; background: rgba(241, 242, 243, 0); display: block;" width="204px" height="204px"
+            viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <g transform="translate(50 50)">
+                <g transform="translate(-19 -19) scale(0.6)">
+                    <g>
+                        <animateTransform attributeName="transform" type="rotate" values="0;45" keyTimes="0;1"
+                            dur="0.2s" begin="0s" repeatCount="indefinite"></animateTransform>
+                        <path
+                            d="M31.924705322619776 20.610996823635016 L38.99577313448525 27.682064635500492 L27.682064635500492 38.99577313448525 L20.610996823635016 31.924705322619776 A38 38 0 0 1 8 37.14835124201342 L8 37.14835124201342 L8 47.14835124201342 L-7.999999999999995 47.14835124201342 L-7.999999999999996 37.14835124201342 A38 38 0 0 1 -20.610996823635006 31.92470532261978 L-20.610996823635006 31.92470532261978 L-27.68206463550048 38.995773134485255 L-38.99577313448525 27.68206463550049 L-31.924705322619776 20.610996823635013 A38 38 0 0 1 -37.14835124201342 8.00000000000001 L-37.14835124201342 8.00000000000001 L-47.14835124201342 8.000000000000012 L-47.14835124201342 -8 L-37.14835124201342 -8.000000000000002 A38 38 0 0 1 -31.924705322619783 -20.610996823635006 L-31.924705322619783 -20.610996823635006 L-38.99577313448526 -27.682064635500478 L-27.68206463550051 -38.99577313448523 L-20.61099682363503 -31.924705322619765 A38 38 0 0 1 -7.9999999999999964 -37.14835124201342 L-7.9999999999999964 -37.14835124201342 L-7.999999999999998 -47.14835124201342 L7.9999999999999805 -47.14835124201342 L7.999999999999982 -37.14835124201342 A38 38 0 0 1 20.610996823635016 -31.924705322619776 L20.610996823635016 -31.924705322619776 L27.68206463550049 -38.995773134485255 L38.99577313448524 -27.68206463550051 L31.924705322619765 -20.61099682363503 A38 38 0 0 1 37.14835124201342 -7.999999999999998 L37.14835124201342 -7.999999999999998 L47.14835124201342 -8 L47.148351242013426 7.999999999999978 L37.148351242013426 7.9999999999999805 A38 38 0 0 1 31.924705322619776 20.610996823635013 M0 -23A23 23 0 1 0 0 23 A23 23 0 1 0 0 -23"
+                            fill="#62f22d"></path>
+                    </g>
+                </g>
+                <g transform="translate(19 19) scale(0.6)">
+                    <g>
+                        <animateTransform attributeName="transform" type="rotate" values="45;0" keyTimes="0;1"
+                            dur="0.2s" begin="-0.1s" repeatCount="indefinite"></animateTransform>
+                        <path
+                            d="M-31.924705322619783 -20.610996823635006 L-38.99577313448526 -27.682064635500478 L-27.68206463550051 -38.99577313448523 L-20.61099682363503 -31.924705322619765 A38 38 0 0 1 -7.9999999999999964 -37.14835124201342 L-7.9999999999999964 -37.14835124201342 L-7.999999999999998 -47.14835124201342 L7.9999999999999805 -47.14835124201342 L7.999999999999982 -37.14835124201342 A38 38 0 0 1 20.610996823635016 -31.924705322619776 L20.610996823635016 -31.924705322619776 L27.68206463550049 -38.995773134485255 L38.99577313448524 -27.68206463550051 L31.924705322619765 -20.61099682363503 A38 38 0 0 1 37.14835124201342 -7.999999999999998 L37.14835124201342 -7.999999999999998 L47.14835124201342 -8 L47.148351242013426 7.999999999999978 L37.148351242013426 7.9999999999999805 A38 38 0 0 1 31.924705322619776 20.610996823635013 L31.924705322619776 20.610996823635013 L38.995773134485255 27.68206463550049 L27.682064635500513 38.99577313448523 L20.610996823635034 31.92470532261976 A38 38 0 0 1 8 37.14835124201342 L8 37.14835124201342 L8.000000000000004 47.14835124201342 L-7.999999999999976 47.148351242013426 L-7.999999999999979 37.148351242013426 A38 38 0 0 1 -20.610996823634984 31.924705322619797 L-20.610996823634984 31.924705322619797 L-27.68206463550045 38.99577313448528 L-38.99577313448521 27.682064635500545 L-31.924705322619744 20.610996823635062 A38 38 0 0 1 -37.14835124201342 8.000000000000004 L-37.14835124201342 8.000000000000004 L-47.14835124201342 8.000000000000007 L-47.148351242013426 -7.999999999999972 L-37.148351242013426 -7.999999999999975 A38 38 0 0 1 -31.924705322619758 -20.610996823635038 M0 -23A23 23 0 1 0 0 23 A23 23 0 1 0 0 -23"
+                            fill="#00ffa2"></path>
+                    </g>
+                </g>
+            </g>
         </svg>
     </div>
     <div class="my-container base" id="welcomePage">
@@ -56,7 +76,6 @@
                 <div id="room-name-list"></div>
             </div>
         </div>
-
     </div>
     <div class="game-screen-div dont-show-at-welcome">
         <div class="left-part">
@@ -77,8 +96,6 @@
                     </div>
                     <span id="time-left" class="btn btn-info btn-sm" style="pointer-events: none;">5:00</span>
                     <button class="btn btn-warning btn-sm" id="start-btn">Start/Pause</button>
-                    <span class="btn btn-dark btn-sm" id="three-two-one" style="pointer-events: none;">-</span>
-                    
                 </div>
             </div>
             <div id="canvasDiv">
@@ -110,25 +127,98 @@
                             <ol id="teamB"></ol>
                         </div>
                     </div>
+                </div>
+            </div>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#controlsModal">
+                Controls
+            </button>
 
+            <!-- Modal -->
+            <div class="modal fade" id="controlsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Player Controls</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="keyboard">
+                                <div class="keyboard-mini">
+                                    <div class="keyboard__row">
+                                        <div class="key--letter" data-char="W">W</div>
+                                    </div>
+                                    <div class="keyboard__row">
+                                        <div class="key--letter" data-char="A">A</div>
+                                        <div class="key--letter" data-char="S">S</div>
+                                        <div class="key--letter" data-char="D">D</div>
+                                    </div>
+                                    <div class="keyboard__row">
+                                        Move
+                                    </div>
+                                </div>
+                                <div class="keyboard-mini">
+                                    <div class="keyboard__row">
+                                        <div data-key="37" class="key--arrow">
+                                            <span>&#9650;</span>
+                                        </div>
+                                    </div>
+                                    <div class="keyboard__row">
+                                        <div data-key="37" class="key--arrow">
+                                            <span>&#9664;</span>
+                                        </div>
+                                        <div data-key="37" class="key--arrow">
+                                            <span>&#9660;</span>
+                                        </div>
+                                        <div data-key="37" class="key--arrow">
+                                            <span>&#9654;</span>
+                                        </div>
+                                    </div>
+                                    <div class="keyboard__row">
+                                        Move
+                                    </div>
+                                </div>
+                                <div class="mouse">
+                                    <div>
+                                        <img src="./assets/mouse.png" style="width: 100%; height: 100%;">
+                                    </div>
+                                    <div class="keyboard__row">
+                                        Shoot
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Ok</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="volumeSlider">
                 <div class="row">
-                    <input id="kick-volume" type="range" min="0" max="100">
-                    <p>Kick</p>
+                    <input id="sounds-volume" type="range" min="0" max="100">
+                    <p>Sounds</p>
                 </div>
-                <div class="row">
-                    <input id="goal-volume" type="range" min="0" max="100">
-                    <p>Goal</p>
-                </div>
-                <div class="row">
-                    <input id="bgm-volume" type="range" min="0" max="100">
-                    <p>BGM</p>
-                </div>
-                
+                <audio src="./assets/pocket.mp3" controls loop id="pocket-sound"></audio>
+
             </div>
             <div id="overlay"></div>
+        </div>
+        <div id="final-score-board">
+            <div class="final-score-header" style="justify-content: space-around;border-bottom: 2px solid black;">
+                Game Over
+            </div>
+            <div class="final-score-header">
+                <div class="title">teamA</div>
+                <div class="title">teamB</div>
+            </div>
+            <div class="final-score-header">
+                <div class="final-score" id="final-score-a">0</div>
+                <div class="final-score" id="final-score-b">0</div>
+            </div>
         </div>
     </div>
     <audio src="./assets/kick.mp3" id="kick-sound" preload="auto"></audio>

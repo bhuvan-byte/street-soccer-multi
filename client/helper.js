@@ -23,7 +23,7 @@ function init(data){
 }
 function inithelper(data) {
     let {playerNo,roomName} = data;
-    console.log(`playerNo = ${playerNo}`);
+    // console.log(`playerNo = ${playerNo}`);
     if(!allowSetup) game = new Game(roomName);
     
     onClock(data);
@@ -35,6 +35,7 @@ function inithelper(data) {
     // setup();
     welcomePage.style.display = 'none';
     gameScreenDiv.classList.remove('dont-show-at-welcome');
+    pocketSound.style.display='block';
     document.removeEventListener("mousedown",roomJoinDynamicClick);
     others.style.display = 'block'; // what is this
     slowIntervalId = setInterval(() => {

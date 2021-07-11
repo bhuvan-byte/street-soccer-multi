@@ -78,7 +78,7 @@ class Game{
     }
     reset(startTeam){ // server side function
         // reset ball + all players
-        console.log(`start team -> ${startTeam}`);
+        // console.log(`start team -> ${startTeam}`);
         startTeam = startTeam ?? "B";
         this.ball.reset();   
         let startPlayer = 0; // set this 1 when the player is assigned centre spot
@@ -181,11 +181,11 @@ class Game{
             if(newHolder != this.ballHolder){
                 if(this.ballHolder){
                     this.players[this.ballHolder].multiplyAcc(1/C.playerAccFac);
-                    console.log(`increasing acc of ${this.ballHolder}`);
+                    // console.log(`increasing acc of ${this.ballHolder}`);
                 }
                 if(newHolder){
                     this.players[newHolder].multiplyAcc(C.playerAccFac);
-                    console.log(`decreasing acc of ${newHolder}`);
+                    // console.log(`decreasing acc of ${newHolder}`);
                 }
             }
         }catch(err){

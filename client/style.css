@@ -53,6 +53,7 @@ body {
     margin: 30px;
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
 }
 .top-row{
     display: flex;
@@ -233,3 +234,90 @@ body {
     margin-left: 10px;
     margin-right: 8px;
 }
+
+#final-score-board{
+    display: none;
+    position: absolute;
+    background: #FC5C7D;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #6A82FB, #FC5C7D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    width: 600px;
+    height: 400px;
+    border-radius: 5%;
+    margin: 50px;
+    padding-top: 10px;
+    padding-left: 15px;
+    justify-content: space-between;
+    padding: 30px 30px 30px 30px;
+    flex-direction: column;
+}
+.final-score-header{
+    color: rgb(208, 255, 0);
+    display: flex;
+    justify-content: space-between;
+    /* border-bottom: 2px solid black; */
+}
+.final-score{
+    font-size: 10em;
+}
+
+audio{
+    background-color: royalblue;
+    display: none;
+}
+
+.keyboard{
+    display: flex;
+    width: 400px;
+    justify-content: space-around;
+  }
+  .keyboard-mini {
+      text-align: center;
+      font-size: 14px;
+      font-family: sans-serif;
+      width: 160px;
+  }
+  
+  .keyboard__row {
+      display: flex;
+      justify-content:space-around;
+      height: 3em;
+      margin: 0.2em;
+  }
+  
+  .keyboard__row > * {
+      position: relative;
+      background: #333;
+      text-align: center;
+      color: #eee;
+      float: left;
+      border-radius: 0.3em;
+      margin: 0.2em;
+      padding: 0.2em;
+      width: 3.3em;
+      height: 100%;
+      box-sizing: border-box;
+      /* cursor: pointer; */
+      border: 1px solid #444;
+      box-shadow: 0 0.2em 0 0.05em #222;
+      border-bottom-color: #555;
+  }
+  
+  /* .keyboard__row > div[data-pressed],
+  .keyboard__row > div:active {
+      background: #2a2a2a;
+      color: #aaa;
+      position: relative;
+      top: 0.2em;
+      box-shadow: 0 0 0 0.05em black;
+  }
+   */
+  
+  .key--letter {
+      line-height: 2.8em;
+  }
+  
+  .keyboard-mini > .keyboard__row {
+      text-align: center;
+  }

@@ -47,7 +47,7 @@ function onClock(data){
 // var detached = $('#go321').detach();
 $('#go321').hide();
 sock.on('countDown',(countDownTime)=>{
-    console.log(`countdown-signal recieved ${countDownTime}`);
+    // console.log(`countdown-signal recieved ${countDownTime}`);
     $('#go321').show();
     setTimeout(() => {
         $('#go321').hide();
@@ -62,21 +62,20 @@ sock.on('countDown',(countDownTime)=>{
 });
 
 sock.on('play-sound',(event)=>{
-    console.log('in play-sound', event);
-    let kickVolume = kickVolumeInput.value/100;
-    let goalVolume = goalVolumeInput.value/100;
+    // console.log('in play-sound', event);
+    let soundsVolume = soundsVolumeInput.value/100;
+    kickSound.volume = soundsVolume;
+    goalSound.volume = soundsVolume/5;
     if(event=='kick'){
-        kickSound.volume = kickVolume;
         kickSound.play();
     }
     if(event=='goal'){
-        goalSound.volume = goalVolume;
         goalSound.play();
     }
 });
 
 sock.on('score',({scoreA,scoreB})=>{
-    console.log(`scoreA = ${scoreA}, scoreB = ${scoreB}`);
+    // console.log(`scoreA = ${scoreA}, scoreB = ${scoreB}`);
     // to display score on canvas
     // scoreAFrontEnd = scoreA;
     // scoreBFrontEnd = scoreB;
@@ -105,7 +104,7 @@ function preload(){
 }
 
 function setup() {
-    console.log('setup');
+    // console.log('setup');
     loader.style.display = 'none';
     const canvas = createCanvas(C.Width,C.Height);
     canvas.parent('canvasDiv');

@@ -23,15 +23,16 @@ const roomListElem = document.getElementById('room-name-list');
 const canvasDiv = document.getElementById('canvasDiv');
 let isRunning = false;
 const others = document.getElementById('others');
-const kickVolumeInput = document.getElementById('kick-volume');
-const goalVolumeInput = document.getElementById('goal-volume');
+const soundsVolumeInput = document.getElementById('sounds-volume');
 const threeTwoOne = document.getElementById('go321');
 const scoreBoard = document.getElementById('score-board');
 const scoreBoardA = document.getElementById('score-a');
 const scoreBoardB = document.getElementById('score-b');
 const loader = document.getElementById('loading');
 const pocketSound = document.getElementById('pocket-sound');
-
+const finalScoreBoard = document.getElementById('final-score-board');
+const finalFinalScoreA = document.getElementById('final-score-a');
+const finalFinalScoreB = document.getElementById('final-score-b');
 createBtn.addEventListener('click', newRoom);
 joinBtn.addEventListener('click', joinRoom);
 joinDefaultRoomBtn.addEventListener('click',joinDefaultRoom);
@@ -61,7 +62,7 @@ document.addEventListener("keydown",(e)=>{
 
 function roomJoinDynamicClick(e){
     roomName = e.target.innerText.split(" ")[0];
-    console.log(roomName);
+    // console.log(roomName);
     const username_raw = document.getElementById('username').value;
     const username = username_raw.substr(0,Math.min(10,username_raw.length));
     sock.emit('joinRoom',{roomName:roomName,username:username});
@@ -70,7 +71,7 @@ function roomJoinDynamicClick(e){
 function newRoom() {
     const username_raw = document.getElementById('username').value;
     const username = username_raw.substr(0,Math.min(10,username_raw.length));    
-    console.log("new room make");
+    // console.log("new room make");
     sock.emit('newRoom',{roomName:null,username:username});
 }
 
@@ -84,7 +85,7 @@ function joinRoom() {
 function joinDefaultRoom(){
     const username_raw = document.getElementById('username').value;
     const username = username_raw.substr(0,Math.min(10,username_raw.length));
-    console.log(`${username} joining default room`);
+    // console.log(`${username} joining default room`);
     sock.emit('joinDefaultRoom',username);
 }
 
@@ -95,6 +96,7 @@ function handleStartPause(){
     //     isRunning=true;
     // }
     sock.emit('start/pause-signal');
+    finalScoreBoard.style.display = "none";
 }
 // let curTime=300;
 // const gameTimerInterval = setInterval(updateClock,1000);
@@ -109,11 +111,16 @@ function handleStartPause(){
 // }
 sock.on('timeLeft',(timeLeft)=>{
     timeLeft = Math.floor(timeLeft);
-    console.log(`timeLeft = ${timeLeft}`);
+    // console.log(`timeLeft = ${timeLeft}`);
     let min = Math.floor(timeLeft/60);
     let sec = timeLeft%60;
     if(sec<10){sec='0'+sec.toString(10); }
     timeLeftHtml.innerText=`${min}:${sec}`;
+    if(timeLeft<1){
+        finalFinalScoreA.innerText = scoreBoardA.innerText;
+        finalFinalScoreB.innerText = scoreBoardB.innerText;
+        finalScoreBoard.style.display="flex";
+    }
 });
 
 function confModalShow(){
@@ -127,13 +134,13 @@ function confModalClose(){
 }
 
 function JoinATeam(){
-    console.log('joining a team');
+    // console.log('joining a team');
     sock.emit('changeTeam',"A");
     // sock.emit('changeTeamA');
 }
 
 function JoinBTeam(){
-    console.log('joining b team');
+    // console.log('joining b team');
     sock.emit('changeTeam',"B");
     // sock.emit('changeTeamB');
 }
