@@ -14,9 +14,9 @@
 ### ScreenShots
 1. players just joined
 <img src="./client/assets/one.png"/>
-1. game started (players in set positions, teams assigned)
+2. game started (players in set positions, teams assigned)
 <img src="./client/assets/two.png"/>
-1. team/player status
+3. team/player status
 <img src="./client/assets/config.png"/>
 
 ### Frameworks and Languages
