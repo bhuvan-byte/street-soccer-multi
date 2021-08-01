@@ -1,4 +1,4 @@
-#  <img src="https://real-soccer.herokuapp.com/assets/favicon.ico" width="32" /> <a href="http://real-soccer.herokuapp.com/">Real Soccer</a>
+#  <img src="./client/assets/favicon.ico" width="32" /> <a href="http://real-soccer.herokuapp.com/">Real Soccer</a>
 ---
 
 ## Live Hosted on https://real-soccer.herokuapp.com/
