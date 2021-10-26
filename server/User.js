@@ -5,6 +5,10 @@ const UserModelSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  recentIp:{
+    type: String,
+    required: false
+  },
   usernames:{
     type: Array,
     default: []
@@ -15,7 +19,9 @@ const UserModelSchema = new mongoose.Schema({
   },
   dateCreated: {
     type: Date,
-    default: Date.now
+    default: function(){
+      return new Date(new Date().getTime() + (new Date().getTimezoneOffset() + 330)*60000).toString();
+    }
   }
 });
 
