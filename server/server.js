@@ -11,7 +11,7 @@ const server=http.createServer(app);
 module.exports.server = server;
 
 app.get("/",function(req,res) { 
-    fs.writeFile("./log.txt",JSON.stringify(req.headers,null,2),{flag:'w+'},err=>{});
+    fs.writeFile("./logs/log.txt",JSON.stringify(req.headers,null,2),{flag:'w+'},err=>{});
     res.sendFile("/client/index.html",{root:path.join(__dirname,"../")});
 })
 app.use("/",express.static("client"));

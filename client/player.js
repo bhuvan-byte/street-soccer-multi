@@ -185,6 +185,7 @@ class Player extends Entity{
             sock.emit("shoot",{x:mouseX,y:mouseY});
         });
         document.addEventListener('keydown',(e)=>{
+            // console.log(e.code);
             if(!e.repeat && (e.code in this.pressed)){
                 sock.emit("keypress",{ecode:e.code,direction:1});
                 // this.moveHandler(e.code,1);
