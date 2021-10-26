@@ -33,18 +33,24 @@ mongoose
 app.get("/",async function(req,res) { 
     fs.writeFile("./logs/log.txt",JSON.stringify(req.headers,null,2),{flag:'w+'},err=>{});
     try{
-        let uid;
-        if(req.cookies["uid"]){
-            uid = req.cookies["uid"];
-        }else{
-            uid = nanoid();    
-            res.cookie(`uid`,`${nanoid()}`,{secure: true,sameSite: 'lax',});
-        }
-        // console.log(`uid=${uid}`);
-        let user = await UserModel.findOne({uid:uid}).exec();
         let client_ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress ;
         let useragent = req.headers['user-agent'];
-        if(!user) user = UserModel({uid:uid});
+        let uid=null,user=null;
+        if(req.cookies["uid"]){
+            uid = req.cookies["uid"];
+            user = await UserModel.findOne({uid:uid}).exec();
+            if(!user) user = UserModel({uid:uid});
+        }else{
+            user = await UserModel.findOne({recentIp:client_ip}).exec();
+            if(user){
+               uid = user.uid; 
+            }else{
+                uid = nanoid();   
+                user = UserModel({uid:uid});
+            }
+            res.cookie(`uid`,`${uid}`,{secure: true,sameSite: 'lax',});
+        }
+        // console.log(`uid=${uid}`);
         user.recentIp = client_ip;
         let dateIST = new Date(new Date().getTime() + (new Date().getTimezoneOffset() + 330)*60000).toString();
         user.visits.push({ip:client_ip,useragent:useragent,date:dateIST});
