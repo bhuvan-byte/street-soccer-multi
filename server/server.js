@@ -51,6 +51,7 @@ app.get("/",async function(req,res) {
             res.cookie(`uid`,`${uid}`,{secure: true,sameSite: 'lax',});
         }
         // console.log(`uid=${uid}`);
+        req.uid = uid;
         user.recentIp = client_ip;
         let dateIST = new Date(new Date().getTime() + (new Date().getTimezoneOffset() + 330)*60000).toString();
         user.visits.push({ip:client_ip,useragent:useragent,date:dateIST});

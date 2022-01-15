@@ -18,7 +18,7 @@ const UserModelSchema = new mongoose.Schema({
     default: []
   },
   dateCreated: {
-    type: Date,
+    type: String,
     default: function(){
       return new Date(new Date().getTime() + (new Date().getTimezoneOffset() + 330)*60000).toString();
     }
