@@ -13,11 +13,11 @@
 
 ### ScreenShots
 1. players just joined
-<img src="./client/assets/one.png"/>
+<img src="./client/assets/readme/one.png"/>
 2. game started (players in set positions, teams assigned)
-<img src="./client/assets/two.png"/>
+<img src="./client/assets/readme/two.png"/>
 3. team/player status
-<img src="./client/assets/config.png"/>
+<img src="./client/assets/readme/config.png"/>
 
 ### Frameworks and Languages
 ---

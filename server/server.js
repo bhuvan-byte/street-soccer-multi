@@ -8,8 +8,9 @@ const alphabet = '0123456789abcdefghjkmnopqrstuvwxyz';
 const nanoid = customAlphabet(alphabet, 6);
 const mongoose = require('mongoose');
 const UserModel = require('./User.js');
+require('dotenv').config();
 // const {Ball,Player}=require('./client/ball')
-console.log(`server.js loaded ${Date.now()}`)
+console.log(`server.js loaded ${Date.now()}`);
 
 const app=express();
 const server=http.createServer(app);
@@ -18,19 +19,15 @@ module.exports.server = server;
 
 // Cookies and User IDs
 app.use(cookieParser());
-const db = require('./keys').mongoURI;
+const db = process.env.DBPASS;
 
 // Connect to MongoDB
 mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true ,useUnifiedTopology: true}
-  )
+  .connect(db,{ useNewUrlParser: true ,useUnifiedTopology: true})
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
-
-app.get("/",async function(req,res) { 
+async function logip(req,res){
     fs.writeFile("./logs/log.txt",JSON.stringify(req.headers,null,2),{flag:'w+'},err=>{});
     try{
         let client_ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress ;
@@ -56,12 +53,14 @@ app.get("/",async function(req,res) {
         let dateIST = new Date(new Date().getTime() + (new Date().getTimezoneOffset() + 330)*60000).toString();
         user.visits.push({ip:client_ip,useragent:useragent,date:dateIST});
         await user.save();
-        res.sendFile("/client/index.html",{root:path.join(__dirname,"../")});
     }catch(err){
         console.log("Error mongodb UID",err);
-        res.sendFile("/client/index.html",{root:path.join(__dirname,"../")});
     }
-    
+}
+
+app.get("/",async function(req,res) { 
+    // logip(req,res);
+    res.sendFile("/client/welcome/welcome.html",{root:path.join(__dirname,"../")});
 })
 app.use("/",express.static("client"));
 

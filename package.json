@@ -1,6 +1,6 @@
 {
   "name": "street-soccer-multi",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A realtime multiplayer soccer game",
   "main": "server.js",
   "scripts": {
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/bhuvan-byte/street-soccer-multi#readme",
   "dependencies": {
     "cookie-parser": "^1.4.5",
+    "dotenv": "^12.0.3",
     "express": "^4.17.1",
     "mongoose": "^6.0.12",
     "nanoid": "^3.1.30",
