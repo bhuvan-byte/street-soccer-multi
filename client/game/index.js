@@ -1,6 +1,7 @@
 /// <reference path="../libraries/TSDef/p5.global-mode.d.ts" />
 "use strict";
-let game ;
+let game,sock;
+let apna_player;
 let bluePlayerImgList,redPlayerImgList,whitePlayerImgList;
 let BlueFullImg, RedFullImg, WhiteFullImg ;
 let roomList,field,slowIntervalId;
@@ -12,7 +13,7 @@ let bgm;
 
 // getPing();
 // sock.on('init', init);
-sock.on('init',(data)=>console.log("init",data));
+// sock.on('init',(data)=>console.log("init",data));
 roomCodeDisplay.innerText = roomName;
 
 // sock.on('failedToJoinRoom',handleFailedToJoinRoom);
@@ -30,48 +31,80 @@ function handleFailedToJoinRoom(msg){
 //     }
 // });
 
-
-sock.on('clock',onClock);
-function onClock(data){
-    console.log(data);
-    // const {playerData,ballData} = data; // get player data every clock cycle
-    // game.updateClient(playerData,ballData);  // update it in game.js
-    // if(apna_player) apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
+const pressed={
+    'KeyA':0,
+    'KeyW':0,
+    'KeyD':0,
+    'KeyS':0
+};
+function setEventListener(){
+    canvasDiv.addEventListener('mousedown',(e)=>{
+        sock.emit("shoot",{x:mouseX,y:mouseY});
+    });
+    document.addEventListener('keydown',(e)=>{
+        // console.log(e.code);
+        if(!e.repeat && (e.code in pressed)){
+            sock.emit("keypress",{ecode:e.code,direction:1});
+            // this.moveHandler(e.code,1);
+        }
+    });
+    document.addEventListener('keyup',(e)=>{
+        if((e.code in pressed)){
+            sock.emit("keypress",{ecode:e.code,direction:0});
+            // this.moveHandler(e.code,0);
+        }
+    });
 }
 
-$('#go321').hide();
-sock.on('countDown',(countDownTime)=>{
-    // console.log(`countdown-signal recieved ${countDownTime}`);
-    $('#go321').show();
-    setTimeout(() => {
-        $('#go321').hide();
-    }, countDownTime);
-});
-
-sock.on('play-sound',(event)=>{
-    // console.log('in play-sound', event);
-    let soundsVolume = soundsVolumeInput.value/100;
-    kickSound.volume = soundsVolume;
-    goalSound.volume = soundsVolume/5;
-    if(event=='kick'){
-        kickSound.play();
+function onsock(){
+    setEventListener();
+    sock.on('clock',onClock);
+    function onClock(data){
+        // console.log(data);
+        const {playerData,ballData} = data; // get player data every clock cycle
+        game.updateClient(playerData,ballData);  // update it in game.js
+        if(apna_player) apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
+        else set_apna_player();
     }
-    if(event=='goal'){
-        goalSound.play();
+
+    $('#go321').hide();
+    sock.on('countDown',(countDownTime)=>{
+        // console.log(`countdown-signal recieved ${countDownTime}`);
+        $('#go321').show();
+        setTimeout(() => {
+            $('#go321').hide();
+        }, countDownTime);
+    });
+
+    sock.on('play-sound',(event)=>{
+        // console.log('in play-sound', event);
+        let soundsVolume = soundsVolumeInput.value/100;
+        kickSound.volume = soundsVolume;
+        goalSound.volume = soundsVolume/5;
+        if(event=='kick'){
+            kickSound.play();
+        }
+        if(event=='goal'){
+            goalSound.play();
+        }
+    });
+
+    sock.on('score',({scoreA,scoreB})=>{
+        // console.log(`scoreA = ${scoreA}, scoreB = ${scoreB}`);
+        // to display score on canvas
+        // scoreAFrontEnd = scoreA;
+        // scoreBFrontEnd = scoreB;
+        // scoreBoard.innerHTML = `${scoreA} - ${scoreB}`;
+        scoreBoardA.innerText = scoreA;
+        scoreBoardB.innerText = scoreB;
+    });
+    function set_apna_player(){
+        apna_player = game.players[sock.id];
+        if(!apna_player) {console.log("apnaplayer still not defined",game.players,sock.id);}
+        // if(apna_player) apna_player.strokeColor="#00ff08";
+        // apna_player.client();
     }
-});
-
-sock.on('score',({scoreA,scoreB})=>{
-    // console.log(`scoreA = ${scoreA}, scoreB = ${scoreB}`);
-    // to display score on canvas
-    // scoreAFrontEnd = scoreA;
-    // scoreBFrontEnd = scoreB;
-    // scoreBoard.innerHTML = `${scoreA} - ${scoreB}`;
-    scoreBoardA.innerText = scoreA;
-    scoreBoardB.innerText = scoreB;
-});
-
-
+}
 
 
 
@@ -95,6 +128,11 @@ function setup() {
     bluePlayerImgList = extractImage(BlueFullImg);
     redPlayerImgList = extractImage(RedFullImg);        
     whitePlayerImgList = extractImage(WhiteFullImg);
+    
+    sock = io({query:{roomName:roomName,username:"def"}});
+    game = new Game(roomName);
+    // game.ball.clientInit(ball_img);
+    onsock();
     // setupDone = true;
     // fullscreen(1);
 }
@@ -107,5 +145,5 @@ function draw() {
     fill('#0000FF');
     text(`fps:${Math.floor(fps)}`,15,15);
     pop();
-    // game.display();
+    game.display();
 }

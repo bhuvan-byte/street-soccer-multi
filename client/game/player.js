@@ -1,4 +1,4 @@
-/// <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
+/// <reference path="../libraries/TSDef/p5.global-mode.d.ts" />
 "use strict";
 
 class Entity{
@@ -37,39 +37,13 @@ class Player extends Entity{
         this.theta = 0;
         this.ballDir = 0;
         this.username=username ?? "stillUnamed";
-        this.friction=0.9;
-        this.exists=true;
-        this.hasBall=false;
         this.teamName="notYetDecided";
         this.animationIndex = 0; // denotes the direction movement
         this.index = 0; // deontes number of image in that animation 
-        this.pressed={
-            'KeyA':0,
-            'KeyW':0,
-            'KeyD':0,
-            'KeyS':0
-        };
-        if(typeof module === "undefined") this.clientInit(); 
+        this.images = undefined;
+        this.clientInit();
     }
-    wallCollide(){
-        if(this.x-this.radius<0){ // left wall collision
-            this.x=this.radius;
-            this.vx *= -this.wall_e;
-        }
-        if(this.x+this.radius>C.Width){ // right wall collision
-            this.x=C.Width -this.radius;
-            this.vx *= -this.wall_e;
-        }
-        if(this.y-this.radius<0){ // top wall collision
-            this.y= this.radius;
-            this.vy *= -this.wall_e;
-        }
-        if(this.y+this.radius>C.Height) { // bottom wall collision
-            this.y=C.Height -this.radius;
-            this.vy *= -this.wall_e;
-        }
-    }
-    clientInit(){
+    clientInit(whitePlayerImgList__){
         this.images = whitePlayerImgList;
         // this.C.animationSpeed = C.animationSpeed;
     }
@@ -141,99 +115,8 @@ class Player extends Entity{
      
 
     }
-    collide (ball2){
-        let dx=ball2.x-this.x,
-			dy=ball2.y-this.y,
-			radSum=ball2.radius+this.radius;
-            // console.log(`r1 = ${ball2.radius}, r2 = ${this.radius}`);
-		if(dx*dx + dy*dy< radSum*radSum){
-			let dist=Math.sqrt(dx*dx + dy*dy),
-				dif=radSum-dist;
-			dx/=dist;
-			dy/=dist;
-			let dot=dx*this.vx+dy*this.vy,
-				dot2=dx*ball2.vx+dy*ball2.vy,
-				impulsex=(dot-dot2)*dx,
-				impulsey=(dot-dot2)*dy;
-			//console.log(dot,dot2,impulsex,impulsey);
-			this.vx-=impulsex;
-			this.vy-=impulsey;
-			ball2.vx+=impulsex;
-			ball2.vy+=impulsey;
-			this.x-=dif*dx;
-			this.y-=dif*dy;
-			ball2.x+=dif*dx;
-			ball2.y+=dif*dy;
-			this.dx+=dif*dx/2;
-			this.dy+=dif*dy/2;
-			//if(this.radius>10)this.radius-=5;
-        }
-    }
-    reset(x,y){ // to send players in their halves in the begining or after a goal
-        this.x = x*C.scaleFieldX; // remove this scaleFieldX,Y from player class and use it from constants 
-        this.y = y*C.scaleFieldY;
-        this.vx = 0;
-        this.vy = 0;
-        this.ax = 0;
-        this.ay = 0;
-    }
     mouseSend(){
         sock.emit('mouse',{x:mouseX,y:mouseY});
-    }
-    client(){
-        canvasDiv.addEventListener('mousedown',(e)=>{
-            sock.emit("shoot",{x:mouseX,y:mouseY});
-        });
-        document.addEventListener('keydown',(e)=>{
-            // console.log(e.code);
-            if(!e.repeat && (e.code in this.pressed)){
-                sock.emit("keypress",{ecode:e.code,direction:1});
-                // this.moveHandler(e.code,1);
-            }
-        });
-        document.addEventListener('keyup',(e)=>{
-            if((e.code in this.pressed)){
-                sock.emit("keypress",{ecode:e.code,direction:0});
-                // this.moveHandler(e.code,0);
-            }
-        });
-    }
-    multiplyAcc(factor){
-        this.ax*=factor;
-        this.ay*=factor;
-    }
-    moveHandler(ecode,direction){
-        let acc=C.playerAcc ;
-        if(this.hasBall) acc *= C.playerAccFac;
-        this.pressed[ecode]=direction;
-        this.ax=this.ay=0;
-        if(this.pressed['KeyA']) this.ax-=acc;
-        if(this.pressed['KeyW']) this.ay-=acc;
-        if(this.pressed['KeyD']) this.ax+=acc;
-        if(this.pressed['KeyS']) this.ay+=acc;
-    }
-    thetaHandler(mousex,mousey){
-        this.theta = Math.atan2((mousey-this.y),(mousex-this.x));
-    }
-    getData(){
-        return {
-            x:this.x,
-            y:this.y,
-            vx:this.vx,
-            vy:this.vy,
-            ax:this.ax,
-            ay:this.ay,
-            theta:this.theta,
-            hasBall:this.hasBall,
-            // color:this.color,
-        };
-    }
-    getInitData(){
-        // if later player characterisitcs are addded then this will be updated
-        return {
-            username:this.username,
-            teamName:this.teamName,
-        }
     }
 }
 
