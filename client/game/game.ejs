@@ -5,18 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soccer</title>
-    <link rel="shortcut icon" href="./assets/favicon.ico">
-    <script src="libraries/p5.js"></script>
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+    <script src="/libraries/p5.js"></script>
     <!-- CSS only -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> -->
-    <link rel="stylesheet" href="./libraries/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="counter.css">
+    <link rel="stylesheet" href="/libraries/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <!-- <link rel="stylesheet" href="counter.css"> -->
 </head>
-    
 <body>
-    <div class="game-screen-div dont-show-at-welcome">
+    <div class="game-screen-div">
         <div class="left-part">
             <div class="top-row">
                 <div class="clock-timer">
@@ -121,7 +120,7 @@
                                 </div>
                                 <div class="mouse">
                                     <div>
-                                        <img src="./assets/mouse.png" style="width: 100%; height: 100%;">
+                                        <img src="/assets/mouse.png" style="width: 100%; height: 100%;">
                                     </div>
                                     <div class="keyboard__row">
                                         Shoot
@@ -141,7 +140,7 @@
                     <input id="sounds-volume" type="range" min="0" max="100">
                     <p>Sounds</p>
                 </div>
-                <audio src="./assets/pocket.mp3" controls loop id="pocket-sound"></audio>
+                <audio src="/assets/pocket.mp3" controls loop id="pocket-sound"></audio>
 
             </div>
             <div id="overlay"></div>
@@ -160,7 +159,17 @@
             </div>
         </div>
     </div>
-    <audio src="./assets/kick.mp3" id="kick-sound" preload="auto"></audio>
-    <audio src="./assets/goal-sound.mp3" id="goal-sound" preload="auto"></audio>
+    <audio src="/assets/kick.mp3" id="kick-sound" preload="auto"></audio>
+    <audio src="/assets/goal-sound.mp3" id="goal-sound" preload="auto"></audio>
+    <script src="/libraries/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let roomName = "<%=roomName%>";
+        let sock = io({query:{roomName:roomName,username:"def"}});
+    </script>
+    <script src="/constants.js"></script>
+    <script src="/game/field.js"></script>
+    <script src="/game/helper.js"></script>
+    <script src="/game/index.js"></script>
 </body>
 </html>

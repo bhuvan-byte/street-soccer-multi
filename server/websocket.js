@@ -1,22 +1,33 @@
 const socketio = require('socket.io');
 // server.js does not run again because it is already executed
-const { server } = require("./server.js");
+const { server} = require("./server.js");
 const { newRoomName } = require('./utils');
-const {Game} = require("../client/game");
+const {Game} = require("./game.js");
 const assert = require('assert');
-let games = {};
-// let idToRoom = {};
 
-const io = socketio(server,{
-    cors:{
-        origin:'*',
-    },
-});
+const io = socketio(server, {cors:{ origin:'*',}});
+
 global.io = io;
 
+
+
+// console.log(`io`,io);
 //io.sockets.something and io.something are same thing
 io.on("connection", (sock) => {
-    console.log(`Client Id ${sock.id} connected`);
+    // console.log(`Client Id ${sock.id}`,sock.handshake.query,"connected.");
+    sock.roomName = sock.handshake.query.roomName;
+    sock.username = sock.handshake.query.username;
+    
+    if (!(sock.roomName in games)) {
+        // testing purposes
+        if(sock.roomName=="test") games["test"] = new Game("test");
+        
+        else {console.error(`Room ${sock.roomName} not exists!`);
+        return;}
+    }
+    newPlayer();
+    handleStartPause();
+    setTimeout(() => {handleStartPause()}, 2000);
     sock.on("ping",(sendtime)=>{
         sock.emit("ping",sendtime);
     });
@@ -54,23 +65,22 @@ io.on("connection", (sock) => {
             console.log("not defined//refresh required");
         }
     });
-    sock.on('newRoom',handleNewRoom);
-    sock.on('joinRoom',handleJoinRoom);
-    sock.on('joinDefaultRoom',handleJoinDefaultRoom);
+    // sock.on('newRoom',handleNewRoom);
+    // sock.on('joinRoom',handleJoinRoom);
+    // sock.on('joinDefaultRoom',handleJoinDefaultRoom);
     sock.on('changeTeam',handlechangeTeam);
-    sock.on('get-room-list',handleGetRoomList);
+    // sock.on('get-room-list',handleGetRoomList);
     sock.on('start/pause-signal',handleStartPause);
 
-    function newPlayer(roomName,username){
+    function newPlayer(){
         // idToRoom[sock.id] =roomName;
-        sock.emit('gameCode',roomName);
-        sock.join(roomName);
-        console.log(`playerid ${sock.id} joined the room ${roomName}`);
-        const noOfPlayersInRoom = io.sockets.adapter.rooms.get(roomName).size;
+        // sock.emit('gameCode',roomName);
+        sock.join(sock.roomName);
+        console.log(`playerid ${sock.id} joined the room ${sock.roomName}`);
+        const noOfPlayersInRoom = io.sockets.adapter.rooms.get(sock.roomName).size;
         sock.number = noOfPlayersInRoom;
-        sock.roomName = roomName;
-        sock.username = username;
-        const game = games[roomName];
+        
+        const game = games[sock.roomName];
         // if(Object.keys(games[roomName].players).length<2)
         game.addPlayer(sock.id,sock.username);
         // sock.emit('init',{playerNo:sock.number,roomName:roomName});
@@ -86,7 +96,7 @@ io.on("connection", (sock) => {
                 roomName = newRoomName(4);
             }
         }
-        console.log(`${username} joined the room telling this from handle join room in websocket.js`);
+        // console.log(`${username} joined the room telling this from handle join room in websocket.js`);
         games[roomName] = new Game(roomName);
         // console.log("roomName",games[roomName].roomName);
         newPlayer(roomName,username);

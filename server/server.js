@@ -3,15 +3,15 @@ const express=require('express');
 const fs = require('fs');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const { customAlphabet } = require('nanoid');
-const alphabet = '0123456789abcdefghjkmnopqrstuvwxyz';
-const nanoid = customAlphabet(alphabet, 6);
+const {nanoid} = require("./utils.js");
 const mongoose = require('mongoose');
 const UserModel = require('./User.js');
 require('dotenv').config();
 const roomsRouter = require('./routes/rooms')
 // const {Ball,Player}=require('./client/ball')
 console.log(`server.js loaded ${Date.now()}`);
+global.games = {};
+
 
 const app=express();
 const server=http.createServer(app);
@@ -44,7 +44,7 @@ async function logip(req,res){
             if(user){
                uid = user.uid; 
             }else{
-                uid = nanoid();   
+                uid = nanoid(6);   
                 user = UserModel({uid:uid});
             }
             res.cookie(`uid`,`${uid}`,{secure: true,sameSite: 'lax',});
@@ -62,26 +62,26 @@ async function logip(req,res){
 
 app.get("/",async function(req,res) { 
     // logip(req,res);
-    res.render('../client/welcome/welcome.ejs')
+    res.render('../client/welcome/welcome.ejs');
     // res.sendFile("/client/welcome/welcome.ejs",{root:path.join(__dirname,"../")});
 })
 app.use("/",express.static("client"));
 
 
-app.use('/rooms',roomsRouter)
+app.use('/room',roomsRouter)
 
 // required only to run the file once
-// const stopwatch_ = require("../client/stopwatch.js");
-// const constants_ = require("../client/constants.js");
-// const player_ = require("../client/player.js");
-// const ball_ = require("../client/ball.js");
+const stopwatch_ = require("./stopwatch.js");
+const constants_ = require("../client/constants.js");
+const player_ = require("./player.js");
+const ball_ = require("./ball.js");
 
-// const websocket=require('./websocket.js');
-// console.log(websocket);
-app.on('error', (err) => {
+const websocket=require('./websocket.js');
+console.log(websocket);
+server.on('error', (err) => {
     console.error('Server error:', err);
 });
 const port=process.env.PORT ?? 8000;
-app.listen(port,()=>{
+server.listen(port,()=>{
     console.log("server listening on port ",port);
 });
