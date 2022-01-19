@@ -9,13 +9,15 @@ const nanoid = customAlphabet(alphabet, 6);
 const mongoose = require('mongoose');
 const UserModel = require('./User.js');
 require('dotenv').config();
+const roomsRouter = require('./routes/rooms')
 // const {Ball,Player}=require('./client/ball')
 console.log(`server.js loaded ${Date.now()}`);
 
 const app=express();
 const server=http.createServer(app);
-// use module.exports to export
 module.exports.server = server;
+
+app.set('view engine','ejs');
 
 // Cookies and User IDs
 app.use(cookieParser());
@@ -60,22 +62,26 @@ async function logip(req,res){
 
 app.get("/",async function(req,res) { 
     // logip(req,res);
-    res.sendFile("/client/welcome/welcome.html",{root:path.join(__dirname,"../")});
+    res.render('../client/welcome/welcome.ejs')
+    // res.sendFile("/client/welcome/welcome.ejs",{root:path.join(__dirname,"../")});
 })
 app.use("/",express.static("client"));
 
-// required only to run the file once
-const stopwatch_ = require("../client/stopwatch.js");
-const constants_ = require("../client/constants.js");
-const player_ = require("../client/player.js");
-const ball_ = require("../client/ball.js");
 
-const websocket=require('./websocket.js');
-console.log(websocket);
-server.on('error', (err) => {
+app.use('/rooms',roomsRouter)
+
+// required only to run the file once
+// const stopwatch_ = require("../client/stopwatch.js");
+// const constants_ = require("../client/constants.js");
+// const player_ = require("../client/player.js");
+// const ball_ = require("../client/ball.js");
+
+// const websocket=require('./websocket.js');
+// console.log(websocket);
+app.on('error', (err) => {
     console.error('Server error:', err);
 });
 const port=process.env.PORT ?? 8000;
-server.listen(port,()=>{
+app.listen(port,()=>{
     console.log("server listening on port ",port);
 });
