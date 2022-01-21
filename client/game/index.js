@@ -5,6 +5,7 @@ let apna_player;
 let bluePlayerImgList,redPlayerImgList,whitePlayerImgList;
 let BlueFullImg, RedFullImg, WhiteFullImg ;
 let roomList,field,slowIntervalId;
+let joystick;
 let fps;
 // let kickSound=document.getElementById('kick-sound');
 // let goalSound=document.getElementById('goal-sound');
@@ -62,8 +63,12 @@ function onsock(){
         // console.log(data);
         const {playerData,ballData} = data; // get player data every clock cycle
         game.updateClient(playerData,ballData);  // update game object client side.
-        if(apna_player) apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
+        if(apna_player) {
+            apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
+            apna_player.joystickSend();
+        }
         else set_apna_player();
+        
     });
 
     function set_apna_player(){
@@ -130,6 +135,14 @@ function setup() {
     redPlayerImgList = extractImage(RedFullImg);        
     whitePlayerImgList = extractImage(WhiteFullImg);
     
+    joystick = new VirtualJoystick({
+        container : document.body,
+        strokeStyle: 'cyan',
+        limitStickTravel: true,
+        stickRadius: 100,
+        mouseSupport: true,// comment this to remove joystick from desktop site
+    })
+
     sock = io({query:{roomName:roomName,username:"def"}});
     game = new Game(roomName);
     // game.ball.clientInit(ball_img);

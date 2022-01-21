@@ -60,6 +60,13 @@ io.on("connection", (sock) => {
             console.log("not defined//refresh required");
         }
     });
+    sock.on("joystick",(dxdy)=>{
+        if(sock.roomName in games && sock.id in games[sock.roomName].players){
+            games[sock.roomName].players[sock.id].joystickHandler(dxdy);
+        } else{
+            console.log("not defined//refresh required");   
+        }
+    });
     sock.on("shoot",(mouse)=>{
         if(sock.roomName in games && sock.id in games[sock.roomName].players){
             // console.log("shooting...");

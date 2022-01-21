@@ -15,6 +15,7 @@ class Entity{
         this.wall_e = 0;
         this.width = C.Width;
         this.height = C.Height;
+        this.zeroSent = 0;
     }
     update(){ // used by player and ball. gap values different for them
         this.x+=this.vx;
@@ -117,6 +118,21 @@ class Player extends Entity{
     }
     mouseSend(){
         sock.emit('mouse',{x:mouseX,y:mouseY});
+    }
+    joystickSend(){
+        let dx = joystick.deltaX()
+        let dy = joystick.deltaY()
+        let d = Math.sqrt(dx*dx + dy*dy)
+        if(dx == 0 && dy == 0){
+            if(this.zeroSent != 1){
+                // this only sends data once to set the velocity of player to 0.
+                this.zeroSent = 1
+                sock.emit('joystick',{dx:0,dy:0});
+            }
+        } else{
+            sock.emit('joystick',{dx:dx/d,dy:dy/d})
+            this.zeroSent = 0;
+        }
     }
 }
 
