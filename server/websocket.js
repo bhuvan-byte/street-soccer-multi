@@ -10,8 +10,6 @@ const io = socketio(server, {cors:{ origin:'*',}});
 global.io = io;
 
 
-
-// console.log(`io`,io);
 //io.sockets.something and io.something are same thing
 io.on("connection", (sock) => {
     // console.log(`Client Id ${sock.id}`,sock.handshake.query,"connected.");
@@ -43,6 +41,7 @@ io.on("connection", (sock) => {
                 console.log(`deleting room ${sock.roomName}`);
                 clearInterval(games[sock.roomName].intervalId);
                 delete games[sock.roomName];
+                console.log(`delete room func ${Object.keys(games).length}`);
             }
         }
         console.log(`Client Id ${sock.id} disconnected`);
@@ -59,6 +58,13 @@ io.on("connection", (sock) => {
             games[sock.roomName].players[sock.id].thetaHandler(mouse.x,mouse.y);
         }else {
             console.log("not defined//refresh required");
+        }
+    });
+    sock.on("joystick",(dxdy)=>{
+        if(sock.roomName in games && sock.id in games[sock.roomName].players){
+            games[sock.roomName].players[sock.id].joystickHandler(dxdy);
+        } else{
+            console.log("not defined//refresh required");   
         }
     });
     sock.on("shoot",(mouse)=>{

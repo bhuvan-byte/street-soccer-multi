@@ -5,6 +5,7 @@ let apna_player;
 let bluePlayerImgList,redPlayerImgList,whitePlayerImgList;
 let BlueFullImg, RedFullImg, WhiteFullImg ;
 let roomList,field,slowIntervalId;
+let joystick;
 let fps;
 // let kickSound=document.getElementById('kick-sound');
 // let goalSound=document.getElementById('goal-sound');
@@ -58,13 +59,24 @@ function setEventListener(){
 
 function onsock(){
     setEventListener();
-    sock.on('clock',onClock);
-    function onClock(data){
+    sock.on('clock',(data) => {
         // console.log(data);
         const {playerData,ballData} = data; // get player data every clock cycle
-        game.updateClient(playerData,ballData);  // update it in game.js
-        if(apna_player) apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
+        game.updateClient(playerData,ballData);  // update game object client side.
+        if(apna_player) {
+            apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
+            apna_player.joystickSend();
+        }
         else set_apna_player();
+        
+    });
+
+    function set_apna_player(){
+        apna_player = game.players[sock.id];
+        console.log(`set_apna_player meise bol rhaa hu.${sock.id}, ${apna_player}`)
+        if(!apna_player) {console.log("apnaplayer still not defined",game.players,sock.id);}
+        // if(apna_player) apna_player.strokeColor="#00ff08";
+        // apna_player.client();
     }
 
     $('#go321').hide();
@@ -98,12 +110,6 @@ function onsock(){
         scoreBoardA.innerText = scoreA;
         scoreBoardB.innerText = scoreB;
     });
-    function set_apna_player(){
-        apna_player = game.players[sock.id];
-        if(!apna_player) {console.log("apnaplayer still not defined",game.players,sock.id);}
-        // if(apna_player) apna_player.strokeColor="#00ff08";
-        // apna_player.client();
-    }
 }
 
 
@@ -129,6 +135,14 @@ function setup() {
     redPlayerImgList = extractImage(RedFullImg);        
     whitePlayerImgList = extractImage(WhiteFullImg);
     
+    joystick = new VirtualJoystick({
+        container : document.body,
+        strokeStyle: 'cyan',
+        limitStickTravel: true,
+        stickRadius: 100,
+        mouseSupport: true,// comment this to remove joystick from desktop site
+    })
+
     sock = io({query:{roomName:roomName,username:"def"}});
     game = new Game(roomName);
     // game.ball.clientInit(ball_img);
