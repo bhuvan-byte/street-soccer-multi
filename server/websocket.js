@@ -20,12 +20,12 @@ io.on("connection", (sock) => {
     
     if (!(sock.roomName in games)) {
         // testing purposes
-        if(sock.roomName=="test"){
-            games["test"] = new Game("test");
-            games["test"].run();
-        }
-        
-        else {console.error(`Room ${sock.roomName} not exists!`);
+        // if(sock.roomName=="test"){
+        //     games["test"] = new Game("test");
+        //     games["test"].run();
+        // }
+        // else 
+        {console.error(`Room ${sock.roomName} not exists!`);
         return;}
     }
     newPlayer();

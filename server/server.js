@@ -60,7 +60,7 @@ async function logip(req,res){
     }
 }
 
-app.get("/",async function(req,res) { 
+app.get("/",function(req,res) { 
     // logip(req,res);
     res.render('../client/welcome/welcome.ejs');
     // res.sendFile("/client/welcome/welcome.ejs",{root:path.join(__dirname,"../")});

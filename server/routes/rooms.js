@@ -12,6 +12,7 @@ router.get('/create', (req,res)=>{
         console.log("collided",roomName,games.keys());
     }
     games[roomName] = new Game(roomName);
+    games[roomName].run();
     res.redirect(`${roomName}`);
 })
 router.get('/',(req,res)=>{
@@ -20,8 +21,11 @@ router.get('/',(req,res)=>{
 })
 router.get('/:roomName', (req,res)=>{
     let roomName = req.params.roomName;
-    console.log(`${roomName}`);
-    res.render('../client/game/game.ejs',{roomName:roomName});
+    if(roomName in games){
+        res.render('../client/game/game.ejs',{roomName:roomName});
+    }else{
+        res.redirect('/');
+    }
 })
 
 
