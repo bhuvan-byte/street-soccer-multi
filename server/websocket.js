@@ -10,8 +10,6 @@ const io = socketio(server, {cors:{ origin:'*',}});
 global.io = io;
 
 
-
-// console.log(`io`,io);
 //io.sockets.something and io.something are same thing
 io.on("connection", (sock) => {
     // console.log(`Client Id ${sock.id}`,sock.handshake.query,"connected.");
@@ -41,7 +39,9 @@ io.on("connection", (sock) => {
             delete games[sock.roomName].players[sock.id];            
             if(Object.keys(games[sock.roomName].players).length == 0){
                 console.log(`deleting room ${sock.roomName}`);
+                clearInterval(games[sock.roomName].intervalId);
                 delete games[sock.roomName];
+                console.log(`delete room func ${Object.keys(games).length}`);
             }
         }
         console.log(`Client Id ${sock.id} disconnected`);
