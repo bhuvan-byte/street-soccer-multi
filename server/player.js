@@ -1,4 +1,3 @@
-/// <reference path="./libraries/TSDef/p5.global-mode.d.ts" />
 "use strict";
 
 class Entity{

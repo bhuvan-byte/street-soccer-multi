@@ -21,6 +21,7 @@ class Game{
     }
     run(){
         // this.isRunning = true;
+        clearInterval(this.intervalId); 
         this.intervalId = setInterval(() => {
             this.update();
             this.serverSend();

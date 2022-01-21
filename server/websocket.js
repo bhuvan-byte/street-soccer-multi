@@ -41,6 +41,7 @@ io.on("connection", (sock) => {
             delete games[sock.roomName].players[sock.id];            
             if(Object.keys(games[sock.roomName].players).length == 0){
                 console.log(`deleting room ${sock.roomName}`);
+                clearInterval(games[sock.roomName].intervalId);
                 delete games[sock.roomName];
             }
         }
