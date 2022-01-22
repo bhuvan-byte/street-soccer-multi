@@ -68,77 +68,8 @@ class Player extends Entity{
             this.vy *= -this.wall_e;
         }
     }
-    clientInit(){
-        this.images = whitePlayerImgList;
-        // this.C.animationSpeed = C.animationSpeed;
-    }
     changeTeam(team){
-        team = team ?? this.teamName;
-        if(team == "A"){
-            this.images = bluePlayerImgList;
-        }else if(team == "B"){
-            this.images = redPlayerImgList;
-        }else {
-            this.images = whitePlayerImgList;
-            return;
-        }
-        this.teamName = team;
-    }
-    display(){ // (called from index.js)
-        push(); // necessary to save p5 state then restore with pop()
-        if(this.ax==0 && this.ay ==0 ){
-            // this.animationIndex = 12;
-        } else if(this.ax==0){
-            if(this.ay<0){
-                this.animationIndex = 9;
-            } else if(this.ay>0){
-                this.animationIndex = 6;
-            }
-        } else {
-            if(this.ax>=0){
-                this.animationIndex = 3;
-            } else{
-                this.animationIndex = 0;
-            }
-        }
-        this.areaDisplay();
-        if(this.hasBall) this.highlightDisplay();
-        // console.log(`speed: ${this.vx}, ${this.vy}, acc : ${this.ax},${this.ay}`);
-        let index = this.animationIndex;
-        index += (this.ax==0 && this.ay==0) ? 0: floor(this.index)%3;
-        image(this.images[index],this.x - C.picWidth*0.4, this.y - C.picHeight*0.7);
-        this.index += C.animationSpeed* Math.sqrt(this.vx*this.vx + this.vy*this.vy);
-        pop();
-    }
-    areaDisplay(){ // (called from index.js)
-        fill("rgba(255,255,255,0)");
-        stroke(this.strokeColor);
-        ellipse(this.x,this.y,this.d,this.d); // circle representing player
-       
-        stroke(this.strokeColor); // white color to draw shapes
-        textSize(20);
-        fill("#FFF");
-        strokeWeight(1);
-        textAlign(CENTER);
-        text(this.username,this.x,this.y+2*this.radius);
-        // this.theta=atan2((mouseY-this.y),(mouseX-this.x));
-        // this.vx=this.v*Math.cos(this.theta);
-        // this.vy=this.v*Math.sin(this.theta); 
-        // fill("#FFF");
-        // strokeWeight(2);
-        // line(this.x,this.y,this.x+this.radius*Math.cos(this.theta),this.y+this.radius*Math.sin(this.theta)); // line showing  the dirction where player is pointing
-    }
-    highlightDisplay(){ // to highlight the player who is in possesion of the ball (called from index.js)
-        let d1 = 35; // height of lower point of triangle
-        let d2 = 45; // height of two upper points to make a downward pointing traingle
-        let twidht = 10; // width of top base of triangle
-        fill("rgb(92, 3, 78)");
-        triangle(this.x,this.y-d1,this.x-twidht,this.y-d2,this.x+twidht,this.y-d2); // needs 3 points (x,y)
-        ellipse(this.x+200*Math.cos(this.theta),this.y+200*sin(this.theta),5,5);
-        line(this.x,this.y,this.x+200*Math.cos(this.theta),this.y+200*sin(this.theta));
-        fill("rgba(255,255,255,0)");
-     
-
+        this.teamName = team ?? this.teamName;
     }
     collide (ball2){
         let dx=ball2.x-this.x,
@@ -178,24 +109,6 @@ class Player extends Entity{
     }
     mouseSend(){
         sock.emit('mouse',{x:mouseX,y:mouseY});
-    }
-    client(){
-        canvasDiv.addEventListener('mousedown',(e)=>{
-            sock.emit("shoot",{x:mouseX,y:mouseY});
-        });
-        document.addEventListener('keydown',(e)=>{
-            // console.log(e.code);
-            if(!e.repeat && (e.code in this.pressed)){
-                sock.emit("keypress",{ecode:e.code,direction:1});
-                // this.moveHandler(e.code,1);
-            }
-        });
-        document.addEventListener('keyup',(e)=>{
-            if((e.code in this.pressed)){
-                sock.emit("keypress",{ecode:e.code,direction:0});
-                // this.moveHandler(e.code,0);
-            }
-        });
     }
     multiplyAcc(factor){
         this.ax*=factor;
@@ -244,10 +157,9 @@ class Player extends Entity{
     }
 }
 
-if(typeof module != "undefined"){
-    global.Player = Player;
-    global.Entity = Entity;
-}
+global.Player = Player;
+global.Entity = Entity;
+
 // class Player{
 //     constructor(playerNo,R,G,B,x,y,d,theta,isAdmin){
 //         this.playerNo=playerNo;

@@ -24,10 +24,10 @@ app.use(cookieParser());
 const db = process.env.DBPASS;
 
 // Connect to MongoDB
-mongoose
-  .connect(db,{ useNewUrlParser: true ,useUnifiedTopology: true})
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
+// mongoose
+//   .connect(db,{ useNewUrlParser: true ,useUnifiedTopology: true})
+//   .then(() => console.log('MongoDB Connected'))
+//   .catch(err => console.log(err));
 
 async function logip(req,res){
     fs.writeFile("./logs/log.txt",JSON.stringify(req.headers,null,2),{flag:'w+'},err=>{});

@@ -5,11 +5,16 @@ let apna_player;
 let bluePlayerImgList,redPlayerImgList,whitePlayerImgList;
 let BlueFullImg, RedFullImg, WhiteFullImg ;
 let roomList,field,slowIntervalId;
-let joystick;
+let joystick,canvas;
 let fps;
 // let kickSound=document.getElementById('kick-sound');
 // let goalSound=document.getElementById('goal-sound');
 let bgm;
+let Cam = {
+    x:0,
+    y:0,
+    scale:1,
+}
 // let scoreAFrontEnd=0,scoreBFrontEnd=0; //to display scores on canvas
 
 // getPing();
@@ -121,11 +126,14 @@ function preload(){
     RedFullImg = loadImage('/assets/red.png');
     WhiteFullImg = loadImage('/assets/white.png');
 }
-
+function mouseWheel(e){
+    let f = Math.pow(1.001, e.delta);
+    Cam.scale /= f;
+}
 function setup() {
     // console.log('setup');
     // loader.style.display = 'none';
-    const canvas = createCanvas(C.Width,C.Height);
+    canvas = createCanvas(C.Width,C.Height);
     canvas.parent('canvasDiv');
     textFont('Georgia');
     strokeWeight(1);
@@ -140,7 +148,7 @@ function setup() {
         strokeStyle: 'cyan',
         limitStickTravel: true,
         stickRadius: 100,
-        mouseSupport: true,// comment this to remove joystick from desktop site
+        // mouseSupport: true,// comment this to remove joystick from desktop site
     })
 
     sock = io({query:{roomName:roomName,username:"def"}});
@@ -150,10 +158,21 @@ function setup() {
     // setupDone = true;
     // fullscreen(1);
 }
-
+const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 function draw() {
     // if(!allowSetup) return;
     // scale(1.1);
+    
+    translate(canvas.width/2,canvas.height/2);
+    scale(Cam.scale);
+    translate(-canvas.width/2,-canvas.height/2);
+    let tfactor = 0.7;
+    let cfactor = 1-1/Cam.scale;
+    Cam.x = clamp(tfactor*(canvas.width/2-apna_player?.x),-cfactor*canvas.width/2,cfactor*canvas.width/2);
+    Cam.y = clamp(tfactor*(canvas.height/2-apna_player?.y),-cfactor*canvas.height/2,cfactor*canvas.height/2);
+    translate(Cam.x,Cam.y);
+    // translate(Cam.scale*canvas.width/2,0)
+    // translate(-mouseX,-mouseY);
     field.display();
     push();
     fill('#0000FF');
