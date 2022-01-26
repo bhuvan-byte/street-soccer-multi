@@ -2,7 +2,9 @@ var VirtualJoystick	= function(opts)
 {
 	opts			= opts			|| {};
 	this._container		= opts.container	|| document.body;
-	this._strokeStyle	= opts.strokeStyle	|| 'cyan';
+	this._strokeStyle1	= opts.strokeStyle1	|| 'cyan';
+	this._strokeStyle2	= opts.strokeStyle2	|| 'white';
+	this._strokeStyle3	= opts.strokeStyle3	|| '#28cfc777';
 	this._stickEl		= opts.stickElement	|| this._buildJoystickStick();
 	this._baseEl		= opts.baseElement	|| this._buildJoystickBase();
 	this._mouseSupport	= opts.mouseSupport !== undefined ? opts.mouseSupport : false;
@@ -10,7 +12,7 @@ var VirtualJoystick	= function(opts)
 	this._baseX		= this._stickX = opts.baseX || 0
 	this._baseY		= this._stickY = opts.baseY || 0
 	this._limitStickTravel	= opts.limitStickTravel || false
-	this._stickRadius	= opts.stickRadius !== undefined ? opts.stickRadius : 100
+	this._stickRadius	= opts.stickRadius !== undefined ? opts.stickRadius : 15
 	this._useCssTransform	= opts.useCssTransform !== undefined ? opts.useCssTransform : false
 
 	this._container.style.position	= "relative"
@@ -320,18 +322,22 @@ VirtualJoystick.prototype._buildJoystickBase	= function()
 	var canvas	= document.createElement( 'canvas' );
 	canvas.width	= 126;
 	canvas.height	= 126;
+	// canvas.width	= 50;
+	// canvas.height	= 50;
 	
 	var ctx		= canvas.getContext('2d');
 	ctx.beginPath(); 
-	ctx.strokeStyle = this._strokeStyle; 
+	ctx.strokeStyle = this._strokeStyle1; 
 	ctx.lineWidth	= 6; 
-	ctx.arc( canvas.width/2, canvas.width/2, 40, 0, Math.PI*2, true); 
+	ctx.arc( canvas.width/2, canvas.width/2, 20, 0, Math.PI*2, true); 
 	ctx.stroke();	
 
 	ctx.beginPath(); 
-	ctx.strokeStyle	= this._strokeStyle; 
+	ctx.strokeStyle	= this._strokeStyle2; 
 	ctx.lineWidth	= 2; 
-	ctx.arc( canvas.width/2, canvas.width/2, 60, 0, Math.PI*2, true); 
+	ctx.arc( canvas.width/2, canvas.width/2, 20, 0, Math.PI*2, true); 
+	ctx.fillStyle = '#2b3b446e';
+	ctx.fill();
 	ctx.stroke();
 	
 	return canvas;
@@ -347,9 +353,12 @@ VirtualJoystick.prototype._buildJoystickStick	= function()
 	canvas.height	= 86;
 	var ctx		= canvas.getContext('2d');
 	ctx.beginPath(); 
-	ctx.strokeStyle	= this._strokeStyle; 
+	ctx.strokeStyle	= this._strokeStyle3; 
+	// ctx.fill(this._strokeStyle3);
 	ctx.lineWidth	= 6; 
-	ctx.arc( canvas.width/2, canvas.width/2, 40, 0, Math.PI*2, true); 
+	ctx.arc( canvas.width/2, canvas.width/2, 15, 0, Math.PI*2, true); 
+	ctx.fillStyle = this._strokeStyle3;
+	ctx.fill();
 	ctx.stroke();
 	return canvas;
 }

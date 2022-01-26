@@ -1,6 +1,6 @@
 const C = {};
-C.Width = 900 ;
-C.Height = 450 ;
+C.Width = 1000 ;
+C.Height = 600 ;
 C.goalH = 100 ;
 C.goalW = 50 ;
 C.xGoalGap = C.Width / 40 ;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width,height=device-height initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Soccer</title>
     <link rel="shortcut icon" href="/assets/favicon.ico">
     <script src="/libraries/p5.js"></script>
@@ -15,157 +15,17 @@
     <!-- <link rel="stylesheet" href="counter.css"> -->
 </head>
 <body>
-    <div class="game-screen-div">
-        <div class="left-part">
-            <div class="top-row">
-                <div class="clock-timer">
-                    <!-- <span id="score-board" class="btn btn-danger btn-sm" style="pointer-events: none;">0 - 0</span> -->
-                    <div id="score-board">
-                        <div class="teamA">
-                            A
-                        </div>
-                        <div class="score">
-                            <span id="score-a">0</span>
-                            <span id="score-b">0</span>
-                        </div>
-                        <div class="teamB">
-                            B
-                        </div>
-                    </div>
-                    <span id="time-left" class="btn btn-info btn-sm" style="pointer-events: none;">5:00</span>
-                    <button class="btn btn-warning btn-sm" id="start-btn">Start/Pause</button>
-                </div>
-            </div>
-            <div id="canvasDiv">
-                <div id="go321"></div>
-            </div>
-        </div>
-        <div id="others">
-            <div id="roomCodeDiv">
-                Room Code: <span id="roomCodeDisplay"></span>
-            </div>
-            <div id="ping_element"></div>
-            <div id="roomCodeDiv">
-                <button class="btn btn-dark" id="config" data-modal-target="#my-modal">Team Status</button>
-                <div class="my-modal" id="my-modal">
-                    <div class="my-modal-header">Team Status
-                        <button data-close-buttom class="my-modal-close-button" id="close-config">&times;</button>
-                    </div>
-                    <div class="my-modal-body">
-                        <div class="my-col">
-                            <header>Online</header>
-                            <ol id="OnlinePlayers"></ol>
-                        </div>
-                        <div class="my-col" id="TeamAJoin">
-                            <header><button class="btn btn-dark">Team A</button></header>
-                            <ol id="teamA"></ol>
-                        </div>
-                        <div class="my-col" id="TeamBJoin">
-                            <header><button class="btn btn-dark">Team B</button></header>
-                            <ol id="teamB"></ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#controlsModal">
-                Controls
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="controlsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Player Controls</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="keyboard">
-                                <div class="keyboard-mini">
-                                    <div class="keyboard__row">
-                                        <div class="key--letter" data-char="W">W</div>
-                                    </div>
-                                    <div class="keyboard__row">
-                                        <div class="key--letter" data-char="A">A</div>
-                                        <div class="key--letter" data-char="S">S</div>
-                                        <div class="key--letter" data-char="D">D</div>
-                                    </div>
-                                    <div class="keyboard__row">
-                                        Move
-                                    </div>
-                                </div>
-                                <div class="keyboard-mini">
-                                    <div class="keyboard__row">
-                                        <div data-key="37" class="key--arrow">
-                                            <span>&#9650;</span>
-                                        </div>
-                                    </div>
-                                    <div class="keyboard__row">
-                                        <div data-key="37" class="key--arrow">
-                                            <span>&#9664;</span>
-                                        </div>
-                                        <div data-key="37" class="key--arrow">
-                                            <span>&#9660;</span>
-                                        </div>
-                                        <div data-key="37" class="key--arrow">
-                                            <span>&#9654;</span>
-                                        </div>
-                                    </div>
-                                    <div class="keyboard__row">
-                                        Move
-                                    </div>
-                                </div>
-                                <div class="mouse">
-                                    <div>
-                                        <img src="/assets/mouse.png" style="width: 100%; height: 100%;">
-                                    </div>
-                                    <div class="keyboard__row">
-                                        Shoot
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Ok</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="volumeSlider">
-                <div class="row">
-                    <input id="sounds-volume" type="range" min="0" max="100">
-                    <p>Sounds</p>
-                </div>
-                <audio src="/assets/pocket.mp3" controls loop id="pocket-sound"></audio>
-
-            </div>
-            <div id="overlay"></div>
-        </div>
-        <div id="final-score-board">
-            <div class="final-score-header" style="justify-content: space-around;border-bottom: 2px solid black;">
-                Game Over
-            </div>
-            <div class="final-score-header">
-                <div class="title">teamA</div>
-                <div class="title">teamB</div>
-            </div>
-            <div class="final-score-header">
-                <div class="final-score" id="final-score-a">0</div>
-                <div class="final-score" id="final-score-b">0</div>
-            </div>
-        </div>
+    <div id="canvasDiv">
+       
+        <!-- <div id="go321"></div> -->
     </div>
-    <audio src="/assets/kick.mp3" id="kick-sound" preload="auto"></audio>
-    <audio src="/assets/goal-sound.mp3" id="goal-sound" preload="auto"></audio>
+    
+    <!-- <audio src="/assets/kick.mp3" id="kick-sound" preload="auto"></audio>
+    <audio src="/assets/goal-sound.mp3" id="goal-sound" preload="auto"></audio> -->
     <script src="/libraries/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         let roomName = "<%=roomName%>";
-        
     </script>
     <script src="../libraries/joystick.js"></script>
     <script src="/constants.js"></script>

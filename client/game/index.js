@@ -20,7 +20,7 @@ let Cam = {
 // getPing();
 // sock.on('init', init);
 // sock.on('init',(data)=>console.log("init",data));
-roomCodeDisplay.innerText = roomName;
+// roomCodeDisplay.innerText = roomName;
 
 // sock.on('failedToJoinRoom',handleFailedToJoinRoom);
 
@@ -117,7 +117,29 @@ function onsock(){
     });
 }
 
-
+function reload_constants(){
+C.Width = window.innerWidth ;
+C.Height = window.innerHeight;
+C.goalH = 100 ;
+C.goalW = 50 ;
+C.xGoalGap = C.Width / 40 ;
+C.ygap = C.Height / 20;
+C.xgap = C.xGoalGap + C.goalW;
+C.backgroundColor = (4, 199, 75) ; // maybe unused
+C.playerRadius = 12 ;
+C.ballBigRadius = 15;
+C.ballRadius = 10 ;
+C.shootSpeed = 9;
+C.playerAcc = 0.3 ;
+C.playerAccFac = 0.7;
+C.picWidth = 48 ;
+C.picHeight = 48 ;
+C.wall_e_ball = 0.9;
+C.animationSpeed = 0.04 ; // it is ratio by which vel is multiplied
+C.scaleFieldX = C.Width/40; // to multiply with coordinates from formation
+C.scaleFieldY = C.Height/20;
+C.countDown = 4000; // 3-2-1-go
+}
 
 let ball_img;
 function preload(){
@@ -133,10 +155,10 @@ function mouseWheel(e){
 function setup() {
     // console.log('setup');
     // loader.style.display = 'none';
+    // reload_constants();
     canvas = createCanvas(C.Width,C.Height);
     canvas.parent('canvasDiv');
     textFont('Georgia');
-    strokeWeight(1);
     textSize(20);
     field = new Field();
     bluePlayerImgList = extractImage(BlueFullImg);
@@ -145,10 +167,12 @@ function setup() {
     
     joystick = new VirtualJoystick({
         container : document.body,
-        strokeStyle: 'cyan',
+        // strokeStyle1: 'cyan',
+        // strokeStyle2: 'yellow',
+        // strokeStyle3: 'pink',
         limitStickTravel: true,
-        stickRadius: 100,
-        // mouseSupport: true,// comment this to remove joystick from desktop site
+        // stickRadius: 100,
+        mouseSupport: true,// comment this to remove joystick from desktop site
     })
 
     sock = io({query:{roomName:roomName,username:"def"}});
@@ -162,7 +186,6 @@ const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 function draw() {
     // if(!allowSetup) return;
     // scale(1.1);
-    
     translate(canvas.width/2,canvas.height/2);
     scale(Cam.scale);
     translate(-canvas.width/2,-canvas.height/2);
@@ -179,4 +202,6 @@ function draw() {
     text(`fps:${Math.floor(fps)}`,15,15);
     pop();
     game.display();
+    // stroke('rgb(255,0,0)')
+    // rect(0,0,window.innerWidth,window.innerHeight);
 }
