@@ -1,13 +1,20 @@
 {
     "short_name": "Real Soccer",
-    "name": "Real Soccer Game App",
+    "name": "Play with friends in Real-time",
     "icons": [
-      {
-        "src": "launcher-icon-4x.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      }
+        {
+            "src": "/assets/favicon.ico",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/favicon.ico",
+            "sizes": "144x144",
+            "type": "image/png"
+        }
     ],
+    "background_color": "#FFFFFF",
+    "theme_color": "#212529",
     "start_url": "/",
     "display": "standalone",
     "orientation": "landscape"
