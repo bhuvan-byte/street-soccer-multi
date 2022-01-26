@@ -9,6 +9,7 @@ body {
 
 body {
     background-color: #6697c9;
+    position: fixed;
 }
 
 #canvasDiv {
