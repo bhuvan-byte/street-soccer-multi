@@ -10,6 +10,7 @@ let roomList,field,slowIntervalId;
 //     sock.emit('get-room-list'); // ask for room list from websockets.js every 1 second
 //     if(!allowSetup) setTimeout(askRoomList,1000);
 // }, 1000);
+window.scrollTo(0,1);
 
 function showRoomList(data){
     let room_list = document.getElementById('room-name-list');

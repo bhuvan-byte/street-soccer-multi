@@ -2,6 +2,19 @@
 <html lang="en">
 
 <head>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="keywords" content="Realtime,Soccer,Game,Fun">
+    <meta name="description" content="Try this realtime soccer game" />
+    <meta property="og:site_name" content="Real Soccer">
+    <meta property="og:title" content="Real Soccer" />
+    <meta property="og:description" content="Try this realtime soccer game" />
+    <meta property="og:image" itemprop="image" content="https://counter-view.herokuapp.com/assets/readme/thumbnail.png">
+    <meta property="og:image:secure_url" itemprop="image" content="https://counter-view.herokuapp.com/assets/readme/thumbnail.png">
+    <meta property="og:type" content="game" />
+    
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -137,6 +150,12 @@
     </script>
 
     <script src="/welcome/welcome.js"></script>
+    <script>console.log("hello"); if ('serviceWorker' in navigator){
+        console.log("Will the service worker register?");
+        navigator.serviceWorker.register('service-worker.js')
+            .then(function(reg){console.log("Yes, it did.");})
+            .catch(function(err) {console.log("No it didn't. This happened:", err)});
+   }</script>
 </body>
 
 </html>

@@ -59,7 +59,19 @@ async function logip(req,res){
         console.log("Error mongodb UID",err);
     }
 }
-
+// function isSecure(req) {
+//     if (req.headers['x-forwarded-proto']) 
+//         return req.headers['x-forwarded-proto'] === 'https';
+//     return req.secure;
+// };
+// app.use((req, res, next) => {
+//     console.log(isSecure(req),"hello");
+//     if (process.env.NODE_ENV !== 'development' && process.env.NODE_ENV !== 'test' && !isSecure(req)) {
+//       res.redirect(301, `https://${req.headers.host}${req.url}`);
+//     } else {
+//       next();
+//     }
+// });
 app.get("/",function(req,res) { 
     // logip(req,res);
     res.render('../client/welcome/welcome.ejs');
