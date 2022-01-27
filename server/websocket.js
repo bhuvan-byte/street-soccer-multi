@@ -37,15 +37,13 @@ io.on("connection", (sock) => {
             console.log(`deleting player id,name = ${games[sock.roomName].players[sock.id]}, ${sock.username}`);
             console.log(`length = ${Object.keys(games[sock.roomName].players).length}`)
             delete games[sock.roomName].players[sock.id];            
-            if(Object.keys(games[sock.roomName].players).length == 0){
-                setTimeout(() => {
-                    console.log(`deleting room ${sock.roomName}`);
-                    clearInterval(games[sock.roomName]?.intervalId);
-                    delete games[sock.roomName];
-                    console.log(`delete room func ${Object.keys(games).length}`);
-                }, 5000);
-                
-            }
+            setTimeout(() => {
+                if(Object.keys(games[sock.roomName].players).length != 0) return;
+                console.log(`deleting room ${sock.roomName}`);
+                clearInterval(games[sock.roomName]?.intervalId);
+                delete games[sock.roomName];
+                console.log(`delete room func ${Object.keys(games).length}`);
+            }, 5000);
         }
         console.log(`Client Id ${sock.id} disconnected`);
     });
