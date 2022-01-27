@@ -5,13 +5,13 @@ class Field{
         
         // grid for temporary support 
         
-        // stroke(20, 130, 60);
-        // for (var i = 0; i < 20; i++) {
-        //     line(0, i * C.ygap, C.Width, i * C.ygap); // horizontal
-        // }
-        // for (var i = 0; i < 40; i++) {
-        //     line(i * C.xGoalGap , 0, i * C.xGoalGap , C.Height); // vertical
-        // }
+        stroke(20, 130, 60);
+        for (var i = 0; i < 20; i++) {
+            line(0, i * C.ygap, C.Width, i * C.ygap); // horizontal
+        }
+        for (var i = 0; i < 40; i++) {
+            line(i * C.xGoalGap , 0, i * C.xGoalGap , C.Height); // vertical
+        }
         
         strokeWeight(2);
         stroke(255, 255, 255); // white color to draw shapes

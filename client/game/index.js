@@ -13,6 +13,8 @@ let bgm;
 let Cam = {
     x:0,
     y:0,
+    px:0,
+    py:0,
     scale:1,
 }
 // let scoreAFrontEnd=0,scoreBFrontEnd=0; //to display scores on canvas
@@ -189,15 +191,20 @@ const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 function draw() {
     // if(!allowSetup) return;
     // scale(1.1);
+    // translate(-canvas.width/2,-canvas.height/2);
+    // scale(Cam.scale);
+    // translate(Cam.px,Cam.py);
     translate(canvas.width/2,canvas.height/2);
     scale(Cam.scale);
-    translate(-canvas.width/2,-canvas.height/2);
+    translate(-C.Width/2,-C.Height/2);
+    // translate(C.Width/2,C.Height/2);
     let tfactor = 0.7;
     // let cfactor = 1-1/Cam.scale;
-    let cfactor = 100;
+    let cfactorx = 1-1/Cam.scale*canvas.width/C.Width;
+    let cfactory = 1-1/Cam.scale*canvas.height/C.Height;
     // console.log(canvas.width);
-    Cam.x = clamp(tfactor*(canvas.width/2-apna_player?.x),-cfactor*canvas.width/2,cfactor*canvas.width/2);
-    Cam.y = clamp(tfactor*(canvas.height/2-apna_player?.y),-cfactor*canvas.height/2,cfactor*canvas.height/2);
+    Cam.x = clamp(tfactor*(C.Width/2-apna_player?.x),-cfactorx*C.Width/2,cfactorx*C.Width/2);
+    Cam.y = clamp(tfactor*(C.Height/2-apna_player?.y),-cfactory*C.Height/2,cfactory*C.Height/2);
     translate(Cam.x,Cam.y);
     // translate(Cam.scale*canvas.width/2,0)
     // translate(-mouseX,-mouseY);
