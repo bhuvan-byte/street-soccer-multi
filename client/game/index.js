@@ -152,11 +152,14 @@ function mouseWheel(e){
     let f = Math.pow(1.001, e.delta);
     Cam.scale /= f;
 }
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+ }
 function setup() {
     // console.log('setup');
     // loader.style.display = 'none';
     // reload_constants();
-    canvas = createCanvas(C.Width,C.Height);
+    canvas = createCanvas(windowWidth, windowHeight);
     canvas.parent('canvasDiv');
     textFont('Georgia');
     textSize(20);
@@ -190,7 +193,9 @@ function draw() {
     scale(Cam.scale);
     translate(-canvas.width/2,-canvas.height/2);
     let tfactor = 0.7;
-    let cfactor = 1-1/Cam.scale;
+    // let cfactor = 1-1/Cam.scale;
+    let cfactor = 100;
+    // console.log(canvas.width);
     Cam.x = clamp(tfactor*(canvas.width/2-apna_player?.x),-cfactor*canvas.width/2,cfactor*canvas.width/2);
     Cam.y = clamp(tfactor*(canvas.height/2-apna_player?.y),-cfactor*canvas.height/2,cfactor*canvas.height/2);
     translate(Cam.x,Cam.y);
