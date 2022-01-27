@@ -1,5 +1,6 @@
 "use strict";
 let roomList,field,slowIntervalId;
+let joinBtns = [];
 // const loader = document.getElementById('loading');
 // setTimeout(() => {
 //     loader.style.display = 'none';
@@ -20,15 +21,24 @@ async function fetchRoomList(){
     setTimeout(fetchRoomList,1000);
 }
 
+function joinRoom(roomName){
+    let joinRoomrl = document.location.href+`room/${roomName}`;
+    document.location.replace(joinRoomrl)
+}
+
 function showRoomList(data){
     let room_list = document.getElementById('room-list');
     let newRoomList = '';
+    joinBtns = [];
     for(let room in data){
         newRoomList+=`<tr class="table-dark">
             <td>${room.toUpperCase()}</td>
             <td>${data[room]}</td>
-            <td><button class="btn btn-sm btn-outline-primary">Join</button></td>
+            <td><button class="btn btn-sm btn-outline-primary join-btn" onClick="joinRoom('${room}')">Join</button></td>
         </tr>`
+        // btn.addEventListener('click',(e)=>{
+        //     console.log(e);
+        // })
         // newRoomList+=`<button class="btn btn-primary room-list-item">${room} ${data[room]}</button>`;
         // console.log(`room -> ${room}, no of players -> ${data[room]}`);
     }
