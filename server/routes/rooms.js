@@ -15,6 +15,13 @@ router.get('/create', (req,res)=>{
     games[roomName].run();
     res.redirect(`${roomName}`);
 })
+router.get('/allrooms',(req,res)=>{
+    let roomList = {};
+    for(let room in games){
+        roomList[room] = Object.keys(games[room].players).length;
+    }
+    res.json(roomList);
+})
 router.get('/',(req,res)=>{
     console.log('[+] get rooms')
     res.send('hi')
