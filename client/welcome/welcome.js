@@ -27,7 +27,7 @@ function showRoomList(data){
         newRoomList+=`<tr class="table-dark">
             <td>${room.toUpperCase()}</td>
             <td>${data[room]}</td>
-            <td><button class="btn btn-sm btn-outline-primary">Join</button></td>
+            <td><a href="room/${room}"><button class="btn btn-sm btn-outline-primary">Join</button></a></td>
         </tr>`
         // newRoomList+=`<button class="btn btn-primary room-list-item">${room} ${data[room]}</button>`;
         // console.log(`room -> ${room}, no of players -> ${data[room]}`);
