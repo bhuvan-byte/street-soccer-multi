@@ -12,7 +12,7 @@ var VirtualJoystick	= function(opts)
 	this._baseX		= this._stickX = opts.baseX || 0
 	this._baseY		= this._stickY = opts.baseY || 0
 	this._limitStickTravel	= opts.limitStickTravel || false
-	this._stickRadius	= opts.stickRadius !== undefined ? opts.stickRadius : 15
+	this._stickRadius	= opts.stickRadius !== undefined ? opts.stickRadius : 30
 	this._useCssTransform	= opts.useCssTransform !== undefined ? opts.useCssTransform : false
 
 	this._container.style.position	= "relative"
@@ -329,13 +329,13 @@ VirtualJoystick.prototype._buildJoystickBase	= function()
 	ctx.beginPath(); 
 	ctx.strokeStyle = this._strokeStyle1; 
 	ctx.lineWidth	= 6; 
-	ctx.arc( canvas.width/2, canvas.width/2, 20, 0, Math.PI*2, true); 
+	ctx.arc( canvas.width/2, canvas.width/2, 30, 0, Math.PI*2, true); 
 	ctx.stroke();	
 
 	ctx.beginPath(); 
 	ctx.strokeStyle	= this._strokeStyle2; 
 	ctx.lineWidth	= 2; 
-	ctx.arc( canvas.width/2, canvas.width/2, 20, 0, Math.PI*2, true); 
+	ctx.arc( canvas.width/2, canvas.width/2, 30, 0, Math.PI*2, true); 
 	ctx.fillStyle = '#2b3b446e';
 	ctx.fill();
 	ctx.stroke();
@@ -356,7 +356,7 @@ VirtualJoystick.prototype._buildJoystickStick	= function()
 	ctx.strokeStyle	= this._strokeStyle3; 
 	// ctx.fill(this._strokeStyle3);
 	ctx.lineWidth	= 6; 
-	ctx.arc( canvas.width/2, canvas.width/2, 15, 0, Math.PI*2, true); 
+	ctx.arc( canvas.width/2, canvas.width/2, 20, 0, Math.PI*2, true); 
 	ctx.fillStyle = this._strokeStyle3;
 	ctx.fill();
 	ctx.stroke();

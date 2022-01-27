@@ -5,8 +5,9 @@ let apna_player;
 let bluePlayerImgList,redPlayerImgList,whitePlayerImgList;
 let BlueFullImg, RedFullImg, WhiteFullImg ;
 let roomList,field,slowIntervalId;
-let joystick,canvas;
+let joystick,canvas,shootingBtn;
 let fps;
+let startBtn, settingsBtn;
 // let kickSound=document.getElementById('kick-sound');
 // let goalSound=document.getElementById('goal-sound');
 let bgm;
@@ -141,6 +142,15 @@ C.scaleFieldY = C.Height/20;
 C.countDown = 4000; // 3-2-1-go
 }
 
+function createHtmlElements(){
+    startBtn = createButton('Start');
+    startBtn.position(windowWidth/2-35,1);
+    startBtn.addClass('btn btn-outline-dark');
+    startBtn.mouseClicked(()=>{
+        sock.emit('start/pause-signal');
+    })
+}
+
 let ball_img;
 function preload(){
     ball_img = loadImage('/assets/ball-dark-light.png');
@@ -178,6 +188,29 @@ function setup() {
         mouseSupport: true,// comment this to remove joystick from desktop site
     })
 
+    joystick.addEventListener('touchStartValidation', (e)=>{
+        var touch	= e.changedTouches[0];
+		if( touch.pageY > window.innerHeight/2 && touch.pageX < window.innerWidth/2)
+		    return true
+        return false;
+    })
+
+    shootingBtn = new VirtualJoystick({
+        container : document.body,
+        limitStickTravel:true,
+        mouseSupport:false,
+        strokeStyle1: '#f1000077',
+        strokeStyle3: '#e4353577',
+    })
+
+    shootingBtn.addEventListener('touchStartValidation', (e)=>{
+        var touch	= e.changedTouches[0];
+		if( touch.pageY > window.innerHeight/2 && touch.pageX > window.innerWidth/2)
+		    return true
+        return false;
+    })
+
+    createHtmlElements();
     sock = io({query:{roomName:roomName,username:"def"}});
     game = new Game(roomName);
     // game.ball.clientInit(ball_img);
