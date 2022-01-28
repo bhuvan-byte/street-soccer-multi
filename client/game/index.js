@@ -65,6 +65,7 @@ function onsock(){
         const {playerData,ballData} = data; // get player data every clock cycle
         game.updateClient(playerData,ballData);  // update game object client side.
         if(apna_player) {
+            apna_player.shootingSend();
             apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
             apna_player.joystickSend();
         }
@@ -179,11 +180,14 @@ function setup() {
     
     joystick = new VirtualJoystick({
         container : document.body,
+        // stickRadius : 30,
+        innerRadius : 40,
+        outerRadius : 50,
+        stickRadius: 50,
         // strokeStyle1: 'cyan',
         // strokeStyle2: 'yellow',
         // strokeStyle3: 'pink',
         limitStickTravel: true,
-        // stickRadius: 100,
         mouseSupport: true,// comment this to remove joystick from desktop site
     })
 
@@ -197,7 +201,10 @@ function setup() {
     shootingBtn = new VirtualJoystick({
         container : document.body,
         limitStickTravel:true,
-        mouseSupport:false,
+        innerRadius : 40,
+        outerRadius : 50,
+        stickRadius : 50,
+        // mouseSupport:true,
         strokeStyle1: '#f1000077',
         strokeStyle3: '#e4353577',
     })
