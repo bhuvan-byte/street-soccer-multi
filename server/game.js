@@ -258,7 +258,7 @@ class Game{
             isAdmin: (playerCount == 1),
         }; 
         // BUG: Client setup function runs each time a new player joins !!
-        io.in(this.roomName).emit("init",initDict);
+        io.in(this.roomName).emit("clock",initDict);
     }
 }
 module.exports = {

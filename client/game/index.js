@@ -213,7 +213,7 @@ function setup() {
     })
 
     createHtmlElements();
-    sock = io({query:{roomName:roomName,username:"def"}});
+    sock = io({query:{roomName:roomName,username:localStorage.getItem('name')}});
     game = new Game(roomName);
     // game.ball.clientInit(ball_img);
     onsock();
