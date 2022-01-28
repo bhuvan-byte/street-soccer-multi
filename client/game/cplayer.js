@@ -142,7 +142,7 @@ class Player extends Entity{
         let dx = shootingBtn.deltaX();
         let dy = shootingBtn.deltaY();
         let d = Math.sqrt(dx*dx+dy*dy);
-        let fac = 10;
+        let fac = 1000;
         if(d<=10) return;
         if(d == 0){
             if(this.zeroSent != 1){
