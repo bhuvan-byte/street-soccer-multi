@@ -31,14 +31,7 @@ function handleFailedToJoinRoom(msg){
     console.log(msg);
     // reset(); // does not work
 }
-// sock.on("changeTeam",(data)=>{
-//     console.log("change team client called");
-//     try {
-//         game.players[data.id].changeTeam(data.team);
-//     } catch (err) {
-//         console.error(err);
-//     }
-// });
+
 
 const pressed={
     'KeyA':0,
@@ -64,7 +57,7 @@ function setEventListener(){
         }
     });
 }
-
+// variable game is defined before calling onsock()
 function onsock(){
     setEventListener();
     sock.on('clock',(data) => {
@@ -117,6 +110,10 @@ function onsock(){
         // scoreBoard.innerHTML = `${scoreA} - ${scoreB}`;
         scoreBoardA.innerText = scoreA;
         scoreBoardB.innerText = scoreB;
+    });
+    sock.on("changeTeam",(data)=>{
+        // console.log("change team client called");
+        game.players[data.id]?.changeTeam(data.team);
     });
 }
 

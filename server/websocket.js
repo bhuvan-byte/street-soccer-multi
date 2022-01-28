@@ -38,7 +38,7 @@ io.on("connection", (sock) => {
             console.log(`length = ${Object.keys(games[sock.roomName].players).length}`)
             delete games[sock.roomName].players[sock.id];            
             setTimeout(() => {
-                if(Object.keys(games[sock.roomName].players).length != 0) return;
+                if(Object.keys(games[sock?.roomName]?.players ?? {}).length != 0) return;
                 console.log(`deleting room ${sock.roomName}`);
                 clearInterval(games[sock.roomName]?.intervalId);
                 delete games[sock.roomName];
@@ -86,6 +86,7 @@ io.on("connection", (sock) => {
     function handleStartPause(){
         console.log(`start pause button pressed by ${sock.id} in room ${sock.roomName}`);
         if(sock.roomName){
+            broadcastTeamofPlayers();
             let isRunning = games[sock.roomName].isRunning ;
             if(isRunning){
                 games[sock.roomName].isRunning = false;
@@ -163,7 +164,11 @@ io.on("connection", (sock) => {
             console.log(err);
         }
     }
-
+    function broadcastTeamofPlayers(){
+        const players = games[sock.roomName].players;
+        for(let playerid in players)
+            io.in(sock.roomName).emit("changeTeam",{id:playerid,team:players[playerid].teamName});
+    }
     function handleGetRoomList(){
         let roomList = {};
         for(let room in games){
