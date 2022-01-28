@@ -47,6 +47,27 @@
 </head>
 
 <body>
+  
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Enter room-code</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="recipient-name"
+                    onchange="hrefUpdate(this)" style="text-transform:uppercase" >
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <a id="popjoin" href=""><button type="button" class="btn btn-primary">Join Room</button></a>
+            </div>
+        </div>
+        </div>
+    </div>
+  
     <!-- <div class="my-container base" id="welcomePage">
         <div class="my-container card">
             <div class="row">
@@ -103,7 +124,7 @@
                 <div class="row d-flex justify-content-end align-self-stretch border border-primary my-3 px-0 mx-0">
                     <!-- <div class="col-12 border">Hey</div> -->
                     <div class="col-6">
-                        <a href="room/create">
+                        <a href="room/create" style="text-decoration: none;">
                             <div class="d-grid">
                                 <div class="btn btn-primary">Create</div>
                             </div>
@@ -111,7 +132,10 @@
                     </div>
                     <div class="col-6">
                         <div class="d-grid">
-                            <div class="btn btn-primary">Join</div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Join
+                            </button>
+                            <!-- <div class="btn btn-primary">Join</div> -->
                         </div>
                     </div>
                 </div>
@@ -159,6 +183,7 @@
         </div>
 
     </div>
+    <script src="/libraries/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>

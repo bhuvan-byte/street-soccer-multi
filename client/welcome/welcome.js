@@ -12,6 +12,11 @@ let roomList,field,slowIntervalId;
 // }, 1000);
 window.scrollTo(0,1);
 
+function hrefUpdate(inp){
+    $('#popjoin').attr('href', `/room/${inp.value.toLowerCase()}`);
+}
+
+
 fetchRoomList();
 async function fetchRoomList(){
     const response = await fetch("/room/allrooms");
@@ -27,7 +32,7 @@ function showRoomList(data){
         newRoomList+=`<tr class="table-dark">
             <td>${room.toUpperCase()}</td>
             <td>${data[room]}</td>
-            <td><a href="room/${room}"><button class="btn btn-sm btn-outline-primary">Join</button></a></td>
+            <td><a href="room/${room}" class="btn btn-sm btn-outline-primary">Join</a></td>
         </tr>`
         // newRoomList+=`<button class="btn btn-primary room-list-item">${room} ${data[room]}</button>`;
         // console.log(`room -> ${room}, no of players -> ${data[room]}`);
