@@ -70,6 +70,7 @@ function onsock(){
         if(apna_player) {
             sock.emit('mouse',getMouseTransformed());
             // apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
+            apna_player.shootingSend();
             apna_player.joystickSend();
         }
         else set_apna_player();
@@ -159,12 +160,15 @@ function setup() {
     whitePlayerImgList = extractImage(WhiteFullImg);
     
     joystick = new VirtualJoystick({
-        container : document.querySelector("#canvasDiv"),
+        container : document.body,
+        // stickRadius : 30,
+        innerRadius : 40,
+        outerRadius : 50,
+        stickRadius: 50,
         // strokeStyle1: 'cyan',
         // strokeStyle2: 'yellow',
         // strokeStyle3: 'pink',
         limitStickTravel: true,
-        // stickRadius: 100,
         mouseSupport: true,// comment this to remove joystick from desktop site
     })
 
@@ -178,7 +182,10 @@ function setup() {
     shootingBtn = new VirtualJoystick({
         container : document.body,
         limitStickTravel:true,
-        mouseSupport:false,
+        innerRadius : 40,
+        outerRadius : 50,
+        stickRadius : 50,
+        // mouseSupport:true,
         strokeStyle1: '#f1000077',
         strokeStyle3: '#e4353577',
     })
@@ -191,7 +198,7 @@ function setup() {
     })
 
     createHtmlElements();
-    sock = io({query:{roomName:roomName,username:"def"}});
+    sock = io({query:{roomName:roomName,username:localStorage.getItem('name')}});
     game = new Game(roomName);
     // game.ball.clientInit(ball_img);
     onsock();

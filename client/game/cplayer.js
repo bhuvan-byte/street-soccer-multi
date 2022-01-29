@@ -120,17 +120,37 @@ class Player extends Entity{
     //     // sock.emit('mouse',{x:mouseX,y:mouseY});
     // }
     joystickSend(){
-        let dx = joystick.deltaX()
-        let dy = joystick.deltaY()
-        let d = Math.sqrt(dx*dx + dy*dy)
-        if(dx == 0 && dy == 0){
+        let dx = joystick.deltaX();
+        let dy = joystick.deltaY();
+        let d = Math.sqrt(dx*dx + dy*dy);
+        if(d<=10) d = 0;
+        if(d == 0){
             if(this.zeroSent != 1){
                 // this only sends data once to set the velocity of player to 0.
-                this.zeroSent = 1
+                this.zeroSent = 1;
                 sock.emit('joystick',{dx:0,dy:0});
             }
         } else{
-            sock.emit('joystick',{dx:dx/d,dy:dy/d})
+            sock.emit('joystick',{dx:dx/d,dy:dy/d});
+            this.zeroSent = 0;
+        }
+    }
+    shootingSend(){
+        // for mobiles
+        // console.log('mobile-shoot sent')
+        let dx = shootingBtn.deltaX();
+        let dy = shootingBtn.deltaY();
+        let d = Math.sqrt(dx*dx+dy*dy);
+        let fac = 1000;
+        if(d<=10) return;
+        if(d == 0){
+            if(this.zeroSent != 1){
+                // this only sends data once to set the velocity of player to 0.
+                this.zeroSent = 1;
+                // sock.emit('shoot',{x:0,y:0});
+            }
+        } else{
+            sock.emit('shoot',{x:fac*dx/d+this.x,y:fac*dy/d+this.y});
             this.zeroSent = 0;
         }
     }

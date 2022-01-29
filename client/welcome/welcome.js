@@ -1,6 +1,18 @@
 "use strict";
 let roomList,field,slowIntervalId;
 let joinBtns = [];
+let saveBtn = document.getElementById('save-name-btn');
+let nam = document.getElementById('player-name');
+
+if(document.cookie && nam){
+    // name= takes 5 characters hence we ignore those 5.
+    nam.value = localStorage.getItem('name');
+}
+
+saveBtn.addEventListener('click',()=>{
+    localStorage.setItem('name',nam.value);
+})
+
 // const loader = document.getElementById('loading');
 // setTimeout(() => {
 //     loader.style.display = 'none';
