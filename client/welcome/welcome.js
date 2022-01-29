@@ -4,7 +4,7 @@ let joinBtns = [];
 let saveBtn = document.getElementById('save-name-btn');
 let nam = document.getElementById('player-name');
 
-if(document.cookie && nam){
+if(localStorage.getItem('name') && nam){
     // name= takes 5 characters hence we ignore those 5.
     nam.value = localStorage.getItem('name');
 }
@@ -42,7 +42,6 @@ async function fetchRoomList(){
 function showRoomList(data){
     let room_list = document.getElementById('room-list');
     let newRoomList = '';
-    joinBtns = [];
     for(let room in data){
         newRoomList+=`<tr class="table-dark">
             <td>${room.toUpperCase()}</td>

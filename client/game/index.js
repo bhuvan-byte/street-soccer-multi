@@ -59,10 +59,52 @@ function setEventListener(){
             // this.moveHandler(e.code,0);
         }
     });
+    joystick = new VirtualJoystick({
+        container : document.querySelector("#canvasDiv"),
+        // stickRadius : 30,
+        innerRadius : 40,
+        outerRadius : 50,
+        stickRadius: 50,
+        // strokeStyle1: 'cyan',
+        // strokeStyle2: 'yellow',
+        // strokeStyle3: 'pink',
+        limitStickTravel: true,
+        // mouseSupport: true,// comment this to remove joystick from desktop site
+    })
+
+    joystick.addEventListener('touchStartValidation', (e)=>{
+        var touch	= e.changedTouches[0];
+		if( touch.pageY > window.innerHeight/2 && touch.pageX < window.innerWidth/2)
+		    return true
+        return false;
+    })
+
+    shootingBtn = new VirtualJoystick({
+        container : document.querySelector("#canvasDiv"),
+        limitStickTravel:true,
+        innerRadius : 40,
+        outerRadius : 50,
+        stickRadius : 50,
+        // mouseSupport:true,
+        strokeStyle1: '#f1000077',
+        strokeStyle3: '#e4353577',
+    })
+
+    shootingBtn.addEventListener('touchStartValidation', (e)=>{
+        var touch	= e.changedTouches[0];
+		if( touch.pageY > window.innerHeight/2 && touch.pageX > window.innerWidth/2)
+		    return true
+        return false;
+    })
+    document.querySelector("#start").addEventListener('click',()=>{
+        sock.emit("start/pause-signal");
+    });
+    document.querySelector("#change-team").addEventListener('click',()=>{
+        sock.emit('changeTeam', (apna_player.teamName== "A")?"B":"A" );
+    });
 }
 // variable game is defined before calling onsock()
 function onsock(){
-    setEventListener();
     sock.on('clock',(data) => {
         // console.log(data);
         const {playerData,ballData} = data; // get player data every clock cycle
@@ -123,14 +165,6 @@ function onsock(){
 }
 
 
-function createHtmlElements(){
-    startBtn = createButton('Start');
-    startBtn.position(windowWidth/2-35,1);
-    startBtn.addClass('btn btn-outline-dark');
-    startBtn.mouseClicked(()=>{
-        sock.emit('start/pause-signal');
-    })
-}
 
 let ball_img;
 function preload(){
@@ -159,50 +193,13 @@ function setup() {
     redPlayerImgList = extractImage(RedFullImg);        
     whitePlayerImgList = extractImage(WhiteFullImg);
     
-    joystick = new VirtualJoystick({
-        container : document.body,
-        // stickRadius : 30,
-        innerRadius : 40,
-        outerRadius : 50,
-        stickRadius: 50,
-        // strokeStyle1: 'cyan',
-        // strokeStyle2: 'yellow',
-        // strokeStyle3: 'pink',
-        limitStickTravel: true,
-        mouseSupport: true,// comment this to remove joystick from desktop site
-    })
 
-    joystick.addEventListener('touchStartValidation', (e)=>{
-        var touch	= e.changedTouches[0];
-		if( touch.pageY > window.innerHeight/2 && touch.pageX < window.innerWidth/2)
-		    return true
-        return false;
-    })
-
-    shootingBtn = new VirtualJoystick({
-        container : document.body,
-        limitStickTravel:true,
-        innerRadius : 40,
-        outerRadius : 50,
-        stickRadius : 50,
-        // mouseSupport:true,
-        strokeStyle1: '#f1000077',
-        strokeStyle3: '#e4353577',
-    })
-
-    shootingBtn.addEventListener('touchStartValidation', (e)=>{
-        var touch	= e.changedTouches[0];
-		if( touch.pageY > window.innerHeight/2 && touch.pageX > window.innerWidth/2)
-		    return true
-        return false;
-    })
-
-    createHtmlElements();
     sock = io({query:{roomName:roomName,username:localStorage.getItem('name')}});
     game = new Game(roomName);
     // game.ball.clientInit(ball_img);
+    setEventListener();
     onsock();
-    Cam.shift = createVector(0,0);
+    // Cam.shift = createVector(0,0);
     // setupDone = true;
     // fullscreen(1);
 }
@@ -228,6 +225,7 @@ function draw() {
     
     // Cam.y = windowHeight*navbarF;
     Cam.shift = createVector(0,0);
+    Cam.shift.add(0,windowHeight*navbarF);
     Cam.shift.add(focus.x,focus.y);
     Cam.shift.add(-C.Width/2,-C.Height/2);
     Cam.shift.mult(Cam.scale);
