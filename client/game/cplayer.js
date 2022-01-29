@@ -116,9 +116,9 @@ class Player extends Entity{
      
 
     }
-    mouseSend(){
-        sock.emit('mouse',{x:mouseX,y:mouseY});
-    }
+    // mouseSend(){
+    //     // sock.emit('mouse',{x:mouseX,y:mouseY});
+    // }
     joystickSend(){
         let dx = joystick.deltaX()
         let dy = joystick.deltaY()

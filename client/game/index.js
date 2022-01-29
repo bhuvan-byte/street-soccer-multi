@@ -8,15 +8,18 @@ let roomList,field,slowIntervalId;
 let joystick,canvas,shootingBtn;
 let fps;
 let startBtn, settingsBtn;
+let navbarF = 0.07;
 // let kickSound=document.getElementById('kick-sound');
 // let goalSound=document.getElementById('goal-sound');
 let bgm;
 let Cam = {
-    x:0,
-    y:0,
-    px:0,
-    py:0,
+    shift:null, // Translation vector
     scale:1,
+}
+function getMouseTransformed(){
+    let mx = (mouseX - Cam.shift.x)/Cam.scale;
+    let my = (mouseY - Cam.shift.y)/Cam.scale;
+    return {x:mx,y:my};
 }
 // let scoreAFrontEnd=0,scoreBFrontEnd=0; //to display scores on canvas
 
@@ -41,7 +44,7 @@ const pressed={
 };
 function setEventListener(){
     canvasDiv.addEventListener('mousedown',(e)=>{
-        sock.emit("shoot",{x:mouseX,y:mouseY});
+        sock.emit("shoot",getMouseTransformed());
     });
     document.addEventListener('keydown',(e)=>{
         // console.log(e.code);
@@ -65,7 +68,8 @@ function onsock(){
         const {playerData,ballData} = data; // get player data every clock cycle
         game.updateClient(playerData,ballData);  // update game object client side.
         if(apna_player) {
-            apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
+            sock.emit('mouse',getMouseTransformed());
+            // apna_player.mouseSend(); // NEEDS TO BE REMOVED BECAUSE WE DONT NEED EVERY PLAYER'S MOUSE DATA
             apna_player.joystickSend();
         }
         else set_apna_player();
@@ -117,29 +121,6 @@ function onsock(){
     });
 }
 
-function reload_constants(){
-C.Width = window.innerWidth ;
-C.Height = window.innerHeight;
-C.goalH = 100 ;
-C.goalW = 50 ;
-C.xGoalGap = C.Width / 40 ;
-C.ygap = C.Height / 20;
-C.xgap = C.xGoalGap + C.goalW;
-C.backgroundColor = (4, 199, 75) ; // maybe unused
-C.playerRadius = 12 ;
-C.ballBigRadius = 15;
-C.ballRadius = 10 ;
-C.shootSpeed = 9;
-C.playerAcc = 0.3 ;
-C.playerAccFac = 0.7;
-C.picWidth = 48 ;
-C.picHeight = 48 ;
-C.wall_e_ball = 0.9;
-C.animationSpeed = 0.04 ; // it is ratio by which vel is multiplied
-C.scaleFieldX = C.Width/40; // to multiply with coordinates from formation
-C.scaleFieldY = C.Height/20;
-C.countDown = 4000; // 3-2-1-go
-}
 
 function createHtmlElements(){
     startBtn = createButton('Start');
@@ -178,7 +159,7 @@ function setup() {
     whitePlayerImgList = extractImage(WhiteFullImg);
     
     joystick = new VirtualJoystick({
-        container : document.body,
+        container : document.querySelector("#canvasDiv"),
         // strokeStyle1: 'cyan',
         // strokeStyle2: 'yellow',
         // strokeStyle3: 'pink',
@@ -214,6 +195,7 @@ function setup() {
     game = new Game(roomName);
     // game.ball.clientInit(ball_img);
     onsock();
+    Cam.shift = createVector(0,0);
     // setupDone = true;
     // fullscreen(1);
 }
@@ -224,24 +206,36 @@ function draw() {
     // translate(-canvas.width/2,-canvas.height/2);
     // scale(Cam.scale);
     // translate(Cam.px,Cam.py);
-    translate(canvas.width/2,canvas.height/2);
-    scale(Cam.scale);
-    translate(-C.Width/2,-C.Height/2);
+    // translate(canvas.width/2,canvas.height/2);
+    // scale(Cam.scale);
+    // translate(-C.Width/2,-C.Height/2);
     // translate(C.Width/2,C.Height/2);
     let tfactor = 0.7;
     // let cfactor = 1-1/Cam.scale;
     let cfactorx = 1-1/Cam.scale*canvas.width/C.Width;
     let cfactory = 1-1/Cam.scale*canvas.height/C.Height;
     // console.log(canvas.width);
-    Cam.x = clamp(tfactor*(C.Width/2-apna_player?.x),-cfactorx*C.Width/2,cfactorx*C.Width/2);
-    Cam.y = clamp(tfactor*(C.Height/2-apna_player?.y),-cfactory*C.Height/2,cfactory*C.Height/2);
-    translate(Cam.x,Cam.y);
+    let focus = createVector(0,0);
+    focus.x = clamp(tfactor*(C.Width/2-apna_player?.x),-cfactorx*C.Width/2,cfactorx*C.Width/2);
+    focus.y = clamp(tfactor*(C.Height/2-apna_player?.y),-cfactory*C.Height/2,cfactory*C.Height/2);
+    
+    // Cam.y = windowHeight*navbarF;
+    Cam.shift = createVector(0,0);
+    Cam.shift.add(focus.x,focus.y);
+    Cam.shift.add(-C.Width/2,-C.Height/2);
+    Cam.shift.mult(Cam.scale);
+    Cam.shift.add(canvas.width/2,canvas.height/2);
+    
+    // translate(Cam.x,Cam.y);
+    translate(Cam.shift);
+    scale(Cam.scale);
+
     // translate(Cam.scale*canvas.width/2,0)
     // translate(-mouseX,-mouseY);
     field.display();
     push();
     fill('#0000FF');
-    text(`fps:${Math.floor(fps)}`,15,15);
+    text(`fps:${Math.floor(frameRate()/3)*3}`,15,15);
     pop();
     game.display();
     // stroke('rgb(255,0,0)')

@@ -165,9 +165,9 @@ io.on("connection", (sock) => {
         }
     }
     function broadcastTeamofPlayers(){
-        const players = games[sock.roomName].players;
+        const players = games[sock.roomName]?.players;
         for(let playerid in players)
-            io.in(sock.roomName).emit("changeTeam",{id:playerid,team:players[playerid].teamName});
+            io.in(sock.roomName).emit("changeTeam",{id:playerid,team:players[playerid]?.teamName});
     }
     function handleGetRoomList(){
         let roomList = {};
