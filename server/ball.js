@@ -54,7 +54,7 @@ class Ball extends Entity{
             if(this.y>=C.Height/2-C.goalH/2 && this.y<=C.Height/2+C.goalH/2){ // check for goal
                 // this.reset();
                 // goal made in court of teamA. teamA will start next round
-                return "A";
+                if(this.x<this.xgap) return "A";
             } else{
                 this.x=this.radius+this.xgap;
                 this.vx *= -wall_e;
@@ -64,7 +64,7 @@ class Ball extends Entity{
             if(this.y>=C.Height/2-C.goalH/2 && this.y<=C.Height/2+C.goalH/2){ // check for goal
                 // this.reset();
                 // goal made in court of teamB. teamB will start next round
-                return "B";
+                if(this.x>C.Width-this.xgap) return "B";
             }else{
                 this.x=C.Width -this.xgap-this.radius;
                 this.vx *= -wall_e;
