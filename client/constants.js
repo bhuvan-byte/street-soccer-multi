@@ -6,6 +6,7 @@ C.goalW = 50 ;
 C.xGoalGap = C.Width / 40 ;
 C.ygap = C.Height / 20;
 C.xgap = C.xGoalGap + C.goalW;
+C.goalPoleRad = 30;
 C.backgroundColor = (4, 199, 75) ; // maybe unused
 C.playerRadius = 12 ;
 C.ballBigRadius = 15;

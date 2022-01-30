@@ -1,3 +1,26 @@
+/** collision with ball1 fixed 
+ * @param {Entity} ball1 @param {Entity} ball2*/
+function collide2 (ball1,ball2){
+    let dx=ball2.x-ball1.x,
+        dy=ball2.y-ball1.y,
+        radSum=ball2.radius+ball1.radius;
+        // console.log(`r1 = ${ball2.radius}, r2 = ${ball1.radius}`);
+    if(dx*dx + dy*dy< radSum*radSum){
+        let dist=Math.sqrt(dx*dx + dy*dy),
+            dif=radSum-dist;
+        dx/=dist;
+        dy/=dist;
+        let dot=dx*ball1.vx+dy*ball1.vy,
+            dot2=dx*ball2.vx+dy*ball2.vy,
+            impulsex=(dot-dot2)*dx,
+            impulsey=(dot-dot2)*dy;
+        ball2.vx+=2*impulsex;
+        ball2.vy+=2*impulsey;
+        ball2.x+=dif*dx;
+        ball2.y+=dif*dy;
+        //if(ball1.radius>10)ball1.radius-=5;
+    }
+}
 class Ball extends Entity{
     constructor(){
         super(C.Width/2,C.Height/2,C.ballRadius); 
@@ -6,6 +29,12 @@ class Ball extends Entity{
         this.xgap = C.xgap;
         this.ygap = C.ygap;
         this.spriteAng = 0;
+        this.poles = [
+            new Entity(C.xGoalGap+C.goalW,C.Height / 2 - C.goalH / 2,C.goalPoleRad),
+            new Entity(C.xGoalGap+C.goalW,C.Height / 2 + C.goalH / 2,C.goalPoleRad),
+            new Entity(C.Width - C.xgap, C.Height / 2 - C.goalH / 2, C.goalPoleRad),
+            new Entity(C.Width - C.xgap, C.Height / 2 + C.goalH / 2, C.goalPoleRad),
+        ];
         if(typeof module == "undefined") this.clientInit();
     }
     clientInit(){
@@ -49,6 +78,9 @@ class Ball extends Entity{
             this.y=C.Height - this.ygap -this.radius;
             this.vy *= -wall_e;
         }
+        for(const pole of this.poles){
+            collide2(pole,this);
+        }
         return false;
     }
     isCollide(player){
@@ -57,6 +89,12 @@ class Ball extends Entity{
 			radSum=player.radius+C.ballBigRadius;
             // console.log(`r1 = ${player.radius}, r2 = ${this.radius}`);
 		return (dx*dx + dy*dy< radSum*radSum);
+    }
+    update(){
+        super.update();
+        // for(const pole of this.poles){
+        //     collide2(pole,this);
+        // }
     }
     updateFollow(player){ //server side
         // if(player.ax!=0 || player.ay!=0) player.ballDir = Math.atan2(player.ax,player.ay);

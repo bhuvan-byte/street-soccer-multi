@@ -25,6 +25,14 @@ class Field{
         rect(C.xGoalGap, C.Height / 2 - C.goalH / 2, C.goalW, C.goalH);
         rect(C.Width - C.xgap, C.Height / 2 - C.goalH / 2, C.goalW, C.goalH);
         
+        push();fill(255,255,255);
+        // left goalpole
+        ellipse(C.xGoalGap+C.goalW,C.Height / 2 - C.goalH / 2,C.goalPoleRad*2);
+        ellipse(C.xGoalGap+C.goalW,C.Height / 2 + C.goalH / 2,C.goalPoleRad*2);
+        ellipse(C.Width - C.xgap, C.Height / 2 - C.goalH / 2, C.goalPoleRad*2);
+        ellipse(C.Width - C.xgap, C.Height / 2 + C.goalH / 2, C.goalPoleRad*2);
+        pop();
+
         // boudary lines top, bottom right left 
         line(C.xgap, C.ygap, C.Width - C.xgap, C.ygap);
         line(C.xgap, C.Height - C.ygap, C.Width - C.xgap, C.Height - C.ygap);
