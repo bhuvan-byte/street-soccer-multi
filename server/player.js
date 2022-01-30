@@ -128,9 +128,9 @@ class Player extends Entity{
         this.theta = Math.atan2((mousey-this.y),(mousex-this.x));
     }
     joystickHandler(dxdy){
-        let dx = dxdy.dx;
-        let dy = dxdy.dy;
+        let {dx,dy} = dxdy;
         let acc=C.playerAcc ;
+        if(this.hasBall) acc *= C.playerAccFac;
         this.ax = this.ay = 0;
         this.ax += dx*acc;
         this.ay += dy*acc; 
