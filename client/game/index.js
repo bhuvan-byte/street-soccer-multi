@@ -9,6 +9,8 @@ let joystick,canvas,shootingBtn;
 let fps;
 let startBtn, settingsBtn;
 let navbarF = 0.07;
+let scoreBoardA = document.getElementById('scoreboard-a')
+let scoreBoardB = document.getElementById('scoreboard-b')
 // let kickSound=document.getElementById('kick-sound');
 // let goalSound=document.getElementById('goal-sound');
 let bgm;
@@ -74,7 +76,7 @@ function setEventListener(){
 
     joystick.addEventListener('touchStartValidation', (e)=>{
         var touch	= e.changedTouches[0];
-		if( touch.pageY > window.innerHeight/2 && touch.pageX < window.innerWidth/2)
+		if( touch.pageY > window.innerHeight/10 && touch.pageX < window.innerWidth/2)
 		    return true
         return false;
     })
@@ -92,7 +94,7 @@ function setEventListener(){
 
     shootingBtn.addEventListener('touchStartValidation', (e)=>{
         var touch	= e.changedTouches[0];
-		if( touch.pageY > window.innerHeight/2 && touch.pageX > window.innerWidth/2)
+		if( touch.pageY > window.innerHeight/10 && touch.pageX > window.innerWidth/2)
 		    return true
         return false;
     })
@@ -155,6 +157,7 @@ function onsock(){
         // scoreAFrontEnd = scoreA;
         // scoreBFrontEnd = scoreB;
         // scoreBoard.innerHTML = `${scoreA} - ${scoreB}`;
+        console.log(`scores -> ${scoreA} vs ${scoreB}`)
         scoreBoardA.innerText = scoreA;
         scoreBoardB.innerText = scoreB;
     });
@@ -192,8 +195,8 @@ function setup() {
     bluePlayerImgList = extractImage(BlueFullImg);
     redPlayerImgList = extractImage(RedFullImg);        
     whitePlayerImgList = extractImage(WhiteFullImg);
-    
 
+    
     sock = io({query:{roomName:roomName,username:localStorage.getItem('name')}});
     game = new Game(roomName);
     // game.ball.clientInit(ball_img);
