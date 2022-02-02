@@ -230,6 +230,18 @@ class Game{
         }
         
     }
+    tackle(sockid){
+        const p = this.players[sockid];
+        const dy = this.ball.y-p.y;
+        const dx = this.ball.x-p.x;
+        if(dx*dx + dy*dy > C.tackleDist*C.tackleDist) return;
+        if(!this.ballHolder || p.hasBall || !p.canTackle) return;
+        p.canTackle = false;
+        setTimeout(()=>p.canTackle = true,C.tackleCooldown); 
+        const theta = Math.atan2(dy,dx);
+        p.vx = C.tackleSpeed*Math.cos(theta);
+        p.vy = C.tackleSpeed*Math.sin(theta);
+    }
     serverSend(){ // sends data from server to client
         let playerData={};
         // console.log(Object.keys(this.players).length);

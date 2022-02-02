@@ -76,6 +76,9 @@ io.on("connection", (sock) => {
             console.log("not defined//refresh required");
         }
     });
+    sock.on("tackle",()=>{
+        games[sock.roomName]?.tackle(sock.id);
+    });
     // sock.on('newRoom',handleNewRoom);
     // sock.on('joinRoom',handleJoinRoom);
     // sock.on('joinDefaultRoom',handleJoinDefaultRoom);

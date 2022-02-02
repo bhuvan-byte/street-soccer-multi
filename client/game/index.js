@@ -44,21 +44,35 @@ const pressed={
     'KeyD':0,
     'KeyS':0
 };
+const moveKeyMap={
+    'ArrowLeft':'KeyA',
+    'ArrowUp':'KeyW',
+    'ArrowRight':'KeyD',
+    'ArrowDown':'KeyS',
+}
 function setEventListener(){
     canvasDiv.addEventListener('mousedown',(e)=>{
         sock.emit("shoot",getMouseTransformed());
     });
     document.addEventListener('keydown',(e)=>{
         // console.log(e.code);
-        if(!e.repeat && (e.code in pressed)){
-            sock.emit("keypress",{ecode:e.code,direction:1});
+        let ecode = e.code;
+        if(ecode in moveKeyMap) ecode = moveKeyMap[ecode];
+        if(!e.repeat && (ecode in pressed)){
+            sock.emit("keypress",{ecode:ecode,direction:1});
             // this.moveHandler(e.code,1);
+        }
+        if(!e.repeat && ecode == "Space"){
+            e.preventDefault();
+            sock.emit("tackle");
         }
     });
     document.addEventListener('keyup',(e)=>{
-        if((e.code in pressed)){
-            sock.emit("keypress",{ecode:e.code,direction:0});
-            // this.moveHandler(e.code,0);
+        let ecode = e.code;
+        if(ecode in moveKeyMap) ecode = moveKeyMap[ecode];
+        if(!e.repeat && (ecode in pressed)){
+            sock.emit("keypress",{ecode:ecode,direction:0});
+            // this.moveHandler(e.code,1);
         }
     });
     joystick = new VirtualJoystick({

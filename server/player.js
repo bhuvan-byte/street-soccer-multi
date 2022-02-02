@@ -10,6 +10,7 @@ class Entity{
         this.ay=0;
         this.radius=radius;
         this.friction=0.99;
+        this.canTackle = true;
         this.mass=1;
         this.wall_e = 0;
         this.width = C.Width;

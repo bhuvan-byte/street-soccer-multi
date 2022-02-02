@@ -21,6 +21,9 @@ C.animationSpeed = 0.04 ; // it is ratio by which vel is multiplied
 C.scaleFieldX = C.Width/40; // to multiply with coordinates from formation
 C.scaleFieldY = C.Height/20;
 C.countDown = 000; // 3-2-1-go
+C.tackleSpeed = 10;
+C.tackleDist = 90;
+C.tackleCooldown = 1000;
 // currently made for <=7 players/team
 // |-7-|-6-|-4-||-4-|-6-|-7-|
 const basic_formation = {
