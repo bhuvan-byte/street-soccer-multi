@@ -19,51 +19,183 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/game/canvas.css">
     <link rel="stylesheet" href="/game/counter.css">
+    <link rel="stylesheet" href="/game/keyboard.css">
 </head>
 <body>
     
       
-      <!-- Modal -->
-      <div class="modal fade" id="teamModal" tabindex="-1" aria-labelledby="teamModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="teamModalLabel">Team</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Team Modal -->
+    <div class="modal fade" id="teamModal" tabindex="-1" aria-labelledby="teamModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="teamModalLabel">Team</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row d-flex justify-content-around">
+                <div class="col-3 border border-primary">
+                    <table><tbody>
+                        <tr><td>adfjkl1</td></tr>
+                        <tr><td>adfjkl2</td></tr>
+                    </tbody></table>
+                </div>
+                <div class="col-2 border border-primary d-flex align-items-center justify-content-around">
+                    <button id="change-team">switch</button>
+                </div>
+                
+                <div class="col-3 border border-primary">
+                    <table><tbody>
+                        <tr><td>adfjkl1</td></tr>
+                        <tr><td>adfjkl2</td></tr>
+                    </tbody></table>
+                </div>
             </div>
-            <div class="modal-body">
-                <div class="row d-flex justify-content-around">
-                    <div class="col-3 border border-primary">
-                        <table><tbody>
-                            <tr><td>adfjkl1</td></tr>
-                            <tr><td>adfjkl2</td></tr>
-                        </tbody></table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <!-- Invite Modal -->
+    <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="inviteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="inviteModalLabel">Team</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" >
+            Copy the link to invite your friends to play Real Soccer in Room : 
+            <!-- <input type="text" value=<% roomName %> readonly> -->
+            <span id="invite-modal-text-area"> <%= roomName %> </span>
+            <button class="btn" onclick="copyUrl()">
+            <img src="https://img.icons8.com/nolan/32/copy.png"/></button>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row d-flex justify-content-evenly">
+                    <div class="row border border-danger d-flex justify-content-center align-items-center">
+                        Controls
                     </div>
-                    <div class="col-2 border border-primary d-flex align-items-center justify-content-around">
-                        <button id="change-team">switch</button>
+                    <div class="row d-flex justify-content-evenly px-0">
+                        <div class="col col-3">
+                            <div class="keyboard">
+                            <div class="row my-1">
+                                <div class="keyboard__row">
+                                    <div class="key--letter" data-char="W">W</div>
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="keyboard__row">
+                                    <div class="key--letter" data-char="A">A</div>
+                                    <div class="key--letter" data-char="S">S</div>
+                                    <div class="key--letter" data-char="D">D</div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="row d-flex justify-content-center align-items-center">
+                                Move
+                            </div>
+                        </div>
+                        <div class="col col-3">
+                            <div class="keyboard">
+                            <div class="row my-1">
+                                <div class="keyboard__row">
+                                    <div class="key--letter" data-key="37"><span>&#9650;</span></div>
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="keyboard__row">
+                                    <div class="key--letter" data-key="37"><span>&#9664;</span></div>
+                                    <div class="key--letter" data-key="37"><span>&#9660;</span></div>
+                                    <div class="key--letter" data-key="37"><span>&#9654;</span></div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="row d-flex justify-content-center align-items-center">
+                                Move
+                            </div>
+                        </div>
+                        <div class="col col-2 d-flex justify-content-center align-items-center px-0 py-0 mx-0 my-0" >
+                            <div class="row py-0 my-0" style="height: 64px; width: 50px; ">
+                                <div style="border-radius: 50%; background-color: rgba(56, 56, 230, 0.685); width:64px; height: 64px; display: flex; justify-content: center; align-items: center;">
+                                    <div style="border-radius: 50%; background-color: rgb(5, 34, 112); width:32px; height: 32px;"></div>
+                                </div>
+                            </div>
+                            <div class="row border d-flex justify-content-center align-items-center" style="color: white;">
+                                Move
+                            </div>
+                        </div>
+                        <div class="col col-2 border d-flex justify-content-center align-items-center px-0 py-0 mx-0 my-0" >
+                            <div class="row py-0 my-0" style="height: 64px; width: 50px; ">
+                                <div style="border-radius: 50%; background-color: rgba(192, 51, 51, 0.685); width:64px; height: 64px; display: flex; justify-content: center; align-items: center;">
+                                    <div style="border-radius: 50%; background-color: rgb(233, 20, 20); width:32px; height: 32px;"></div>
+                                </div>
+                            </div>
+                            <div class="row border d-flex justify-content-center align-items-center" style="color: white;">
+                                Shoot
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="col-3 border border-primary">
-                        <table><tbody>
-                            <tr><td>adfjkl1</td></tr>
-                            <tr><td>adfjkl2</td></tr>
-                        </tbody></table>
+                </div>
+                
+                <div class="row d-flex justify-content-evenly">
+                    <div class="col col-3">
+                        <div class="keyboard">
+                            <div class="row">
+                                <div class="keyboard__row">
+                                    <div class="key--double key--right key--space" data-key="32" data-char=" ">Space</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center">
+                            Tackle
+                        </div>
+                    </div>
+                    <div class="col col-2">
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <img src="../assets/mouse.png" style="width: 64px; height: 64px;">
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center">
+                            Shoot
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
         </div>
-      </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
     <div id="navbar" class="contianer-fluid">
         <button id="start" class="btn btn-sm btn-primary mx-1 py-0">Start</button>
-        <button id="invite" class="btn btn-sm btn-primary mx-1 py-0">Invite</button>
+        <button id="invite" class="btn btn-sm btn-primary mx-1 py-0" data-modal-target="#my-modal"
+        type="button" data-bs-toggle="modal" data-bs-target="#inviteModal">Invite</button>
         <button id="team" class="btn btn-sm btn-primary mx-1 py-0" data-modal-target="#my-modal"
         type="button" data-bs-toggle="modal" data-bs-target="#teamModal">Team</button>
-        <button id="settings" class="btn btn-sm btn-primary mx-1 py-0">Settings</button>
+        <button id="settings" class="btn btn-sm btn-primary mx-1 py-0" data-modal-target="#my-modal"
+        type="button" data-bs-toggle="modal" data-bs-target="#settingsModal">Settings</button>
+        <button class="btn btn-primary mx-1 py-0">Home</button>
         <button id="scoreboard-b" class="btn btn-sm btn-dark mx-1 py-0">0</button>
         <button id="scoreboard-a" class="btn btn-sm btn-dark mx-1 py-0">0</button>
     </div>

@@ -3,6 +3,7 @@ class Ball extends Entity{
         super(C.Width/2,C.Height/2,C.ballRadius); 
         this.img=undefined;
         this.clientInit();
+        this.spriteAng = 0;
     }
     clientInit(){
         this.img = ball_img;
