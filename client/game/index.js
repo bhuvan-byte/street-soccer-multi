@@ -54,6 +54,9 @@ function setEventListener(){
     canvasDiv.addEventListener('mousedown',(e)=>{
         sock.emit("shoot",getMouseTransformed());
     });
+    document.querySelector('#tackle').addEventListener('click',()=>{
+        sock.emit("tackle")
+    });
     document.addEventListener('keydown',(e)=>{
         // console.log(e.code);
         let ecode = e.code;
@@ -90,7 +93,7 @@ function setEventListener(){
 
     joystick.addEventListener('touchStartValidation', (e)=>{
         var touch	= e.changedTouches[0];
-		if( touch.pageY > window.innerHeight/10 && touch.pageX < window.innerWidth/2)
+		if(touch.pageX < window.innerWidth/2)
 		    return true
         return false;
     })
@@ -108,7 +111,7 @@ function setEventListener(){
 
     shootingBtn.addEventListener('touchStartValidation', (e)=>{
         var touch	= e.changedTouches[0];
-		if( touch.pageY > window.innerHeight/10 && touch.pageX > window.innerWidth/2)
+		if(touch.pageX > window.innerWidth/2)
 		    return true
         return false;
     })

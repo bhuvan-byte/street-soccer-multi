@@ -8,6 +8,15 @@
     padding: 0;
 }
 
+#tackle {
+    position: absolute;
+    left: 90vw;
+    top: 90vh;
+    height: 7vh;
+    width: 7vw;
+    border-radius: 7vh;
+}
+
 #navbar {
     height: 7vh;
     width: 100vw;

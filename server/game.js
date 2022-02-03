@@ -128,8 +128,9 @@ class Game{
     }
     addPlayer(id,username){
         let player = new Player(id,Math.random()*C.Width,Math.random()*C.Height,C.playerRadius,false,username);
-        if(!this.started) this.players[id] = player;
-        else this.waitList[id] = player;
+        // if(!this.started) 
+        this.players[id] = player;
+        // else this.waitList[id] = player;
     }
     clearWaitList(){
         for(let key in this.waitList){
