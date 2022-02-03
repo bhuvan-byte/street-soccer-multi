@@ -93,6 +93,7 @@ class Player extends Entity{
        
         stroke(this.strokeColor); // white color to draw shapes
         textSize(15);
+        textFont(openSans);
         fill("#FFF");
         strokeWeight(1);
         textAlign(CENTER);
