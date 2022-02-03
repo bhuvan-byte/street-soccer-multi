@@ -12,6 +12,7 @@ let navbarF = 0.07;
 let scoreBoardA = document.getElementById('scoreboard-a')
 let scoreBoardB = document.getElementById('scoreboard-b')
 let inviteModal = document.getElementById('invite-modal-text-area');
+let openSans;  // ("/assets/OpenSans-Light.ttf")
 // let kickSound=document.getElementById('kick-sound');
 // let goalSound=document.getElementById('goal-sound');
 let bgm;
@@ -55,10 +56,21 @@ const moveKeyMap={
     'ArrowDown':'KeyS',
 }
 function setEventListener(){
+    setInterval(() => {
+        let tbodyRed = document.querySelector("#red-team tbody");
+        let tbodyBlue = document.querySelector("#blue-team tbody");
+        tbodyRed.innerHTML = tbodyBlue.innerHTML = "";
+        for(const p of Object.values(game.players)){
+            let tbody;
+            if(p.teamName =='A') tbody = tbodyBlue;
+            else tbody = tbodyRed;
+            tbody.insertRow().insertCell().innerText = p.username;
+        }
+    }, 1000);
     canvasDiv.addEventListener('mousedown',(e)=>{
         sock.emit("shoot",getMouseTransformed());
     });
-    document.querySelector('#tackle').addEventListener('click',()=>{
+    document.querySelector('#tackle').addEventListener('touchstart',()=>{
         sock.emit("tackle")
     });
     document.addEventListener('keydown',(e)=>{
@@ -196,6 +208,7 @@ function preload(){
     BlueFullImg = loadImage('/assets/blue.png');
     RedFullImg = loadImage('/assets/red.png');
     WhiteFullImg = loadImage('/assets/white.png');
+    openSans = loadFont("/assets/OpenSans-Light.ttf");
 }
 function mouseWheel(e){
     let f = Math.pow(1.001, e.delta);

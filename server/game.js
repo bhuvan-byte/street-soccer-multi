@@ -129,6 +129,12 @@ class Game{
     addPlayer(id,username){
         let player = new Player(id,Math.random()*C.Width,Math.random()*C.Height,C.playerRadius,false,username);
         // if(!this.started) 
+        let numA=0,numB=0;
+        for(const key in this.players){
+            if(this.players[key].teamName=='A') numA+=1;
+        }
+        numB = Object.keys(this.players).length-numA;
+        player.teamName = (numA>numB) ? "B":"A";
         this.players[id] = player;
         // else this.waitList[id] = player;
     }

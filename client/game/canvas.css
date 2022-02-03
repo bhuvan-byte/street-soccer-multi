@@ -10,11 +10,19 @@
 
 #tackle {
     position: absolute;
-    left: 90vw;
-    top: 90vh;
-    height: 7vh;
-    width: 7vw;
-    border-radius: 7vh;
+    right: 3vw;
+    bottom: 3vh;
+    height: 14vh;
+    width: 14vw;
+    border-radius: 14vh;
+}
+
+
+#blue-team tr {
+    background-color: rgba(0, 0, 255, 0.5);
+}
+#red-team tr {
+    background-color: rgba(255, 0, 0, 0.5);
 }
 
 #navbar {
