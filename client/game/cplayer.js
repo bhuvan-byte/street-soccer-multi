@@ -92,11 +92,11 @@ class Player extends Entity{
         ellipse(this.x,this.y,this.d,this.d); // circle representing player
        
         stroke(this.strokeColor); // white color to draw shapes
-        textSize(20);
+        textSize(15);
         fill("#FFF");
         strokeWeight(1);
         textAlign(CENTER);
-        text(this.username,this.x,this.y+2*this.radius);
+        text(this.username,this.x,this.y-2.5*this.radius);
         // this.theta=atan2((mouseY-this.y),(mouseX-this.x));
         // this.vx=this.v*Math.cos(this.theta);
         // this.vy=this.v*Math.sin(this.theta); 
@@ -105,13 +105,13 @@ class Player extends Entity{
         // line(this.x,this.y,this.x+this.radius*Math.cos(this.theta),this.y+this.radius*Math.sin(this.theta)); // line showing  the dirction where player is pointing
     }
     highlightDisplay(){ // to highlight the player who is in possesion of the ball (called from index.js)
-        let d1 = 35; // height of lower point of triangle
-        let d2 = 45; // height of two upper points to make a downward pointing traingle
-        let twidht = 10; // width of top base of triangle
-        fill("rgb(92, 3, 78)");
-        triangle(this.x,this.y-d1,this.x-twidht,this.y-d2,this.x+twidht,this.y-d2); // needs 3 points (x,y)
-        ellipse(this.x+200*Math.cos(this.theta),this.y+200*sin(this.theta),5,5);
-        line(this.x,this.y,this.x+200*Math.cos(this.theta),this.y+200*sin(this.theta));
+        let d1 = 45; // height of lower point of triangle
+        let d2 = 55; // height of two upper points to make a downward pointing traingle
+        let twidth = 10; // width of top base of triangle
+        fill('#088da5bb');
+        triangle(this.x,this.y-d1,this.x-twidth,this.y-d2,this.x+twidth,this.y-d2); // needs 3 points (x,y)
+        // ellipse(this.x+200*Math.cos(this.theta),this.y+200*sin(this.theta),5,5);
+        // line(this.x,this.y,this.x+200*Math.cos(this.theta),this.y+200*sin(this.theta));
         fill("rgba(255,255,255,0)");
      
 

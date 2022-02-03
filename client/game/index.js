@@ -11,6 +11,7 @@ let startBtn, settingsBtn;
 let navbarF = 0.07;
 let scoreBoardA = document.getElementById('scoreboard-a')
 let scoreBoardB = document.getElementById('scoreboard-b')
+let inviteModal = document.getElementById('invite-modal-text-area');
 // let kickSound=document.getElementById('kick-sound');
 // let goalSound=document.getElementById('goal-sound');
 let bgm;
@@ -37,6 +38,9 @@ function handleFailedToJoinRoom(msg){
     // reset(); // does not work
 }
 
+function copyUrl(){
+    navigator.clipboard.writeText(document.location.href);
+}
 
 const pressed={
     'KeyA':0,
@@ -88,7 +92,7 @@ function setEventListener(){
         // strokeStyle2: 'yellow',
         // strokeStyle3: 'pink',
         limitStickTravel: true,
-        // mouseSupport: true,// comment this to remove joystick from desktop site
+        mouseSupport: true,// comment this to remove joystick from desktop site
     })
 
     joystick.addEventListener('touchStartValidation', (e)=>{
@@ -199,7 +203,15 @@ function mouseWheel(e){
 }
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
- }
+}
+function getPlayerName(){
+    let pname = localStorage.getItem('name');
+    if(pname){
+        return pname.substr(0,8);
+    } else{
+        return 'nan';
+    }
+}
 function setup() {
     // console.log('setup');
     // loader.style.display = 'none';
@@ -214,11 +226,12 @@ function setup() {
     whitePlayerImgList = extractImage(WhiteFullImg);
 
     
-    sock = io({query:{roomName:roomName,username:localStorage.getItem('name')}});
+    sock = io({query:{roomName:roomName,username:getPlayerName()}});
     game = new Game(roomName);
     // game.ball.clientInit(ball_img);
     setEventListener();
     onsock();
+    inviteModal.innerText = document.location.href;
     // Cam.shift = createVector(0,0);
     // setupDone = true;
     // fullscreen(1);
