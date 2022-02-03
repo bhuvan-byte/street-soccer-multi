@@ -162,12 +162,13 @@ function onsock(){
         // apna_player.client();
     }
 
-    $('#go321').hide();
+    let go321 = document.querySelector('#go321');
+    go321.style.display = 'none';
     sock.on('countDown',(countDownTime)=>{
         // console.log(`countdown-signal recieved ${countDownTime}`);
-        $('#go321').show();
+        go321.style.display = '';
         setTimeout(() => {
-            $('#go321').hide();
+            go321.style.display = 'none';
         }, countDownTime);
     });
 
@@ -244,6 +245,7 @@ function setup() {
     // game.ball.clientInit(ball_img);
     setEventListener();
     onsock();
+    document.querySelector('#loading').style.display = 'none';
     inviteModal.innerText = document.location.href;
     // Cam.shift = createVector(0,0);
     // setupDone = true;
