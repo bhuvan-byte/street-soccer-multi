@@ -121,6 +121,7 @@ io.on("connection", (sock) => {
         game.addPlayer(sock.id,sock.username);
         // sock.emit('init',{playerNo:sock.number,roomName:roomName});
         game.sendInitData();
+        broadcastTeamofPlayers();
         // io.in(roomName).emit('newPlayer',{id:sock.id,playerNo:sock.number,username:sock.username});
     }
     

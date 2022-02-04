@@ -57,18 +57,20 @@ const moveKeyMap={
 }
 function setEventListener(){
     setInterval(() => {
+        let tbodyRed = document.querySelector("#red-team tbody");
+        let tbodyBlue = document.querySelector("#blue-team tbody");
+        tbodyRed.innerHTML = tbodyBlue.innerHTML = "";
         for(const p of Object.values(game.players)){
             let tbody;
-            if(p.teamName =='A') tbody = document.querySelector("#blue-team tbody");
-            else tbody = document.querySelector("#red-team tbody");
-            tbody.innerHTML= '';
+            if(p.teamName =='A') tbody = tbodyBlue;
+            else tbody = tbodyRed;
             tbody.insertRow().insertCell().innerText = p.username;
         }
     }, 1000);
     canvasDiv.addEventListener('mousedown',(e)=>{
         sock.emit("shoot",getMouseTransformed());
     });
-    document.querySelector('#tackle').addEventListener('click',()=>{
+    document.querySelector('#tackle').addEventListener('touchstart',()=>{
         sock.emit("tackle")
     });
     document.addEventListener('keydown',(e)=>{
@@ -160,12 +162,13 @@ function onsock(){
         // apna_player.client();
     }
 
-    $('#go321').hide();
+    let go321 = document.querySelector('#go321');
+    go321.style.display = 'none';
     sock.on('countDown',(countDownTime)=>{
         // console.log(`countdown-signal recieved ${countDownTime}`);
-        $('#go321').show();
+        go321.style.display = '';
         setTimeout(() => {
-            $('#go321').hide();
+            go321.style.display = 'none';
         }, countDownTime);
     });
 
@@ -242,6 +245,7 @@ function setup() {
     // game.ball.clientInit(ball_img);
     setEventListener();
     onsock();
+    document.querySelector('#loading').style.display = 'none';
     inviteModal.innerText = document.location.href;
     // Cam.shift = createVector(0,0);
     // setupDone = true;
