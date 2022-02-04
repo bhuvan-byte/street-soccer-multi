@@ -15,6 +15,10 @@ let inviteModal = document.getElementById('invite-modal-text-area');
 let openSans;  // ("/assets/OpenSans-Light.ttf")
 let kickSound=document.getElementById('kick-sound');
 let goalSound=document.getElementById('goal-sound');
+let kickVolSlider = document.querySelector('#kick-vol-slider');
+let goalVolSlider = document.querySelector('#goal-vol-slider');
+let muteBtn = document.querySelector('#mute-btn');
+let mute = 0;
 let bgm;
 let Cam = {
     shift:null, // Translation vector
@@ -141,6 +145,14 @@ function setEventListener(){
     document.querySelector("#change-team").addEventListener('click',()=>{
         sock.emit('changeTeam', (apna_player.teamName== "A")?"B":"A" );
     });
+    muteBtn.addEventListener('click',()=>{
+        mute = 1-mute;
+        if(muteBtn.innerText[0]=='M'){
+            muteBtn.innerText = 'Unmute';
+        } else{
+            muteBtn.innerText = 'Mute';
+        }
+    })
 }
 // variable game is defined before calling onsock()
 function onsock(){
@@ -177,9 +189,9 @@ function onsock(){
     });
 
     sock.on('play-sound',(event)=>{
-        console.log('in play-sound', event);
-        let kickVolSlider = document.querySelector('#kick-vol-slider');
-        let goalVolSlider = document.querySelector('#goal-vol-slider');
+        if(mute==1){
+            return;
+        }
         let bgVolSlider = document.querySelector('#bg-vol-slider');
         // let soundsVolume = soundsVolumeInput.value/100;
         kickSound.volume = kickVolSlider.value;
