@@ -1,98 +1,103 @@
 "use strict";
 
-function init(data){
-    if(!setupDone) {
-        setTimeout(init, 100); /* this checks the flag every 100 milliseconds*/
-    } else {
-        inithelper(data);
-    }
-}
-function inithelper(data) {
-    let {playerNo,roomName} = data;
-    // console.log(`playerNo = ${playerNo}`);
-    if(!allowSetup) game = new Game(roomName);
-    
-    onClock(data);
-    for(const key in game.players) game.players[key].changeTeam();
-    if(allowSetup) return;
-    
-    pocketSound.play();
-    pocketSound.volume = 0.5;
-    // setup();
-    document.removeEventListener("mousedown",roomJoinDynamicClick);
-    others.style.display = 'block'; // what is this
-    slowIntervalId = setInterval(() => {
-        fps = frameRate();
-        extractOnlinePlayers(game.players);
-        handleUpdateTeams(game.players);
-    }, 1000);
-    if(sock.id in game.players){
-        apna_player = game.players[sock.id];
-        apna_player.strokeColor="#00ff08";
-        apna_player.client();
-    }else{
-        console.log("my player undefined");
-        alert("rejoin!");
-    }
+document.getElementById("home").addEventListener("click",()=>{
+    window.location.href = '/';
+});
+function copyUrl(){
+    navigator.clipboard.writeText(document.location.href);
 }
 
-function handleUpdateTeams(playerData){
-    // UNSAFE TOWARDS INJECTIONS
-    // let team_a = '<ul>';
-    // let team_b = '<ul>';
-    // for(let key in playerData){
-    //     // console.log(playerData[key].teamName);
-    //     if(playerData[key].teamName==="A")
-    //         team_a+=`<li>`+playerData[key].username+`</li>`;
-    //     if(playerData[key].teamName==="B") 
-    //         team_b+=`<li>`+playerData[key].username+`</li>`;
-    // }
-    // team_a+='</ul>';
-    // team_b+='</ul>';
-    // teamA.innerHTML=team_a;
-    // teamB.innerHTML=team_b;
-    let teamAnew = document.createElement('ol');
-    let teamBnew = document.createElement('ol');
-
-    for(let key in playerData){
-        let li = document.createElement('li');
-        li.innerText = playerData[key].username;
-        if(playerData[key].teamName==="A"){
-            teamAnew.appendChild(li);
+function setEventListener(){
+    setInterval(() => {
+        let tbodyRed = document.querySelector("#red-team tbody");
+        let tbodyBlue = document.querySelector("#blue-team tbody");
+        tbodyRed.innerHTML = tbodyBlue.innerHTML = "";
+        for(const p of Object.values(game.players)){
+            let tbody;
+            if(p.teamName =='A') tbody = tbodyBlue;
+            else tbody = tbodyRed;
+            tbody.insertRow().insertCell().innerText = p.username;
         }
-        if(playerData[key].teamName==="B"){
-            teamBnew.appendChild(li);
-        }        
-    }
-    teamA.innerHTML = teamAnew.innerHTML;
-    teamB.innerHTML = teamBnew.innerHTML;
+    }, 1000);
+    canvasDiv.addEventListener('mousedown',(e)=>{
+        sock.emit("shoot",getMouseTransformed());
+    });
+    document.querySelector('#tackle').addEventListener('touchstart',()=>{
+        sock.emit("tackle")
+    });
+    document.addEventListener('keydown',(e)=>{
+        // console.log(e.code);
+        let ecode = e.code;
+        if(ecode in moveKeyMap) ecode = moveKeyMap[ecode];
+        if(!e.repeat && (ecode in pressed)){
+            sock.emit("keypress",{ecode:ecode,direction:1});
+            // this.moveHandler(e.code,1);
+        }
+        if(!e.repeat && ecode == "Space"){
+            e.preventDefault();
+            sock.emit("tackle");
+        }
+    });
+    document.addEventListener('keyup',(e)=>{
+        let ecode = e.code;
+        if(ecode in moveKeyMap) ecode = moveKeyMap[ecode];
+        if(!e.repeat && (ecode in pressed)){
+            sock.emit("keypress",{ecode:ecode,direction:0});
+            // this.moveHandler(e.code,1);
+        }
+    });
+    joystick = new VirtualJoystick({
+        container : document.querySelector("#canvasDiv"),
+        // stickRadius : 30,
+        innerRadius : 40,
+        outerRadius : 50,
+        stickRadius: 50,
+        // strokeStyle1: 'cyan',
+        // strokeStyle2: 'yellow',
+        // strokeStyle3: 'pink',
+        limitStickTravel: true,
+        mouseSupport: true,// comment this to remove joystick from desktop site
+    })
+
+    joystick.addEventListener('touchStartValidation', (e)=>{
+        var touch	= e.changedTouches[0];
+		if(touch.pageX < window.innerWidth/2)
+		    return true
+        return false;
+    })
+
+    shootingBtn = new VirtualJoystick({
+        container : document.querySelector("#canvasDiv"),
+        limitStickTravel:true,
+        innerRadius : 40,
+        outerRadius : 50,
+        stickRadius : 50,
+        // mouseSupport:true,
+        strokeStyle1: '#f1000077',
+        strokeStyle3: '#e4353577',
+    })
+
+    shootingBtn.addEventListener('touchStartValidation', (e)=>{
+        var touch	= e.changedTouches[0];
+		if(touch.pageX > window.innerWidth/2)
+		    return true
+        return false;
+    })
+    document.querySelector("#start").addEventListener('click',()=>{
+        sock.emit("start/pause-signal");
+    });
+    document.querySelector("#change-team").addEventListener('click',()=>{
+        sock.emit('changeTeam', (apna_player.teamName== "A")?"B":"A" );
+    });
+    muteBtn.addEventListener('click',()=>{
+        mute = 1-mute;
+        if(muteBtn.innerText[0]=='M'){
+            muteBtn.innerText = 'Unmute';
+        } else{
+            muteBtn.innerText = 'Mute';
+        }
+    });
 }
-
-function extractOnlinePlayers(playerData){
-    // UNSAFE TOWARDS INJECTIONS
-    // let online_players='<ul>OnlinePlayers';
-
-    // for(let key in playerData){ 
-    //     // console.log(playerData[key].username);
-    //     online_players+=`<li>`+playerData[key].username+`</li>`;
-    // }
-    // online_players+='</ul>';
-    // OnlinePlayers.innerHTML=online_players;
-
-    // other way which is safe towards injections
-    // NEVER USE .INNERHTML TAG ON USER INPUT 
-    // ALWAYS USE .INNETTEXT WHEN DEALING WITH USER INPUT
-    // console.info(playerData);
-    let onlinePlayersNew = document.createElement('ol');
-    for(let key in playerData){
-        let li = document.createElement('li');
-        li.innerText = playerData[key].username;
-        onlinePlayersNew.appendChild(li);
-    }
-    // console.log(`onlinePlayersNew -> ${onlinePlayersNew}`);
-    OnlinePlayers.innerHTML = onlinePlayersNew.innerHTML;
-}
-
 function extractImage(fullImage){
     let x=0,y=0,imageList = [];
     for(let r=0;r<4;r++){

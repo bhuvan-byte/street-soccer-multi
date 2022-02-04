@@ -9,14 +9,9 @@ let joystick,canvas,shootingBtn;
 let fps;
 let startBtn, settingsBtn;
 let navbarF = 0.07;
-let scoreBoardA = document.getElementById('scoreboard-a')
-let scoreBoardB = document.getElementById('scoreboard-b')
-let inviteModal = document.getElementById('invite-modal-text-area');
 let openSans;  // ("/assets/OpenSans-Light.ttf")
-let kickSound=document.getElementById('kick-sound');
-let goalSound=document.getElementById('goal-sound');
-let kickVolSlider = document.querySelector('#kick-vol-slider');
-let goalVolSlider = document.querySelector('#goal-vol-slider');
+
+
 let muteBtn = document.querySelector('#mute-btn');
 let mute = 0;
 let bgm;
@@ -43,13 +38,6 @@ function handleFailedToJoinRoom(msg){
     // reset(); // does not work
 }
 
-function goHome(){
-    document.location.href = '/'
-}
-
-function copyUrl(){
-    navigator.clipboard.writeText(document.location.href);
-}
 
 const pressed={
     'KeyA':0,
@@ -63,99 +51,10 @@ const moveKeyMap={
     'ArrowRight':'KeyD',
     'ArrowDown':'KeyS',
 }
-function setEventListener(){
-    setInterval(() => {
-        let tbodyRed = document.querySelector("#red-team tbody");
-        let tbodyBlue = document.querySelector("#blue-team tbody");
-        tbodyRed.innerHTML = tbodyBlue.innerHTML = "";
-        for(const p of Object.values(game.players)){
-            let tbody;
-            if(p.teamName =='A') tbody = tbodyBlue;
-            else tbody = tbodyRed;
-            tbody.insertRow().insertCell().innerText = p.username;
-        }
-    }, 1000);
-    canvasDiv.addEventListener('mousedown',(e)=>{
-        sock.emit("shoot",getMouseTransformed());
-    });
-    document.querySelector('#tackle').addEventListener('touchstart',()=>{
-        sock.emit("tackle")
-    });
-    document.addEventListener('keydown',(e)=>{
-        // console.log(e.code);
-        let ecode = e.code;
-        if(ecode in moveKeyMap) ecode = moveKeyMap[ecode];
-        if(!e.repeat && (ecode in pressed)){
-            sock.emit("keypress",{ecode:ecode,direction:1});
-            // this.moveHandler(e.code,1);
-        }
-        if(!e.repeat && ecode == "Space"){
-            e.preventDefault();
-            sock.emit("tackle");
-        }
-    });
-    document.addEventListener('keyup',(e)=>{
-        let ecode = e.code;
-        if(ecode in moveKeyMap) ecode = moveKeyMap[ecode];
-        if(!e.repeat && (ecode in pressed)){
-            sock.emit("keypress",{ecode:ecode,direction:0});
-            // this.moveHandler(e.code,1);
-        }
-    });
-    joystick = new VirtualJoystick({
-        container : document.querySelector("#canvasDiv"),
-        // stickRadius : 30,
-        innerRadius : 40,
-        outerRadius : 50,
-        stickRadius: 50,
-        // strokeStyle1: 'cyan',
-        // strokeStyle2: 'yellow',
-        // strokeStyle3: 'pink',
-        limitStickTravel: true,
-        mouseSupport: true,// comment this to remove joystick from desktop site
-    })
 
-    joystick.addEventListener('touchStartValidation', (e)=>{
-        var touch	= e.changedTouches[0];
-		if(touch.pageX < window.innerWidth/2)
-		    return true
-        return false;
-    })
-
-    shootingBtn = new VirtualJoystick({
-        container : document.querySelector("#canvasDiv"),
-        limitStickTravel:true,
-        innerRadius : 40,
-        outerRadius : 50,
-        stickRadius : 50,
-        // mouseSupport:true,
-        strokeStyle1: '#f1000077',
-        strokeStyle3: '#e4353577',
-    })
-
-    shootingBtn.addEventListener('touchStartValidation', (e)=>{
-        var touch	= e.changedTouches[0];
-		if(touch.pageX > window.innerWidth/2)
-		    return true
-        return false;
-    })
-    document.querySelector("#start").addEventListener('click',()=>{
-        sock.emit("start/pause-signal");
-    });
-    document.querySelector("#change-team").addEventListener('click',()=>{
-        sock.emit('changeTeam', (apna_player.teamName== "A")?"B":"A" );
-    });
-    muteBtn.addEventListener('click',()=>{
-        mute = 1-mute;
-        if(muteBtn.innerText[0]=='M'){
-            muteBtn.innerText = 'Unmute';
-        } else{
-            muteBtn.innerText = 'Mute';
-        }
-    })
-}
 // variable game is defined before calling onsock()
 function onsock(){
+    console.log('onsock called!');
     sock.on('clock',(data) => {
         // console.log(data);
         const {playerData,ballData} = data; // get player data every clock cycle
@@ -194,8 +93,10 @@ function onsock(){
         }
         let bgVolSlider = document.querySelector('#bg-vol-slider');
         // let soundsVolume = soundsVolumeInput.value/100;
-        kickSound.volume = kickVolSlider.value;
-        goalSound.volume = goalVolSlider.value;
+        let kickSound=document.getElementById('kick-sound');
+        let goalSound=document.getElementById('goal-sound');
+        kickSound.volume = document.querySelector('#kick-vol-slider').value;
+        goalSound.volume = document.querySelector('#goal-vol-slider').value;
         if(event=='kick'){
             kickSound.play();
         }
@@ -203,9 +104,30 @@ function onsock(){
             goalSound.play();
         }
     });
-
+    sock.on('timeLeft',(timeLeft)=>{
+        timeLeft = Math.floor(timeLeft);
+        // console.log(`timeLeft = ${timeLeft}`);
+        let min = Math.floor(timeLeft/60);
+        let sec = timeLeft%60;
+        if(sec<10){sec='0'+sec.toString(10); }
+        const timeLeftHtml = document.getElementById('time-left');
+        timeLeftHtml.innerText=`${min}:${sec}`;
+        if(timeLeft<1){
+            const finalScoreBoard = document.getElementById('final-score-board');
+            const finalFinalScoreA = document.getElementById('final-score-a');
+            const finalFinalScoreB = document.getElementById('final-score-b');            
+            const scoreBoardA = document.getElementById('scoreboard-a');
+            const scoreBoardB = document.getElementById('scoreboard-b');
+            finalFinalScoreA.innerText = scoreBoardA.innerText;
+            finalFinalScoreB.innerText = scoreBoardB.innerText;
+            finalScoreBoard.style.display="flex";
+        }
+    });
     sock.on('score',({scoreA,scoreB})=>{
-        console.log(`scores -> ${scoreA} vs ${scoreB}`)
+        console.log(`scores -> ${scoreA} vs ${scoreB}`);
+        let scoreBoardA = document.getElementById('scoreboard-a');
+        let scoreBoardB = document.getElementById('scoreboard-b');
+        
         scoreBoardA.innerText = scoreA;
         scoreBoardB.innerText = scoreB;
     });
@@ -216,7 +138,16 @@ function onsock(){
 }
 
 
+function getPlayerName(){
+    let pname = localStorage.getItem('name');
+    if(pname){
+        return pname.substring(0,8);
+    } else{
+        return 'nan';
+    }
+}
 
+// p5.js functions
 let ball_img;
 function preload(){
     ball_img = loadImage('/assets/ball-dark-light.png');
@@ -231,14 +162,6 @@ function mouseWheel(e){
 }
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
-}
-function getPlayerName(){
-    let pname = localStorage.getItem('name');
-    if(pname){
-        return pname.substr(0,8);
-    } else{
-        return 'nan';
-    }
 }
 function setup() {
     // console.log('setup');
@@ -260,6 +183,7 @@ function setup() {
     setEventListener();
     onsock();
     document.querySelector('#loading').style.display = 'none';
+    let inviteModal = document.getElementById('invite-modal-text-area')
     inviteModal.innerText = document.location.href;
     // Cam.shift = createVector(0,0);
     // setupDone = true;
