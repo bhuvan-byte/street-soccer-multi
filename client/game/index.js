@@ -13,8 +13,8 @@ let scoreBoardA = document.getElementById('scoreboard-a')
 let scoreBoardB = document.getElementById('scoreboard-b')
 let inviteModal = document.getElementById('invite-modal-text-area');
 let openSans;  // ("/assets/OpenSans-Light.ttf")
-// let kickSound=document.getElementById('kick-sound');
-// let goalSound=document.getElementById('goal-sound');
+let kickSound=document.getElementById('kick-sound');
+let goalSound=document.getElementById('goal-sound');
 let bgm;
 let Cam = {
     shift:null, // Translation vector
@@ -37,6 +37,10 @@ function getMouseTransformed(){
 function handleFailedToJoinRoom(msg){
     console.log(msg);
     // reset(); // does not work
+}
+
+function goHome(){
+    document.location.href = '/'
 }
 
 function copyUrl(){
@@ -173,10 +177,13 @@ function onsock(){
     });
 
     sock.on('play-sound',(event)=>{
-        // console.log('in play-sound', event);
-        let soundsVolume = soundsVolumeInput.value/100;
-        kickSound.volume = soundsVolume;
-        goalSound.volume = soundsVolume/5;
+        console.log('in play-sound', event);
+        let kickVolSlider = document.querySelector('#kick-vol-slider');
+        let goalVolSlider = document.querySelector('#goal-vol-slider');
+        let bgVolSlider = document.querySelector('#bg-vol-slider');
+        // let soundsVolume = soundsVolumeInput.value/100;
+        kickSound.volume = kickVolSlider.value/100;
+        goalSound.volume = goalVolSlider.value/100;
         if(event=='kick'){
             kickSound.play();
         }
@@ -186,11 +193,6 @@ function onsock(){
     });
 
     sock.on('score',({scoreA,scoreB})=>{
-        // console.log(`scoreA = ${scoreA}, scoreB = ${scoreB}`);
-        // to display score on canvas
-        // scoreAFrontEnd = scoreA;
-        // scoreBFrontEnd = scoreB;
-        // scoreBoard.innerHTML = `${scoreA} - ${scoreB}`;
         console.log(`scores -> ${scoreA} vs ${scoreB}`)
         scoreBoardA.innerText = scoreA;
         scoreBoardB.innerText = scoreB;
