@@ -90,8 +90,45 @@ class Ball extends Entity{
             // console.log(`r1 = ${player.radius}, r2 = ${this.radius}`);
 		return (dx*dx + dy*dy< radSum*radSum);
     }
-    update(){
-        super.update();
+    goalCollide(){
+        function collideLineBall(x1,y1,x2,y2,dir,ball,e=0.2){
+            if(x1 == x2 && Math.abs(ball.x-x1)<ball.radius){
+                if(y1>y2) [y1,y2] = [y2,y1];
+                ball.x = x1 + dir*ball.radius;
+                ball.vx *= -1*e;
+            }else if(y1==y2 && Math.abs(ball.y-y1)<ball.radius){
+                if(x1>x2) [x1,x2] = [x2,x1];
+                ball.y = y1 + dir*ball.radius;
+                ball.vy *= -1*e;
+            }
+        }
+        
+        // left vertical
+        collideLineBall(C.xGoalGap, C.Height/2 - C.goalH/2,
+            C.xGoalGap,C.Height/2 + C.goalH/2,
+            1,this);
+        // left up
+        collideLineBall(C.xGoalGap, C.Height/2 - C.goalH/2,
+            C.xgap, C.Height/2 - C.goalH/2,
+            +1,this);
+        //left down
+        collideLineBall(C.xGoalGap, C.Height/2 + C.goalH/2,
+            C.xgap, C.Height/2 + C.goalH/2,
+            -1,this);
+        
+
+        // right vertical
+        collideLineBall(C.Width-C.xGoalGap, C.Height/2 - C.goalH/2,
+            C.Width-C.xGoalGap,C.Height/2 + C.goalH/2,
+            -1,this);
+        // right up
+        collideLineBall(C.Width-C.xGoalGap, C.Height/2 - C.goalH/2,
+            C.Width-C.xgap, C.Height/2 - C.goalH/2,
+            +1,this);
+        //right down
+        collideLineBall(C.Width-C.xGoalGap, C.Height/2 + C.goalH/2,
+            C.Width-C.xgap, C.Height/2 + C.goalH/2,
+            -1,this);
         // for(const pole of this.poles){
         //     collide2(pole,this);
         // }

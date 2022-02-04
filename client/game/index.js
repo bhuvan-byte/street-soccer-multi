@@ -182,8 +182,8 @@ function onsock(){
         let goalVolSlider = document.querySelector('#goal-vol-slider');
         let bgVolSlider = document.querySelector('#bg-vol-slider');
         // let soundsVolume = soundsVolumeInput.value/100;
-        kickSound.volume = kickVolSlider.value/100;
-        goalSound.volume = goalVolSlider.value/100;
+        kickSound.volume = kickVolSlider.value;
+        goalSound.volume = goalVolSlider.value;
         if(event=='kick'){
             kickSound.play();
         }

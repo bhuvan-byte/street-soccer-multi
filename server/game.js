@@ -223,7 +223,7 @@ class Game{
     }
     update(){ // server side update
         if(this.isRunning) this.ballUpdate();
-        else this.ball.update();
+        else {this.ball.update();this.ball.goalCollide()}
         for(let [key,player] of Object.entries(this.players)){
             player.update();
             player.wallCollide();
