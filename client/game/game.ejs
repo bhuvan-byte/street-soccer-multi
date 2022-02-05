@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/game/keyboard.css">
 </head>
 <body>
+    <!-- Loading -->
     <div id="loading">
         <svg id="svg-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             style="margin: auto; background: rgba(241, 242, 243, 0); display: block;" width="204px" height="204px"
@@ -47,8 +48,7 @@
                 </g>
             </g>
         </svg>
-    </div>
-      
+    </div> 
     <!-- Team Modal -->
     <div class="modal fade" id="teamModal" tabindex="-1" aria-labelledby="teamModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -81,7 +81,6 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
         </div>
         </div>
     </div>
@@ -256,6 +255,7 @@
         </div>
     </div>
     </div>
+    <!-- Navbar -->
     <div id="navbar" class="contianer-fluid">
         <button class="btn btn-primary btn-sm mx-1 py-0 right">About Us</button>
         <button id="start" class="btn btn-sm btn-primary mx-1 py-0 left">Start</button>
@@ -268,10 +268,26 @@
         <button class="btn btn-primary btn-sm mx-1 py-0 right" id="mute-btn">Mute</button>
         <button id="settings" class="btn btn-sm btn-primary mx-1 py-0 right" data-modal-target="#my-modal"
         type="button" data-bs-toggle="modal" data-bs-target="#settingsModal">Settings</button>
-        <button class="btn btn-sm btn-primary mx-1 py-0 left" onclick="goHome()">Home</button>
-        <button id="scoreboard-a" class="btn btn-sm btn-dark mx-1 py-0 left">0</button>
-        <button id="scoreboard-b" class="btn btn-sm btn-dark mx-1 py-0 left">0</button>
+        <button class="btn btn-sm btn-primary mx-1 py-0" id="home">Home</button>
+        <button id="scoreboard-b" class="btn btn-sm btn-dark mx-1 py-0">0</button>
+        <button id="scoreboard-a" class="btn btn-sm btn-dark mx-1 py-0">0</button>
+        <span id="time-left" class="btn btn-info btn-sm" style="pointer-events: none;">00:00</span>
     </div>
+    <!-- Final score board -->
+    <div id="final-score-board">
+        <div class="final-score-header" style="justify-content: space-around;border-bottom: 2px solid black;">
+            Game Over
+        </div>
+        <div class="final-score-header">
+            <div class="title">teamA</div>
+            <div class="title">teamB</div>
+        </div>
+        <div class="final-score-header">
+            <div class="final-score" id="final-score-a">0</div>
+            <div class="final-score" id="final-score-b">0</div>
+        </div>
+    </div>
+    <!-- Canvas -->
     <div id="canvasDiv">
         <div id="go321"></div>
     </div>
