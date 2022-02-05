@@ -279,6 +279,10 @@ class Game{
         // BUG: Client setup function runs each time a new player joins !!
         io.in(this.roomName).emit("clock",initDict);
     }
+    resetScores(){
+        this.scoreA = 0;
+        this.scoreB = 0;
+    }
 }
 module.exports = {
     Game: Game,

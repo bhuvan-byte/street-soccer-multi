@@ -79,6 +79,9 @@ io.on("connection", (sock) => {
     sock.on("tackle",()=>{
         games[sock.roomName]?.tackle(sock.id);
     });
+    sock.on('game-over', ()=>{
+        games[sock.roomName].resetScores();
+    })
     // sock.on('newRoom',handleNewRoom);
     // sock.on('joinRoom',handleJoinRoom);
     // sock.on('joinDefaultRoom',handleJoinDefaultRoom);

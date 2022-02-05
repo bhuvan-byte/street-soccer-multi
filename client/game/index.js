@@ -17,6 +17,8 @@ let goalVolSlider = document.querySelector('#goal-vol-slider');
 // let bgmVolSlider = document.querySelector('#bgm-vol-slider');
 let muteBtn = document.querySelector('#mute-btn');
 let mute = 0;
+let scoreBoardA = document.getElementById('scoreboard-a');
+let scoreBoardB = document.getElementById('scoreboard-b');
 let Cam = {
     shift:null, // Translation vector
     scale:1,
@@ -115,21 +117,18 @@ function onsock(){
         const timeLeftHtml = document.getElementById('time-left');
         timeLeftHtml.innerText=`${min}:${sec}`;
         if(timeLeft<1){
-            const finalScoreBoard = document.getElementById('final-score-board');
-            const finalFinalScoreA = document.getElementById('final-score-a');
-            const finalFinalScoreB = document.getElementById('final-score-b');            
-            const scoreBoardA = document.getElementById('scoreboard-a');
-            const scoreBoardB = document.getElementById('scoreboard-b');
-            finalFinalScoreA.innerText = scoreBoardA.innerText;
-            finalFinalScoreB.innerText = scoreBoardB.innerText;
-            finalScoreBoard.style.display="flex";
+            let gameOver = document.querySelector('#gameOver');
+            const finalScoreA = document.getElementById('final-score-a');
+            const finalScoreB = document.getElementById('final-score-b');            
+            finalScoreA.innerText = scoreBoardA.innerText;
+            finalScoreB.innerText = scoreBoardB.innerText;
+            gameOver.click();
+            scoreBoardA.innerText = scoreBoardB.innerText = '0'
+            sock.emit('game-over'); //to reset the scores at server
         }
     });
     sock.on('score',({scoreA,scoreB})=>{
         console.log(`scores -> ${scoreA} vs ${scoreB}`);
-        let scoreBoardA = document.getElementById('scoreboard-a');
-        let scoreBoardB = document.getElementById('scoreboard-b');
-        
         scoreBoardA.innerText = scoreA;
         scoreBoardB.innerText = scoreB;
     });

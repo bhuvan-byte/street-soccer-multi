@@ -255,6 +255,38 @@
         </div>
     </div>
     </div>
+    <!-- Game Over Modal -->
+    <div class="modal fade" id="gameOverModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="gameOverModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="gameOverModalLabel">Game Over</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container container-fluid">
+                        <div class="row d-flex align-items-center justify-content-evenly"> <h1>SCORES</h1></div>
+                        <div class="row d-flex justify-content-evenly align-items-center">
+                            <div class="col d-flex justify-content-center"> <h1>Blue</h1> </div>
+                            <div class="col d-flex justify-content-center"> <h1>Red</h1> </div>
+                        </div>
+                        <div class="row d-flex justify-content-evenly align-items-center">
+                            <div class="col d-flex justify-content-center" id="final-score-a"></div>
+                            <div class="col d-flex justify-content-center" id="final-score-b"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Button gameover modal -->
+    <button id="gameOver" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gameOverModal" style="display: none;">
+    Launch static backdrop modal
+    </button>
     <!-- Navbar -->
     <div id="navbar" class="contianer-fluid">
         <button class="btn btn-primary btn-sm mx-1 py-0 right">About Us</button>
@@ -269,11 +301,11 @@
         <button id="settings" class="btn btn-sm btn-primary mx-1 py-0 right" data-modal-target="#my-modal"
         type="button" data-bs-toggle="modal" data-bs-target="#settingsModal">Settings</button>
         <button class="btn btn-sm btn-primary mx-1 py-0 left" id="home">Home</button>
-        <button id="scoreboard-b" class="btn btn-sm btn-dark mx-1 py-0 left" style="pointer-events: none;">0</button>
         <button id="scoreboard-a" class="btn btn-sm btn-dark mx-1 py-0 left" style="pointer-events: none;">0</button>
+        <button id="scoreboard-b" class="btn btn-sm btn-dark mx-1 py-0 left" style="pointer-events: none;">0</button>
         <button id="time-left" class="btn btn-info btn-sm left" style="pointer-events: none;">00:00</button>
     </div>
-    <!-- Final score board -->
+    <!-- Final score board
     <div id="final-score-board">
         <div class="final-score-header" style="justify-content: space-around;border-bottom: 2px solid black;">
             Game Over
@@ -286,7 +318,7 @@
             <div class="final-score" id="final-score-a">0</div>
             <div class="final-score" id="final-score-b">0</div>
         </div>
-    </div>
+    </div> -->
     <!-- Canvas -->
     <div id="canvasDiv">
         <div id="go321"></div>
