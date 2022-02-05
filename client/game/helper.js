@@ -1,5 +1,5 @@
 "use strict";
-
+let startBtn = document.querySelector("#start");
 document.getElementById("home").addEventListener("click",()=>{
     window.location.href = '/';
 });
@@ -49,9 +49,9 @@ function setEventListener(){
     joystick = new VirtualJoystick({
         container : document.querySelector("#canvasDiv"),
         // stickRadius : 30,
-        innerRadius : 40,
-        outerRadius : 50,
-        stickRadius: 50,
+        innerRadius : 20,
+        outerRadius : 40,
+        stickRadius: 40,
         // strokeStyle1: 'cyan',
         // strokeStyle2: 'yellow',
         // strokeStyle3: 'pink',
@@ -69,9 +69,9 @@ function setEventListener(){
     shootingBtn = new VirtualJoystick({
         container : document.querySelector("#canvasDiv"),
         limitStickTravel:true,
-        innerRadius : 40,
-        outerRadius : 50,
-        stickRadius : 50,
+        innerRadius : 20,
+        outerRadius : 40,
+        stickRadius : 40,
         // mouseSupport:true,
         strokeStyle1: '#f1000077',
         strokeStyle3: '#e4353577',
@@ -83,8 +83,14 @@ function setEventListener(){
 		    return true
         return false;
     })
-    document.querySelector("#start").addEventListener('click',()=>{
+    startBtn.addEventListener('click',()=>{
         sock.emit("start/pause-signal");
+        if(startBtn.innerText[0]=='S'){
+            startBtn.innerText = 'Pause'
+        } else {
+            startBtn.innerText = 'Start'
+        }
+
     });
     document.querySelector("#change-team").addEventListener('click',()=>{
         sock.emit('changeTeam', (apna_player.teamName== "A")?"B":"A" );

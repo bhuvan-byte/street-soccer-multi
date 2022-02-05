@@ -124,7 +124,7 @@ class Player extends Entity{
         let dx = joystick.deltaX();
         let dy = joystick.deltaY();
         let d = Math.sqrt(dx*dx + dy*dy);
-        if(d<=10) d = 0;
+        if(d<=20) d = 0;
         if(d == 0){
             if(this.zeroSent != 1){
                 // this only sends data once to set the velocity of player to 0.

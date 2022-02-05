@@ -7,7 +7,7 @@ let BlueFullImg, RedFullImg, WhiteFullImg ;
 let roomList,field,slowIntervalId;
 let joystick,canvas,shootingBtn;
 let fps;
-let startBtn, settingsBtn;
+let settingsBtn;
 let navbarF = 0.07;
 let openSans;  // ("/assets/OpenSans-Light.ttf")
 let kickSound=document.querySelector('#kick-sound');
