@@ -13,13 +13,13 @@ let scoreBoardA = document.getElementById('scoreboard-a')
 let scoreBoardB = document.getElementById('scoreboard-b')
 let inviteModal = document.getElementById('invite-modal-text-area');
 let openSans;  // ("/assets/OpenSans-Light.ttf")
-let kickSound=document.getElementById('kick-sound');
-let goalSound=document.getElementById('goal-sound');
+let kickSound=document.querySelector('#kick-sound');
+let goalSound=document.querySelector('#goal-sound');
 let kickVolSlider = document.querySelector('#kick-vol-slider');
 let goalVolSlider = document.querySelector('#goal-vol-slider');
+// let bgmVolSlider = document.querySelector('#bgm-vol-slider');
 let muteBtn = document.querySelector('#mute-btn');
 let mute = 0;
-let bgm;
 let Cam = {
     shift:null, // Translation vector
     scale:1,

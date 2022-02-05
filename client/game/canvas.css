@@ -17,9 +17,9 @@
     border-radius: 14vh;
 }
 
-#loading{
-    position:fixed;
-    background:  #11616b;
+#loading {
+    position: fixed;
+    background: #11616b;
     /* no-repeat center; */
     display: flex;
     width: 100%;
@@ -32,6 +32,7 @@
 #blue-team tr {
     background-color: rgba(0, 0, 255, 0.5);
 }
+
 #red-team tr {
     background-color: rgba(255, 0, 0, 0.5);
 }
@@ -40,6 +41,7 @@
 #blue-team tr {
     background-color: rgba(0, 0, 255, 0.5);
 }
+
 #red-team tr {
     background-color: rgba(255, 0, 0, 0.5);
 }
@@ -58,8 +60,20 @@
     height: 90%;
 }
 
-#navbar > * {
+/* #navbar>* {
     float: right;
+    box-sizing: border-box;
+    height: 90%;
+} */
+
+#navbar>.right {
+    float: right;
+    box-sizing: border-box;
+    height: 90%;
+}
+
+#navbar>.left {
+    float: left;
     box-sizing: border-box;
     height: 90%;
 }
