@@ -186,6 +186,8 @@ function setup() {
     document.querySelector('#loading').style.display = 'none';
     let inviteModal = document.getElementById('invite-modal-text-area')
     inviteModal.innerText = document.location.href;
+    let nameModal = document.querySelector('#name-input');
+    nameModal.value = getPlayerName();
     // Cam.shift = createVector(0,0);
     // setupDone = true;
     // fullscreen(1);

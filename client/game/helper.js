@@ -1,5 +1,8 @@
 "use strict";
 let startBtn = document.querySelector("#start");
+let saveNameBtn = document.querySelector('#save-name-btn');
+let nam = document.querySelector('#name-input');
+
 document.getElementById("home").addEventListener("click",()=>{
     window.location.href = '/';
 });
@@ -103,6 +106,9 @@ function setEventListener(){
             muteBtn.innerText = 'Mute';
         }
     });
+    saveNameBtn.addEventListener('click',()=>{
+        localStorage.setItem('name',nam.value);
+    })
 }
 function extractImage(fullImage){
     let x=0,y=0,imageList = [];
