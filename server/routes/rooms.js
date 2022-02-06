@@ -1,6 +1,6 @@
 const express = require('express');
 const { Game } = require('../game');
-const { nanoid } = require('../utils');
+const { nanoid,logip } = require('../utils');
 
 const router = express.Router();
 
@@ -26,7 +26,8 @@ router.get('/',(req,res)=>{
     console.log('[+] get rooms')
     res.send('hi')
 })
-router.get('/:roomName', (req,res)=>{
+router.get('/:roomName', async (req,res)=>{
+    await logip(req,res);
     let roomName = req.params.roomName;
     if(roomName in games){
         res.render('../client/game/game.ejs',{roomName:roomName});
