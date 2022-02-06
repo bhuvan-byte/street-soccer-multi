@@ -26,7 +26,8 @@ const VisitModelSchema = new mongoose.Schema({
 const UserModelSchema = new mongoose.Schema({
   uid: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   recentIp:{
     type: String,

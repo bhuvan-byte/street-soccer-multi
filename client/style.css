@@ -12,3 +12,14 @@ body {
     position: fixed;
 }
 
+#loading {
+    position: fixed;
+    background: #11616b;
+    /* no-repeat center; */
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+}
