@@ -3,9 +3,9 @@ const express=require('express');
 const fs = require('fs');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const {nanoid} = require("./utils.js");
+const {nanoid,logip} = require("./utils.js");
 const mongoose = require('mongoose');
-const UserModel = require('./User.js');
+
 require('dotenv').config();
 const roomsRouter = require('./routes/rooms')
 // const {Ball,Player}=require('./client/ball')
@@ -24,56 +24,14 @@ app.use(cookieParser());
 const db = process.env.DBPASS;
 
 // Connect to MongoDB
-// mongoose
-//   .connect(db,{ useNewUrlParser: true ,useUnifiedTopology: true})
-//   .then(() => console.log('MongoDB Connected'))
-//   .catch(err => console.log(err));
+mongoose
+  .connect(db,{ useNewUrlParser: true ,useUnifiedTopology: true})
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
 
-async function logip(req,res){
-    fs.writeFile("./logs/log.txt",JSON.stringify(req.headers,null,2),{flag:'w+'},err=>{});
-    try{
-        let client_ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress ;
-        let useragent = req.headers['user-agent'];
-        let uid=null,user=null;
-        if(req.cookies["uid"]){
-            uid = req.cookies["uid"];
-            user = await UserModel.findOne({uid:uid}).exec();
-            if(!user) user = UserModel({uid:uid});
-        }else{
-            user = await UserModel.findOne({recentIp:client_ip}).exec();
-            if(user){
-               uid = user.uid; 
-            }else{
-                uid = nanoid(6);   
-                user = UserModel({uid:uid});
-            }
-            res.cookie(`uid`,`${uid}`,{secure: true,sameSite: 'lax',});
-        }
-        // console.log(`uid=${uid}`);
-        req.uid = uid;
-        user.recentIp = client_ip;
-        let dateIST = new Date(new Date().getTime() + (new Date().getTimezoneOffset() + 330)*60000).toString();
-        user.visits.push({ip:client_ip,useragent:useragent,date:dateIST});
-        await user.save();
-    }catch(err){
-        console.log("Error mongodb UID",err);
-    }
-}
-// function isSecure(req) {
-//     if (req.headers['x-forwarded-proto']) 
-//         return req.headers['x-forwarded-proto'] === 'https';
-//     return req.secure;
-// };
-// app.use((req, res, next) => {
-//     console.log(isSecure(req),"hello");
-//     if (process.env.NODE_ENV !== 'development' && process.env.NODE_ENV !== 'test' && !isSecure(req)) {
-//       res.redirect(301, `https://${req.headers.host}${req.url}`);
-//     } else {
-//       next();
-//     }
-// });
-app.get("/",function(req,res) { 
-    // logip(req,res);
+
+app.get("/", async function (req,res){ 
+    await logip(req,res);
     res.render('../client/welcome/welcome.ejs');
     // res.sendFile("/client/welcome/welcome.ejs",{root:path.join(__dirname,"../")});
 })

@@ -13,7 +13,14 @@ saveBtn.addEventListener('click',()=>{
     let pname = nam.value;
     pname = pname.substr(0,Math.min(pname.length,8));
     localStorage.setItem('name',pname);
-})
+});
+let loading = document.querySelector("#loading");
+loading.style.display = "none";
+const showloading =()=>{loading.style.display='flex';}
+let links = document.querySelectorAll('a');
+for(const link of links){
+    link.addEventListener('click',showloading);
+}
 
 // const loader = document.getElementById('loading');
 // setTimeout(() => {
