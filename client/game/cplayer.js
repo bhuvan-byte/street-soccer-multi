@@ -94,7 +94,7 @@ class Player extends Entity{
         stroke(this.strokeColor);
         ellipse(this.x,this.y,this.d,this.d); // circle representing player
        
-        stroke(this.strokeColor); // white color to draw shapes
+        stroke("#FFFFFF"); // white color to draw shapes
         textSize(15);
         textFont(openSans);
         fill("#FFF");

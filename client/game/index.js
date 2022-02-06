@@ -75,6 +75,7 @@ function onsock(){
 
     function set_apna_player(){
         apna_player = game.players[sock.id];
+        apna_player.strokeColor="#00ff08";
         console.log(`set_apna_player meise bol rhaa hu.${sock.id}, ${apna_player}`)
         if(!apna_player) {console.log("apnaplayer still not defined",game.players,sock.id);}
         // if(apna_player) apna_player.strokeColor="#00ff08";
@@ -137,7 +138,18 @@ function onsock(){
     });
     sock.on('name',(data)=>{
         game.players[data.id]?.changeName(data.pname)
-    })
+    });
+    let pingElem = document.querySelector('#ping');
+    sock.on("ping",(sendtime)=>{
+        let ping = Date.now() - sendtime;
+        pingElem.innerText = `Ping: ${ping}`;
+    });
+    setInterval(() => {
+        let sendtime = Date.now();
+        sock.emit("ping",sendtime);
+        let fps = Math.floor(frameRate());
+        document.querySelector('#fps').innerText = `FPS: ${fps}`;
+    }, 1000);
 }
 
 
@@ -231,10 +243,10 @@ function draw() {
     // translate(Cam.scale*canvas.width/2,0)
     // translate(-mouseX,-mouseY);
     field.display();
-    push();
-    fill('#0000FF');
-    text(`fps:${Math.floor(frameRate()/3)*3}`,15,15);
-    pop();
+    // push();
+    // fill('#0000FF');
+    // text(`fps:${Math.floor(frameRate()/3)*3}`,15,15);
+    // pop();
     game.display();
     // stroke('rgb(255,0,0)')
     // rect(0,0,window.innerWidth,window.innerHeight);
