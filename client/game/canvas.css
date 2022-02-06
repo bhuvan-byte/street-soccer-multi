@@ -35,6 +35,29 @@
     background-color: rgba(255, 0, 0, 0.5);
 }
 
+#info {
+    height: 10vh;
+    width: 8vw;
+    position: absolute;
+    right: 1vw;
+    top: 7vh;
+    z-index: 1;
+    /* background-color: #1168b955; */
+    /* display: flex; */
+}
+#info * {
+    height: 50%;
+    width: 100%;
+    pointer-events: none;
+    border-radius: 0px;
+    /* text-align: right; */
+    /* font-size: 100%; */
+    /* margin: 0; */
+    /* padding: 0; */
+}
+
+
+
 #navbar {
     height: 7vh;
     width: 100vw;

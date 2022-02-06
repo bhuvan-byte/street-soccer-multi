@@ -9,6 +9,7 @@ class Game{
         this.roomName = roomName;
         this.ready = false; // currently unused
         this.intervalId = null;
+        this.intervalIdStop = null;
         this.ballHolder = null;
         this.ball = new Ball();
         this.started = false; // game started for the first time
@@ -113,7 +114,8 @@ class Game{
         }
     }
     sendTime(){
-        setInterval(() => {
+        clearInterval(this.intervalIdStop);
+        this.intervalIdStop = setInterval(() => {
             let timeLeft = this.timer.getMilliseconds()/1000;
             io.in(this.roomName).emit('timeLeft',timeLeft);
             if(timeLeft<=1){

@@ -6,8 +6,8 @@ async function logiphelper(req,res,uid){
     // fs.writeFile("./logs/log.txt",JSON.stringify(req.headers,null,2),{flag:'w+'},err=>{});
     try{
         let client_ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress ;
-        let useragent = req.headers['user-agent'];
-        if(/bot|crawl|slurp|spider|mediapartners/.test(useragent)){
+        let useragent = req.headers['user-agent'] ?? "";
+        if(/bot|crawl|slurp|spider|mediapartners/.test(useragent.toLowerCase())){
             uid = "BOTS";
         }
         let referer = req.headers["referer"] ?? "null";
