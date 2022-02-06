@@ -233,16 +233,7 @@
                 </div>
                 <div class="row">
                     <div class="col col-3"><label for="bg-vol-slider">BGM</label></div>
-                    <div class="col col-3"><input type="range" min="0" max="100" value="30" class="slider" id="bg-vol-slider"></div>
-                </div>
-                <div class="row">
-                    <div class="col col-3"><label for="tackle-button-slider">Tackle btn Size</label></div>
-                    <div class="col col-3"><input type="range" min="0" max="100" value="30" class="slider" id="tackle-button-slider"></div>
-                </div>
-                <div class="row">
-                    <div class="col col-3"><label for="name-input">Name</label></div>
-                    <div class="col col-3"><input type="text" id="name-input" style="width: 125px;"></div>
-                    <div class="col col-3"><button class="btn btn-primary btn-sm" id="save-name-btn">Save</button></div>
+                    <div class="col col-3"><input type="range" min="0" max="1" value="0.08" step="0.01" class="slider" id="bg-vol-slider"></div>
                 </div>
             </div>
         </div>
@@ -281,17 +272,38 @@
         </div>
     </div>
     <!-- Button gameover modal -->
-    <button id="gameOver" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gameOverModal" style="display: none;">
-    Launch static backdrop modal
+    <button id="gameOver" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gameOverModal" style="display: none;">Game Over</button>
+    <!-- Dynamic Name Modal -->
+    <div class="modal fade" id="dynamicNameBtnModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="dynamicNameBtnModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dynamicNameBtnModalLabel">Enter Name</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                    <div class="col col-2 d-flex justify-content-center mx-1 px-0"><label for="name-input">Name</label></div>
+                    <div class="col col-3 d-flex justify-content-center mx-1 px-0"><input type="text" id="name-input" style="max-width: 125px;"></div>
+                    <div class="col col-2 d-flex justify-content-center mx-1 px-0"><button class="btn btn-primary btn-sm" id="save-name-btn">Save</button></div>
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="document.querySelector('#bg-sound').play()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Dynamic Name modal button -->
+    <button id="dynamicNameBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dynamicNameBtnModal" style="display: none;">
+    Name
     </button>
     <!-- Navbar -->
     <div id="navbar" class="contianer-fluid">
         <div id="navbar-left">
             <button class="btn btn-sm btn-primary mx-1 py-0" id="home">Home</button>
-            <span id="time-left" class="btn btn-info btn-sm" style="pointer-events: none;">00:00</span>
-            <button id="scoreboard-b" class="btn btn-sm btn-dark mx-1 py-0">0</button>
-            <button id="scoreboard-a" class="btn btn-sm btn-dark mx-1 py-0">0</button>
-
+            <button id="time-left" class="btn btn-info btn-sm mx-1 py-0" style="pointer-events: none;">00:00</button>
+            <button id="scoreboard-b" class="btn btn-sm btn-dark mx-1 py-0" style="pointer-events: none;">0</button>
+            <button id="scoreboard-a" class="btn btn-sm btn-dark mx-1 py-0" style="pointer-events: none;">0</button>
         </div>
         <div id="navbar-center">
             <button id="start" class="btn btn-sm btn-primary mx-1 py-0">Start</button>
@@ -335,6 +347,7 @@
     </script>
     <audio src="/assets/kick.mp3" id="kick-sound" preload="auto"></audio>
     <audio src="/assets/goal-sound.mp3" id="goal-sound" preload="auto"></audio>
+    <audio src="/assets/pocket.mp3" loop autoplay id="bg-sound"></audio> 
     <script src="/libraries/jquery.min.js"></script>
     <script src="/libraries/p5.js"></script>
     <script src="/socket.io/socket.io.js"></script>

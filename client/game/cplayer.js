@@ -60,6 +60,9 @@ class Player extends Entity{
         }
         this.teamName = team;
     }
+    changeName(name){
+        this.username = name ?? this.username;
+    }
     display(){ // (called from index.js)
         push(); // necessary to save p5 state then restore with pop()
         if(this.ax==0 && this.ay ==0 ){

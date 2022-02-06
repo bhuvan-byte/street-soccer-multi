@@ -133,9 +133,11 @@ function onsock(){
         scoreBoardB.innerText = scoreB;
     });
     sock.on("changeTeam",(data)=>{
-        // console.log("change team client called");
         game.players[data.id]?.changeTeam(data.team);
     });
+    sock.on('name',(data)=>{
+        game.players[data.id]?.changeName(data.pname)
+    })
 }
 
 
@@ -151,6 +153,7 @@ function getPlayerName(){
 // p5.js functions
 let ball_img;
 function preload(){
+    bgSound.volume = 0.1;
     ball_img = loadImage('/assets/ball-dark-light.png');
     BlueFullImg = loadImage('/assets/blue.png');
     RedFullImg = loadImage('/assets/red.png');
@@ -188,6 +191,7 @@ function setup() {
     inviteModal.innerText = document.location.href;
     let nameModal = document.querySelector('#name-input');
     nameModal.value = getPlayerName();
+    document.querySelector('#dynamicNameBtn').click();
     // Cam.shift = createVector(0,0);
     // setupDone = true;
     // fullscreen(1);

@@ -10,7 +10,9 @@ if(localStorage.getItem('name') && nam){
 }
 
 saveBtn.addEventListener('click',()=>{
-    localStorage.setItem('name',nam.value);
+    let pname = nam.value;
+    pname = pname.substr(0,Math.min(pname.length,8));
+    localStorage.setItem('name',pname);
 })
 
 // const loader = document.getElementById('loading');

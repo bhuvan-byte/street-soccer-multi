@@ -2,6 +2,7 @@
 let startBtn = document.querySelector("#start");
 let saveNameBtn = document.querySelector('#save-name-btn');
 let nam = document.querySelector('#name-input');
+let bgSound = document.querySelector('#bg-sound');
 
 document.getElementById("home").addEventListener("click",()=>{
     window.location.href = '/';
@@ -105,9 +106,18 @@ function setEventListener(){
         } else{
             muteBtn.innerText = 'Mute';
         }
+        bgSound.muted = !bgSound.muted;
     });
     saveNameBtn.addEventListener('click',()=>{
-        localStorage.setItem('name',nam.value);
+        let pname = nam.value;
+        pname = pname.substr(0,Math.min(pname.length,8));
+        localStorage.setItem('name',pname);
+        // we also need to fire a socket event to tell name to server
+        sock.emit('name',pname);
+    })
+    let bgSlider = document.querySelector('#bg-vol-slider');
+    bgSlider.addEventListener('input',()=>{
+        bgSound.volume = bgSlider.value;
     })
 }
 function extractImage(fullImage){
