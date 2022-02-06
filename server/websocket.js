@@ -82,10 +82,27 @@ io.on("connection", (sock) => {
     sock.on('game-over', ()=>{
         games[sock.roomName].resetScores();
     })
+    sock.on('name',(pname)=>{
+        try{
+            io.in(sock.roomName).emit("name",{id:sock.id,pname:pname});
+            games[sock.roomName].players[sock.id].changeName(pname);
+        }catch(err){
+            console.log(err);
+        }
+    })
     // sock.on('newRoom',handleNewRoom);
     // sock.on('joinRoom',handleJoinRoom);
     // sock.on('joinDefaultRoom',handleJoinDefaultRoom);
-    sock.on('changeTeam',handlechangeTeam);
+    sock.on('changeTeam',(team)=>{
+        try{
+            assert(team=='A' || team=='B');
+            io.in(sock.roomName).emit("changeTeam",{id:sock.id,team:team});
+            games[sock.roomName].players[sock.id].teamName=team;
+        }catch(err){
+            console.log(err);
+        }
+    });
+  
     // sock.on('get-room-list',handleGetRoomList);
     sock.on('start/pause-signal',handleStartPause);
 
@@ -160,15 +177,6 @@ io.on("connection", (sock) => {
             handleNewRoom({roomName:"ROOM",username:username});
         }else{
             handleJoinRoom({roomName:"ROOM",username:username});
-        }
-    }
-    function handlechangeTeam(team){
-        try{
-            assert(team=='A' || team=='B');
-            io.in(sock.roomName).emit("changeTeam",{id:sock.id,team:team});
-            games[sock.roomName].players[sock.id].teamName=team;
-        }catch(err){
-            console.log(err);
         }
     }
     function broadcastTeamofPlayers(){

@@ -72,6 +72,9 @@ class Player extends Entity{
     changeTeam(team){
         this.teamName = team ?? this.teamName;
     }
+    changeName(name){
+        this.username = name ?? this.username;
+    }
     collide (ball2){
         let dx=ball2.x-this.x,
 			dy=ball2.y-this.y,
