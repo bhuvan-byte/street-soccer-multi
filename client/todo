@@ -1,14 +1,14 @@
-<!-- 1. About us -->
-2. update readme on github
-3. remove borders that were used while development 
+Website
+1. in controls modal show the tackle button
+2. remove borders that were used while development 
+3. use icons for buttons
 4. add more styling to home page divs and scoreboards
-5. host on new url(s)
-6. load balancing
-<!-- 7. ip monitoring -->
-<!-- 8. setintervals check to see they are getting destoryed properly. -->
-9. timely check if there are rooms without any players and delete them
-<!-- 10. ping show -->
-<!-- 11. fps fix on navabr because on ground it will not be visible when players go towards right side -->
-<!-- 12. sort rooms acc to number of players -->
-13. in controls modal show the tackle button
-14. use icons for buttons
+5. timely check if there are rooms without any players and delete them
+
+Github 
+1. update readme on github
+
+Additional
+1. host on new url(s)
+2. load balancing
+3. improve panel for viewing logs

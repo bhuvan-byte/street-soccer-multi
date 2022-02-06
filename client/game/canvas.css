@@ -12,13 +12,13 @@
     position: absolute;
     right: 3vw;
     bottom: 3vh;
-    height: 14vh;
-    width: 14vw;
-    border-radius: 14vh;
+    height: 20vh;
+    width: 20vh;
+    border-radius: 50%;
+    background-color: #1d62e29d;
 }
 
-
-#blue-team tr {
+#t #blue-team tr {
     background-color: rgba(0, 0, 255, 0.5);
 }
 
@@ -45,6 +45,7 @@
     /* background-color: #1168b955; */
     /* display: flex; */
 }
+
 #info * {
     height: 50%;
     width: 100%;
@@ -72,15 +73,17 @@
     height: 90%;
 }
 
-#navbar  * {
+#navbar * {
     /* float: right; */
     box-sizing: border-box;
     height: 90%;
     display: inline-block;
 }
+
 #navbar-left {
     margin-right: auto;
 }
+
 #navbar-right {
     margin-left: auto;
 }
