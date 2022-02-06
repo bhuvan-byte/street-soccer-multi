@@ -124,14 +124,15 @@ class Player extends Entity{
         let dx = joystick.deltaX();
         let dy = joystick.deltaY();
         let d = Math.sqrt(dx*dx + dy*dy);
-        if(d<=20) d = 0;
-        if(d == 0){
+        //  Alert hardcoded values inner=20, outer=40;
+        if(d <= 5){
             if(this.zeroSent != 1){
                 // this only sends data once to set the velocity of player to 0.
                 this.zeroSent = 1;
                 sock.emit('joystick',{dx:0,dy:0});
             }
         } else{
+            d = d/(Math.log1p(d/5)/Math.log1p(40/5));
             sock.emit('joystick',{dx:dx/d,dy:dy/d});
             this.zeroSent = 0;
         }

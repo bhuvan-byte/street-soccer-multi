@@ -53,23 +53,24 @@
     position: absolute;
     z-index: 1;
     align-items: center;
-    /* display: flex; */
+    display: flex;
 }
 
 #navbar img {
     height: 90%;
 }
 
-/* #navbar>* {
-    float: right;
+#navbar  * {
+    /* float: right; */
     box-sizing: border-box;
     height: 90%;
-} */
-
-#navbar>.right {
-    float: right;
-    box-sizing: border-box;
-    height: 90%;
+    display: inline-block;
+}
+#navbar-left {
+    margin-right: auto;
+}
+#navbar-right {
+    margin-left: auto;
 }
 
 #navbar>.left {
