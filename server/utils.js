@@ -6,8 +6,8 @@ async function logiphelper(req,res,uid){
     // fs.writeFile("./logs/log.txt",JSON.stringify(req.headers,null,2),{flag:'w+'},err=>{});
     try{
         let client_ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress ;
-        let useragent = req.headers['user-agent'];
-        if(/bot|crawl|slurp|spider|mediapartners/.test(useragent)){
+        let useragent = req.headers['user-agent'] ?? "";
+        if(/bot|crawl|slurp|spider|mediapartners/.test(useragent.toLowerCase())){
             uid = "BOTS";
         }
         let referer = req.headers["referer"];
@@ -29,10 +29,15 @@ async function logiphelper(req,res,uid){
         req.uid = uid;
         user.recentIp = client_ip;
         if(user.uniqueIps.indexOf(client_ip) === -1) user.uniqueIps.push(client_ip);
-        let dateIST = new Date(new Date().getTime() + (new Date().getTimezoneOffset() + 330)*60000).toString();
-        let visit = {ip:client_ip,route:req.originalUrl,referer:referer};
+        let dateIST = new Date(new Date().getTime() + (new Date().getTimezoneOffset() + 330)*60000);
+        // dateIST = dateIST.toString();
+        let visit = {ip:client_ip,route:req.originalUrl,referer:referer,dateTime:dateIST};
+        // console.log("first",user.visits);
         user.visits[useragent] = user.visits[useragent] ?? [];
         user.visits[useragent].push(visit);
+        // console.log("second",user.visits);
+        // very important
+        user.markModified('visits');
         await user.save();
     }catch(err){
         console.log("Error mongodb UID",err);
@@ -40,6 +45,7 @@ async function logiphelper(req,res,uid){
 }
 async function logip(req,res){
     let uid = req.cookies["uid"];
+    // await(logiphelper(req,res,uid));
     if(uid) {logiphelper(req,res,uid);}
     else {await logiphelper(req,res,uid);}
 }

@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const {nanoid,logip} = require("./utils.js");
+const {UserModel,VisitModel} = require('./User.js');
 const mongoose = require('mongoose');
 
 require('dotenv').config();
@@ -40,6 +41,10 @@ app.use("/",express.static("client"));
 
 app.use('/room',roomsRouter)
 
+app.use(process.env.DBROUTE, async (req,res)=>{
+    let data = await UserModel.find();
+    res.json(data);
+});
 // required only to run the file once
 const stopwatch_ = require("./stopwatch.js");
 const constants_ = require("../client/constants.js");
