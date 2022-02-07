@@ -176,9 +176,10 @@
 
     <script src="/welcome/welcome.js"></script>
     <script>
+        
         if ('serviceWorker' in navigator) {
             console.log("Will the service worker register?");
-            navigator.serviceWorker.register('/service-worker.js')
+            navigator.serviceWorker.register('/service-worker.js',{scope:'.'})
                 .then(function (reg) {
                     console.log("Yes, it did.");
                 })

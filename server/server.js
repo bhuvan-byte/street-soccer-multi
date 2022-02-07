@@ -33,8 +33,8 @@ mongoose
 
 app.get("/", async function (req,res){ 
     await logip(req,res);
-    res.render('../client/welcome/welcome.ejs');
-    // res.sendFile("/client/welcome/welcome.ejs",{root:path.join(__dirname,"../")});
+    // res.render('../client/welcome/welcome.ejs');
+    res.sendFile("/client/welcome/welcome.html",{root:path.join(__dirname,"../")});
 })
 app.use("/",express.static("client"));
 
