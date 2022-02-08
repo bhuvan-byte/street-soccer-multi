@@ -101,6 +101,7 @@ function setEventListener(){
     });
     muteBtn.addEventListener('click',()=>{
         mute = 1-mute;
+        localStorage.setItem('mute',String(mute));
         if(muteBtn.innerText[0]=='M'){
             muteBtn.innerText = 'Unmute';
         } else{
@@ -122,6 +123,17 @@ function setEventListener(){
         })
     })
 }
+
+function playBg(){
+    bgSound.play();
+    if(localStorage.mute=='1'){
+        bgSound.muted = 1;
+        muteBtn.innerText = 'Unmute'
+    } else{
+        localStorage.mute = '0'
+    }
+}
+
 
 function setName(){
     let pname = nam.value;

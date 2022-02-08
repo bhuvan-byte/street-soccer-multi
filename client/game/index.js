@@ -17,6 +17,7 @@ let goalVolSlider = document.querySelector('#goal-vol-slider');
 // let bgmVolSlider = document.querySelector('#bgm-vol-slider');
 let muteBtn = document.querySelector('#mute-btn');
 let mute = 0;
+if(localStorage.mute=='1')mute=1;
 let scoreBoardA = document.getElementById('scoreboard-a');
 let scoreBoardB = document.getElementById('scoreboard-b');
 let Cam = {

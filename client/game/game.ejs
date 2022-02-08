@@ -347,7 +347,7 @@
                 </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="document.querySelector('#bg-sound').play();setName()">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="playBg();setName()">Close</button>
                 </div>
             </div>
         </div>
@@ -396,7 +396,7 @@
     </script>
     <audio src="/assets/kick.mp3" id="kick-sound" preload="auto"></audio>
     <audio src="/assets/goal-sound.mp3" id="goal-sound" preload="auto"></audio>
-    <audio src="/assets/pocket.mp3" loop autoplay id="bg-sound"></audio> 
+    <audio src="/assets/pocket.mp3" loop id="bg-sound"></audio> 
     <script src="/libraries/jquery.min.js"></script>
     <script src="/libraries/p5.js"></script>
     <script src="/socket.io/socket.io.js"></script>
