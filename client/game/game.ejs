@@ -106,6 +106,30 @@
         </div>
     </div>
     </div>
+    <!-- About Us Modal -->
+    <div class="modal fade" id="aboutUsModal" tabindex="-1" aria-labelledby="aboutUsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="aboutUsModalLabel">About Us</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" >
+            <div class="container container-fluid">
+                <div class="row">
+                    Source Code
+                        <img alt="svgImg" style="max-width: 30px; padding: 0px 2px; cursor: pointer;" onclick="document.location.href='https://github.com/bhuvan-byte/street-soccer-multi'" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iNjQiIGhlaWdodD0iNjQiCnZpZXdCb3g9IjAgMCA2NCA2NCIKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij48bGluZWFyR3JhZGllbnQgaWQ9IktwekhfdHRUTUlqcThkaHgxekQycGFfNTI1MzlfZ3IxIiB4MT0iMzAuOTk5IiB4Mj0iMzAuOTk5IiB5MT0iMTYiIHkyPSI1NS4zNDIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBzcHJlYWRNZXRob2Q9InJlZmxlY3QiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzZkYzdmZiI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2U2YWJmZiI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNLcHpIX3R0VE1JanE4ZGh4MXpEMnBhXzUyNTM5X2dyMSkiIGQ9Ik0yNS4wMDgsNTYuMDA3Yy0wLjAwMy0wLjM2OC0wLjAwNi0xLjk2Mi0wLjAwOS0zLjQ1NGwtMC4wMDMtMS41NSBjLTYuNzI5LDAuOTE1LTguMzU4LTMuNzgtOC4zNzYtMy44M2MtMC45MzQtMi4zNjgtMi4yMTEtMy4wNDUtMi4yNjYtMy4wNzNsLTAuMTI0LTAuMDcyYy0wLjQ2My0wLjMxNi0xLjY5MS0xLjE1Ny0xLjM0Mi0yLjI2MyBjMC4zMTUtMC45OTcsMS41MzYtMS4xLDIuMDkxLTEuMDgyYzMuMDc0LDAuMjE1LDQuNjMsMi45NzgsNC42OTQsMy4wOTVjMS41NjksMi42ODksMy45NjQsMi40MTEsNS41MDksMS44NDQgYzAuMTQ0LTAuNjg4LDAuMzY3LTEuMzIsMC42NTktMS44NzhDMjAuODg1LDQyLjg2NSwxNS4yNyw0MC4yMjksMTUuMjcsMzAuNjRjMC0yLjYzMywwLjgyLTQuOTYsMi40NDEtNi45MjkgYy0wLjM2Mi0xLjIwNi0wLjc3NC0zLjY2NiwwLjQ0Ni02Ljc2NWwwLjE3NC0wLjQ0MmwwLjQ1Mi0wLjE0NGMwLjQxNi0wLjEzNywyLjY4OC0wLjYyNCw3LjM1OSwyLjQzMyBjMS45MjgtMC40OTQsMy45NjktMC43NDksNi4wNzQtMC43NTljMi4xMTUsMC4wMSw0LjE1OCwwLjI2NSw2LjA5LDAuNzU5YzQuNjY3LTMuMDU4LDYuOTM0LTIuNTY1LDcuMzUxLTIuNDMzbDAuNDUxLDAuMTQ1IGwwLjE3NCwwLjQ0YzEuMjI1LDMuMDk4LDAuODEzLDUuNTU5LDAuNDUxLDYuNzY2YzEuNjE4LDEuOTYzLDIuNDM4LDQuMjkxLDIuNDM4LDYuOTI5YzAsOS41OTEtNS42MjEsMTIuMjE5LTEwLjU4OCwxMy4wODcgYzAuNTYzLDEuMDY1LDAuODY4LDIuNDAyLDAuODY4LDMuODc4YzAsMS42ODMtMC4wMDcsNy4yMDQtMC4wMTUsOC40MDJsLTItMC4wMTRjMC4wMDgtMS4xOTYsMC4wMTUtNi43MDgsMC4wMTUtOC4zODkgYzAtMi40NDItMC45NDMtMy41MjItMS4zNS0zLjg3NGwtMS43My0xLjQ5N2wyLjI3NC0wLjI1M2M1LjIwNS0wLjU3OCwxMC41MjUtMi4zNzksMTAuNTI1LTExLjM0MWMwLTIuMzMtMC43NzctNC4zNjEtMi4zMS02LjAzNiBsLTAuNDMtMC40NjlsMC4yNDItMC41ODdjMC4xNjYtMC40MDEsMC44OTQtMi40NDItMC4wNDMtNS4yOTFjLTAuNzU4LDAuMDQ1LTIuNTY4LDAuNDAyLTUuNTg0LDIuNDQ3bC0wLjM4NCwwLjI1OWwtMC40NDUtMC4xMjMgYy0xLjg2My0wLjUxOC0zLjkzOC0wLjc5Ni02LjAwMS0wLjgwNmMtMi4wNTIsMC4wMS00LjEyNCwwLjI4OC01Ljk4NCwwLjgwNmwtMC40NDUsMC4xMjNsLTAuMzgzLTAuMjU5IGMtMy4wMTktMi4wNDQtNC44MzMtMi40MDQtNS41OTQtMi40NDljLTAuOTM1LDIuODUxLTAuMjA2LDQuODkyLTAuMDQsNS4yOTNsMC4yNDIsMC41ODdsLTAuNDI5LDAuNDY5IGMtMS41MzYsMS42ODEtMi4zMTQsMy43MTItMi4zMTQsNi4wMzZjMCw4Ljk1OCw1LjMxLDEwLjc3LDEwLjUwNCwxMS4zNjFsMi4yNTIsMC4yNTZsLTEuNzA4LDEuNDkgYy0wLjM3MiwwLjMyNS0xLjAzLDEuMTEyLTEuMjU0LDIuNzI3bC0wLjA3NSwwLjU0OWwtMC41MDYsMC4yMjdjLTEuMzIxLDAuNTkyLTUuODM5LDIuMTYyLTguNTQ4LTIuNDg1IGMtMC4wMTUtMC4wMjUtMC41NDQtMC45NDUtMS41MDItMS41NTdjMC42NDYsMC42MzksMS40MzMsMS42NzMsMi4wNjgsMy4yODdjMC4wNjYsMC4xOSwxLjM1NywzLjYyMiw3LjI4LDIuMzM5bDEuMjA2LTAuMjYyIGwwLjAxMiwzLjk3OGMwLjAwMywxLjQ4NywwLjAwNiwzLjA3NiwwLjAwOSwzLjQ0NEwyNS4wMDgsNTYuMDA3eiI+PC9wYXRoPjxsaW5lYXJHcmFkaWVudCBpZD0iS3B6SF90dFRNSWpxOGRoeDF6RDJwYl81MjUzOV9ncjIiIHgxPSIzMiIgeDI9IjMyIiB5MT0iNSIgeTI9IjU5LjE2NyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHNwcmVhZE1ldGhvZD0icmVmbGVjdCI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMWE2ZGZmIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYzgyMmZmIj48L3N0b3A+PC9saW5lYXJHcmFkaWVudD48cGF0aCBmaWxsPSJ1cmwoI0twekhfdHRUTUlqcThkaHgxekQycGJfNTI1MzlfZ3IyKSIgZD0iTTMyLDU4QzE3LjY2Myw1OCw2LDQ2LjMzNyw2LDMyUzE3LjY2Myw2LDMyLDZzMjYsMTEuNjYzLDI2LDI2UzQ2LjMzNyw1OCwzMiw1OHogTTMyLDggQzE4Ljc2Nyw4LDgsMTguNzY3LDgsMzJzMTAuNzY3LDI0LDI0LDI0czI0LTEwLjc2NywyNC0yNFM0NS4yMzMsOCwzMiw4eiI+PC9wYXRoPjwvc3ZnPg=="/>
+                </div>
+                <div class="row">
+                    Created & Maintained By                    
+                        Bhuvan <img alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iNDgiIGhlaWdodD0iNDgiCnZpZXdCb3g9IjAgMCA0OCA0OCIKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij48cGF0aCBmaWxsPSIjMDI4OEQxIiBkPSJNNDIsMzdjMCwyLjc2Mi0yLjIzOCw1LTUsNUgxMWMtMi43NjEsMC01LTIuMjM4LTUtNVYxMWMwLTIuNzYyLDIuMjM5LTUsNS01aDI2YzIuNzYyLDAsNSwyLjIzOCw1LDVWMzd6Ij48L3BhdGg+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTEyIDE5SDE3VjM2SDEyek0xNC40ODUgMTdoLS4wMjhDMTIuOTY1IDE3IDEyIDE1Ljg4OCAxMiAxNC40OTkgMTIgMTMuMDggMTIuOTk1IDEyIDE0LjUxNCAxMmMxLjUyMSAwIDIuNDU4IDEuMDggMi40ODYgMi40OTlDMTcgMTUuODg3IDE2LjAzNSAxNyAxNC40ODUgMTd6TTM2IDM2aC01di05LjA5OWMwLTIuMTk4LTEuMjI1LTMuNjk4LTMuMTkyLTMuNjk4LTEuNTAxIDAtMi4zMTMgMS4wMTItMi43MDcgMS45OUMyNC45NTcgMjUuNTQzIDI1IDI2LjUxMSAyNSAyN3Y5aC01VjE5aDV2Mi42MTZDMjUuNzIxIDIwLjUgMjYuODUgMTkgMjkuNzM4IDE5YzMuNTc4IDAgNi4yNjEgMi4yNSA2LjI2MSA3LjI3NEwzNiAzNiAzNiAzNnoiPjwvcGF0aD48L3N2Zz4=" style="max-width: 30px; padding: 0px 4px; cursor: pointer;" onclick="document.location.href='https://www.linkedin.com/in/bhuvan1'"/>
+                        &  Raahil <img alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iNDgiIGhlaWdodD0iNDgiCnZpZXdCb3g9IjAgMCA0OCA0OCIKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij48cGF0aCBmaWxsPSIjMDI4OEQxIiBkPSJNNDIsMzdjMCwyLjc2Mi0yLjIzOCw1LTUsNUgxMWMtMi43NjEsMC01LTIuMjM4LTUtNVYxMWMwLTIuNzYyLDIuMjM5LTUsNS01aDI2YzIuNzYyLDAsNSwyLjIzOCw1LDVWMzd6Ij48L3BhdGg+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTEyIDE5SDE3VjM2SDEyek0xNC40ODUgMTdoLS4wMjhDMTIuOTY1IDE3IDEyIDE1Ljg4OCAxMiAxNC40OTkgMTIgMTMuMDggMTIuOTk1IDEyIDE0LjUxNCAxMmMxLjUyMSAwIDIuNDU4IDEuMDggMi40ODYgMi40OTlDMTcgMTUuODg3IDE2LjAzNSAxNyAxNC40ODUgMTd6TTM2IDM2aC01di05LjA5OWMwLTIuMTk4LTEuMjI1LTMuNjk4LTMuMTkyLTMuNjk4LTEuNTAxIDAtMi4zMTMgMS4wMTItMi43MDcgMS45OUMyNC45NTcgMjUuNTQzIDI1IDI2LjUxMSAyNSAyN3Y5aC01VjE5aDV2Mi42MTZDMjUuNzIxIDIwLjUgMjYuODUgMTkgMjkuNzM4IDE5YzMuNTc4IDAgNi4yNjEgMi4yNSA2LjI2MSA3LjI3NEwzNiAzNiAzNiAzNnoiPjwvcGF0aD48L3N2Zz4=" style="max-width: 30px; padding: 0px 4px; cursor: pointer;" onclick="document.location.href='https://www.linkedin.com/in/raahilbadiani'"/>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
     <!-- Controls Modal -->
     <div class="modal fade" id="controlsModal" tabindex="-1" aria-labelledby="controlsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -117,75 +141,57 @@
         <div class="modal-body">
             <div class="container-fluid">
                 <div class="row d-flex justify-content-evenly">
-                    <div class="row border border-danger d-flex justify-content-center align-items-center">
-                        Controls
+                    <div class="col col-3">
+                        <div class="keyboard">
+                        <div class="row my-1">
+                            <div class="keyboard__row">
+                                <div class="key--letter" data-char="W">W</div>
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="keyboard__row">
+                                <div class="key--letter" data-char="A">A</div>
+                                <div class="key--letter" data-char="S">S</div>
+                                <div class="key--letter" data-char="D">D</div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center">
+                            Move
+                        </div>
                     </div>
-                    <div class="row d-flex justify-content-evenly px-0">
-                        <div class="col col-3">
-                            <div class="keyboard">
-                            <div class="row my-1">
-                                <div class="keyboard__row">
-                                    <div class="key--letter" data-char="W">W</div>
-                                </div>
-                            </div>
-                            <div class="row my-1">
-                                <div class="keyboard__row">
-                                    <div class="key--letter" data-char="A">A</div>
-                                    <div class="key--letter" data-char="S">S</div>
-                                    <div class="key--letter" data-char="D">D</div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="row d-flex justify-content-center align-items-center">
-                                Move
+                    <div class="col col-3">
+                        <div class="keyboard">
+                        <div class="row my-1">
+                            <div class="keyboard__row">
+                                <div class="key--letter" data-key="37"><span>&#9650;</span></div>
                             </div>
                         </div>
-                        <div class="col col-3">
-                            <div class="keyboard">
-                            <div class="row my-1">
-                                <div class="keyboard__row">
-                                    <div class="key--letter" data-key="37"><span>&#9650;</span></div>
-                                </div>
-                            </div>
-                            <div class="row my-1">
-                                <div class="keyboard__row">
-                                    <div class="key--letter" data-key="37"><span>&#9664;</span></div>
-                                    <div class="key--letter" data-key="37"><span>&#9660;</span></div>
-                                    <div class="key--letter" data-key="37"><span>&#9654;</span></div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="row d-flex justify-content-center align-items-center">
-                                Move
+                        <div class="row my-1">
+                            <div class="keyboard__row">
+                                <div class="key--letter" data-key="37"><span>&#9664;</span></div>
+                                <div class="key--letter" data-key="37"><span>&#9660;</span></div>
+                                <div class="key--letter" data-key="37"><span>&#9654;</span></div>
                             </div>
                         </div>
-                        <div class="col col-2 d-flex justify-content-center align-items-center px-0 py-0 mx-0 my-0" >
-                            <div class="row py-0 my-0" style="height: 64px; width: 50px; ">
-                                <div style="border-radius: 50%; background-color: rgba(56, 56, 230, 0.685); width:64px; height: 64px; display: flex; justify-content: center; align-items: center;">
-                                    <div style="border-radius: 50%; background-color: rgb(5, 34, 112); width:32px; height: 32px;"></div>
-                                </div>
-                            </div>
-                            <div class="row border d-flex justify-content-center align-items-center" style="color: white;">
-                                Move
-                            </div>
                         </div>
-                        <div class="col col-2 border d-flex justify-content-center align-items-center px-0 py-0 mx-0 my-0" >
-                            <div class="row py-0 my-0" style="height: 64px; width: 50px; ">
-                                <div style="border-radius: 50%; background-color: rgba(192, 51, 51, 0.685); width:64px; height: 64px; display: flex; justify-content: center; align-items: center;">
-                                    <div style="border-radius: 50%; background-color: rgb(233, 20, 20); width:32px; height: 32px;"></div>
-                                </div>
-                            </div>
-                            <div class="row border d-flex justify-content-center align-items-center" style="color: white;">
-                                Shoot
-                            </div>
+                        <div class="row d-flex justify-content-center align-items-center">
+                            Move
+                        </div>
+                    </div>
+                    <div class="col col-3">
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <img src="../assets/mouse1.png" style="width: 64px; height: 64px; background-color: white;">
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center">
+                            Shoot
                         </div>
                     </div>
                 </div>
-                
-                <div class="row d-flex justify-content-evenly">
+                <div class="row d-flex justify-content-center align-items-center">
                     <div class="col col-3">
                         <div class="keyboard">
-                            <div class="row">
+                            <div class="row my-1">
                                 <div class="keyboard__row">
                                     <div class="key--double key--right key--space" data-key="32" data-char=" ">Space</div>
                                 </div>
@@ -195,13 +201,45 @@
                             Tackle
                         </div>
                     </div>
-                    <div class="col col-2">
+                </div>
+                <div class="row d-flex justify-content-evenly">
+                    <div class="col col-3">
                         <div class="row d-flex justify-content-center align-items-center">
-                            <img src="../assets/mouse.png" style="width: 64px; height: 64px;">
+                            <div class="row d-flex justify-content-center align-items-center px-4 m-0" style="height: 64px; width: 50px; ">
+                                <div style="border-radius: 50%; background-color: rgba(56, 56, 230, 0.685); width:64px; height: 64px; display: flex; justify-content: center; align-items: center;">
+                                    <div style="border-radius: 50%; background-color: rgb(5, 34, 112); width:32px; height: 32px; cursor: pointer;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center">
+                            Move
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center">
+                            (Left half screen)
+                        </div>
+                    </div>
+                    <div class="col col-3" >
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <div class="row d-flex justify-content-center align-items-center px-4 m-0" style="height: 64px; width: 50px; display: block; ">
+                                <div style="border-radius: 50%; background-color: rgba(192, 51, 51, 0.685); width:64px; height: 64px; display: flex; justify-content: center; align-items: center;">                                        
+                                    <div style="border-radius: 50%; background-color: rgb(233, 20, 20); width:32px; height: 32px; cursor: pointer;">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row d-flex justify-content-center align-items-center">
                             Shoot
                         </div>
+                        <div class="row d-flex justify-content-center align-items-center">
+                            (Right half screen)
+                        </div>
+                    </div>
+                    <div class="col col-3">
+                        <div class="row d-flex justify-content-center">
+                            <div class="btn btn-primary d-flex align-items-center justify-content-center" style="border-radius: 50%; width: 50px; height: 50px;">T</div>
+                        </div>
+                        <div class="row d-flex justify-content-center">Tackle</div>
                     </div>
                 </div>
             </div>
@@ -266,7 +304,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
                 </div>
             </div>
         </div>
@@ -284,11 +321,11 @@
                     <div class="row">
                     <div class="col col-2 d-flex justify-content-center mx-1 px-0"><label for="name-input">Name</label></div>
                     <div class="col col-3 d-flex justify-content-center mx-1 px-0"><input type="text" id="name-input" style="max-width: 125px;"></div>
-                    <div class="col col-2 d-flex justify-content-center mx-1 px-0"><button class="btn btn-primary btn-sm" id="save-name-btn">Save</button></div>
+                    <!-- <div class="col col-2 d-flex justify-content-center mx-1 px-0"><button class="btn btn-primary btn-sm" id="save-name-btn">Save</button></div> -->
                 </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="document.querySelector('#bg-sound').play()">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="document.querySelector('#bg-sound').play();setName()">Close</button>
                 </div>
             </div>
         </div>
@@ -313,7 +350,9 @@
             
             <button id="invite" class="btn btn-sm btn-primary mx-1 py-0" data-modal-target="#my-modal"
             type="button" data-bs-toggle="modal" data-bs-target="#inviteModal">Invite</button>
-            <button class="btn btn-primary btn-sm mx-1 py-0">About Us</button>
+            <button id="aboutus" class="btn btn-sm btn-primary mx-1 py-0" data-modal-target="#my-modal"
+            type="button" data-bs-toggle="modal" data-bs-target="#aboutUsModal">About Us</button>
+            <!-- <button class="btn btn-primary btn-sm mx-1 py-0">About Us</button> -->
             <button id="team" class="btn btn-sm btn-primary mx-1 py-0" data-modal-target="#my-modal"
             type="button" data-bs-toggle="modal" data-bs-target="#teamModal">Team</button>
             <button id="controls" class="btn btn-sm btn-primary mx-1 py-0" data-modal-target="#my-modal"
@@ -328,25 +367,11 @@
         <div id="ping" class="btn btn-sm btn-dark mx-1 p-0">Ping:200</div>
         <div id="fps" class="btn btn-sm btn-dark mx-1 p-0">FPS:60</div>
     </div>
-    <!-- Final score board
-    <div id="final-score-board">
-        <div class="final-score-header" style="justify-content: space-around;border-bottom: 2px solid black;">
-            Game Over
-        </div>
-        <div class="final-score-header">
-            <div class="title">teamA</div>
-            <div class="title">teamB</div>
-        </div>
-        <div class="final-score-header">
-            <div class="final-score" id="final-score-a">0</div>
-            <div class="final-score" id="final-score-b">0</div>
-        </div>
-    </div> -->
     <!-- Canvas -->
     <div id="canvasDiv">
         <div id="go321"></div>
     </div>
-    <button id="tackle" class="btn btn-primary p-0 d-lg-none">A</button>
+    <button id="tackle" class="btn btn-primary p-0 d-lg-none">T</button>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>

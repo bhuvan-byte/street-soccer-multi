@@ -28,8 +28,10 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style>
         html {
-            height: 100%;
-            width: 100%;
+            height: 100vh;
+            width: 100vw;
+            padding: 0;
+            margin: 0;
             /* overflow: hidden; */
             /* box-sizing: border-box; */
         }
@@ -37,9 +39,6 @@
         body {
             background-image: url('../assets/wp1.jpg');
             background-position: center center;
-            height: 95vh;
-            width: 100vw;
-
             background-repeat: no-repeat;
             background-size: cover;
         }
@@ -100,15 +99,13 @@
         </div>
     </div>
   
-    <div class="border border-primary d-flex justify-content-evenly align-items-center row mx-1 my-1"
-        style="height: 90vh;">
-
-        <div class="container d-flex justify-content-center align-items-center" style="height:20%;">
+    <div class="border border-primary d-flex justify-content-evenly align-items-center row mx-1 my-0" style="height: 98vh;">
+        <div class="container d-flex justify-content-center align-items-center" style="height:10%;">
             <img src="../assets/RealSoccerM.png" alt="">
         </div>
 
         <div class="row align-items-center border justify-content-evenly mx-0 my-0 py-0 px-1"
-            style="color: white; height: 80%;">
+            style="color: white; height: 70%;">
             <div
                 class="col-12 col-sm-4 col-lg-3 border border-success d-flex flex-column justify-content-center align-items-center">
                 <div class="row d-flex mx-0 px-0 align-items-center justify-content-center border border-danger">
@@ -144,12 +141,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-5 col-lg-3 border border-danger my-0 py-0">
-                <div class="container border border-success px-0">
+            <div class="col-12 col-sm-5 col-lg-3 border border-success my-0 py-0">
+                <div class="container border border-danger px-0">
                     <div class="row">
                         <h3 class="d-flex justify-content-center align-items-center">Top Rooms</h3>
                     </div>
-                    <div class="border border-primary" style="min-height: 200px; max-height: 250px;overflow-y: scroll;">
+                    <div class="border border-primary" style="min-height: 100px; max-height: 200px;overflow-y: scroll;">
 
 
                         <table class="table table-striped table-hover py-0 my-0">
@@ -167,7 +164,19 @@
                 </div>
             </div>
         </div>
-
+        <div class="row border" style="color: white;">
+            <div class="col col-3 d-flex justify-content-start">
+                Source Code
+                <img alt="svgImg" style="max-width: 30px; padding: 0px 2px; cursor: pointer;" onclick="document.location.href='https://github.com/bhuvan-byte/street-soccer-multi'" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iNjQiIGhlaWdodD0iNjQiCnZpZXdCb3g9IjAgMCA2NCA2NCIKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij48bGluZWFyR3JhZGllbnQgaWQ9IktwekhfdHRUTUlqcThkaHgxekQycGFfNTI1MzlfZ3IxIiB4MT0iMzAuOTk5IiB4Mj0iMzAuOTk5IiB5MT0iMTYiIHkyPSI1NS4zNDIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBzcHJlYWRNZXRob2Q9InJlZmxlY3QiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzZkYzdmZiI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2U2YWJmZiI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNLcHpIX3R0VE1JanE4ZGh4MXpEMnBhXzUyNTM5X2dyMSkiIGQ9Ik0yNS4wMDgsNTYuMDA3Yy0wLjAwMy0wLjM2OC0wLjAwNi0xLjk2Mi0wLjAwOS0zLjQ1NGwtMC4wMDMtMS41NSBjLTYuNzI5LDAuOTE1LTguMzU4LTMuNzgtOC4zNzYtMy44M2MtMC45MzQtMi4zNjgtMi4yMTEtMy4wNDUtMi4yNjYtMy4wNzNsLTAuMTI0LTAuMDcyYy0wLjQ2My0wLjMxNi0xLjY5MS0xLjE1Ny0xLjM0Mi0yLjI2MyBjMC4zMTUtMC45OTcsMS41MzYtMS4xLDIuMDkxLTEuMDgyYzMuMDc0LDAuMjE1LDQuNjMsMi45NzgsNC42OTQsMy4wOTVjMS41NjksMi42ODksMy45NjQsMi40MTEsNS41MDksMS44NDQgYzAuMTQ0LTAuNjg4LDAuMzY3LTEuMzIsMC42NTktMS44NzhDMjAuODg1LDQyLjg2NSwxNS4yNyw0MC4yMjksMTUuMjcsMzAuNjRjMC0yLjYzMywwLjgyLTQuOTYsMi40NDEtNi45MjkgYy0wLjM2Mi0xLjIwNi0wLjc3NC0zLjY2NiwwLjQ0Ni02Ljc2NWwwLjE3NC0wLjQ0MmwwLjQ1Mi0wLjE0NGMwLjQxNi0wLjEzNywyLjY4OC0wLjYyNCw3LjM1OSwyLjQzMyBjMS45MjgtMC40OTQsMy45NjktMC43NDksNi4wNzQtMC43NTljMi4xMTUsMC4wMSw0LjE1OCwwLjI2NSw2LjA5LDAuNzU5YzQuNjY3LTMuMDU4LDYuOTM0LTIuNTY1LDcuMzUxLTIuNDMzbDAuNDUxLDAuMTQ1IGwwLjE3NCwwLjQ0YzEuMjI1LDMuMDk4LDAuODEzLDUuNTU5LDAuNDUxLDYuNzY2YzEuNjE4LDEuOTYzLDIuNDM4LDQuMjkxLDIuNDM4LDYuOTI5YzAsOS41OTEtNS42MjEsMTIuMjE5LTEwLjU4OCwxMy4wODcgYzAuNTYzLDEuMDY1LDAuODY4LDIuNDAyLDAuODY4LDMuODc4YzAsMS42ODMtMC4wMDcsNy4yMDQtMC4wMTUsOC40MDJsLTItMC4wMTRjMC4wMDgtMS4xOTYsMC4wMTUtNi43MDgsMC4wMTUtOC4zODkgYzAtMi40NDItMC45NDMtMy41MjItMS4zNS0zLjg3NGwtMS43My0xLjQ5N2wyLjI3NC0wLjI1M2M1LjIwNS0wLjU3OCwxMC41MjUtMi4zNzksMTAuNTI1LTExLjM0MWMwLTIuMzMtMC43NzctNC4zNjEtMi4zMS02LjAzNiBsLTAuNDMtMC40NjlsMC4yNDItMC41ODdjMC4xNjYtMC40MDEsMC44OTQtMi40NDItMC4wNDMtNS4yOTFjLTAuNzU4LDAuMDQ1LTIuNTY4LDAuNDAyLTUuNTg0LDIuNDQ3bC0wLjM4NCwwLjI1OWwtMC40NDUtMC4xMjMgYy0xLjg2My0wLjUxOC0zLjkzOC0wLjc5Ni02LjAwMS0wLjgwNmMtMi4wNTIsMC4wMS00LjEyNCwwLjI4OC01Ljk4NCwwLjgwNmwtMC40NDUsMC4xMjNsLTAuMzgzLTAuMjU5IGMtMy4wMTktMi4wNDQtNC44MzMtMi40MDQtNS41OTQtMi40NDljLTAuOTM1LDIuODUxLTAuMjA2LDQuODkyLTAuMDQsNS4yOTNsMC4yNDIsMC41ODdsLTAuNDI5LDAuNDY5IGMtMS41MzYsMS42ODEtMi4zMTQsMy43MTItMi4zMTQsNi4wMzZjMCw4Ljk1OCw1LjMxLDEwLjc3LDEwLjUwNCwxMS4zNjFsMi4yNTIsMC4yNTZsLTEuNzA4LDEuNDkgYy0wLjM3MiwwLjMyNS0xLjAzLDEuMTEyLTEuMjU0LDIuNzI3bC0wLjA3NSwwLjU0OWwtMC41MDYsMC4yMjdjLTEuMzIxLDAuNTkyLTUuODM5LDIuMTYyLTguNTQ4LTIuNDg1IGMtMC4wMTUtMC4wMjUtMC41NDQtMC45NDUtMS41MDItMS41NTdjMC42NDYsMC42MzksMS40MzMsMS42NzMsMi4wNjgsMy4yODdjMC4wNjYsMC4xOSwxLjM1NywzLjYyMiw3LjI4LDIuMzM5bDEuMjA2LTAuMjYyIGwwLjAxMiwzLjk3OGMwLjAwMywxLjQ4NywwLjAwNiwzLjA3NiwwLjAwOSwzLjQ0NEwyNS4wMDgsNTYuMDA3eiI+PC9wYXRoPjxsaW5lYXJHcmFkaWVudCBpZD0iS3B6SF90dFRNSWpxOGRoeDF6RDJwYl81MjUzOV9ncjIiIHgxPSIzMiIgeDI9IjMyIiB5MT0iNSIgeTI9IjU5LjE2NyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHNwcmVhZE1ldGhvZD0icmVmbGVjdCI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMWE2ZGZmIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYzgyMmZmIj48L3N0b3A+PC9saW5lYXJHcmFkaWVudD48cGF0aCBmaWxsPSJ1cmwoI0twekhfdHRUTUlqcThkaHgxekQycGJfNTI1MzlfZ3IyKSIgZD0iTTMyLDU4QzE3LjY2Myw1OCw2LDQ2LjMzNyw2LDMyUzE3LjY2Myw2LDMyLDZzMjYsMTEuNjYzLDI2LDI2UzQ2LjMzNyw1OCwzMiw1OHogTTMyLDggQzE4Ljc2Nyw4LDgsMTguNzY3LDgsMzJzMTAuNzY3LDI0LDI0LDI0czI0LTEwLjc2NywyNC0yNFM0NS4yMzMsOCwzMiw4eiI+PC9wYXRoPjwvc3ZnPg=="/>
+            </div>
+            <div class="col col-9 d-flex justify-content-end">
+                Created & Maintained by Bhuvan <img alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iNDgiIGhlaWdodD0iNDgiCnZpZXdCb3g9IjAgMCA0OCA0OCIKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij48cGF0aCBmaWxsPSIjMDI4OEQxIiBkPSJNNDIsMzdjMCwyLjc2Mi0yLjIzOCw1LTUsNUgxMWMtMi43NjEsMC01LTIuMjM4LTUtNVYxMWMwLTIuNzYyLDIuMjM5LTUsNS01aDI2YzIuNzYyLDAsNSwyLjIzOCw1LDVWMzd6Ij48L3BhdGg+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTEyIDE5SDE3VjM2SDEyek0xNC40ODUgMTdoLS4wMjhDMTIuOTY1IDE3IDEyIDE1Ljg4OCAxMiAxNC40OTkgMTIgMTMuMDggMTIuOTk1IDEyIDE0LjUxNCAxMmMxLjUyMSAwIDIuNDU4IDEuMDggMi40ODYgMi40OTlDMTcgMTUuODg3IDE2LjAzNSAxNyAxNC40ODUgMTd6TTM2IDM2aC01di05LjA5OWMwLTIuMTk4LTEuMjI1LTMuNjk4LTMuMTkyLTMuNjk4LTEuNTAxIDAtMi4zMTMgMS4wMTItMi43MDcgMS45OUMyNC45NTcgMjUuNTQzIDI1IDI2LjUxMSAyNSAyN3Y5aC01VjE5aDV2Mi42MTZDMjUuNzIxIDIwLjUgMjYuODUgMTkgMjkuNzM4IDE5YzMuNTc4IDAgNi4yNjEgMi4yNSA2LjI2MSA3LjI3NEwzNiAzNiAzNiAzNnoiPjwvcGF0aD48L3N2Zz4=" style="max-width: 30px; padding: 0px 4px; cursor: pointer;" onclick="document.location.href='https://www.linkedin.com/in/bhuvan1'"/>
+                
+                & 
+                
+                Raahil <img alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iNDgiIGhlaWdodD0iNDgiCnZpZXdCb3g9IjAgMCA0OCA0OCIKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij48cGF0aCBmaWxsPSIjMDI4OEQxIiBkPSJNNDIsMzdjMCwyLjc2Mi0yLjIzOCw1LTUsNUgxMWMtMi43NjEsMC01LTIuMjM4LTUtNVYxMWMwLTIuNzYyLDIuMjM5LTUsNS01aDI2YzIuNzYyLDAsNSwyLjIzOCw1LDVWMzd6Ij48L3BhdGg+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTEyIDE5SDE3VjM2SDEyek0xNC40ODUgMTdoLS4wMjhDMTIuOTY1IDE3IDEyIDE1Ljg4OCAxMiAxNC40OTkgMTIgMTMuMDggMTIuOTk1IDEyIDE0LjUxNCAxMmMxLjUyMSAwIDIuNDU4IDEuMDggMi40ODYgMi40OTlDMTcgMTUuODg3IDE2LjAzNSAxNyAxNC40ODUgMTd6TTM2IDM2aC01di05LjA5OWMwLTIuMTk4LTEuMjI1LTMuNjk4LTMuMTkyLTMuNjk4LTEuNTAxIDAtMi4zMTMgMS4wMTItMi43MDcgMS45OUMyNC45NTcgMjUuNTQzIDI1IDI2LjUxMSAyNSAyN3Y5aC01VjE5aDV2Mi42MTZDMjUuNzIxIDIwLjUgMjYuODUgMTkgMjkuNzM4IDE5YzMuNTc4IDAgNi4yNjEgMi4yNSA2LjI2MSA3LjI3NEwzNiAzNiAzNiAzNnoiPjwvcGF0aD48L3N2Zz4=" style="max-width: 30px; padding: 0px 4px; cursor: pointer;" onclick="document.location.href='https://www.linkedin.com/in/raahilbadiani'"/>
+            </div>            
+        </div>
     </div>
     <script src="/libraries/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

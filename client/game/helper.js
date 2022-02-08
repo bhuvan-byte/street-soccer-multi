@@ -108,18 +108,20 @@ function setEventListener(){
         }
         bgSound.muted = !bgSound.muted;
     });
-    saveNameBtn.addEventListener('click',()=>{
-        let pname = nam.value;
-        pname = pname.substr(0,Math.min(pname.length,8));
-        localStorage.setItem('name',pname);
-        // we also need to fire a socket event to tell name to server
-        sock.emit('name',pname);
-    })
+    // saveNameBtn.addEventListener('click',setName)
     let bgSlider = document.querySelector('#bg-vol-slider');
     bgSlider.addEventListener('input',()=>{
         bgSound.volume = bgSlider.value;
     })
 }
+
+function setName(){
+    let pname = nam.value;
+    pname = pname.substr(0,Math.min(pname.length,8));
+    localStorage.setItem('name',pname);
+    sock.emit('name',pname);
+}
+
 function extractImage(fullImage){
     let x=0,y=0,imageList = [];
     for(let r=0;r<4;r++){

@@ -10,7 +10,7 @@ async function logiphelper(req,res,uid){
         if(/bot|crawl|slurp|spider|mediapartners/.test(useragent.toLowerCase())){
             uid = "BOTS";
         }
-        let referer = req.headers["referer"];
+        let referer = req.headers["referer"] ?? "null";
         let user=null;
         if(uid){
             user = await UserModel.findOne({uid:uid}).exec();

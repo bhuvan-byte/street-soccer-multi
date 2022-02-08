@@ -43,7 +43,9 @@ fetchRoomList();
 async function fetchRoomList(){
     const response = await fetch("/room/allrooms");
     const data = await response.json();
-    showRoomList(data);
+    let sortableData= Object.entries(data);
+    sortableData.sort((a,b)=>(b[1]-a[1]));
+    showRoomList(sortableData);
     setTimeout(fetchRoomList,1000);
 }
 
@@ -51,10 +53,10 @@ async function fetchRoomList(){
 function showRoomList(data){
     let room_list = document.getElementById('room-list');
     let newRoomList = '';
-    for(let room in data){
+    for(let [room,size] of data){
         newRoomList+=`<tr class="table-dark">
             <td>${room.toUpperCase()}</td>
-            <td>${data[room]}</td>
+            <td>${size}</td>
             <td><a href="room/${room}" class="btn btn-sm btn-outline-primary">Join</a></td>
         </tr>`
         // btn.addEventListener('click',(e)=>{
