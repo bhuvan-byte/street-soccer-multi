@@ -24,7 +24,7 @@ C.countDown = 000; // 3-2-1-go
 C.tackleSpeed = 10;
 C.tackleDist = 120;
 C.tackleCooldown = 1000;
-C.gametime = 120*1000;
+C.defaultGameTime = 120*1000;
 // currently made for <=7 players/team
 // |-7-|-6-|-4-||-4-|-6-|-7-|
 const basic_formation = {

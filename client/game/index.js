@@ -125,6 +125,7 @@ function onsock(){
             finalScoreB.innerText = scoreBoardB.innerText;
             gameOver.click();
             scoreBoardA.innerText = scoreBoardB.innerText = '0'
+            startBtn.innerText = 'Start'
             sock.emit('game-over'); //to reset the scores at server
         }
     });

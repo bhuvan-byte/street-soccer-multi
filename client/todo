@@ -1,9 +1,9 @@
 Website
-1. in controls modal show the tackle button
-2. remove borders that were used while development 
-3. use icons for buttons
-4. add more styling to home page divs and scoreboards
-5. timely check if there are rooms without any players and delete them
+1. remove borders that were used while development 
+2. use icons for buttons
+3. add more styling to home page divs and scoreboards
+4. timely check if there are rooms without any players and delete them
+5. cookie/local storage to handle mute
 
 Github 
 1. update readme on github

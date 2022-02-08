@@ -82,7 +82,7 @@ io.on("connection", (sock) => {
     });
     sock.on('game-over', ()=>{
         games[sock.roomName].resetScores();
-    })
+    });
     sock.on('name',(pname)=>{
         try{
             io.in(sock.roomName).emit("name",{id:sock.id,pname:pname});
@@ -90,7 +90,13 @@ io.on("connection", (sock) => {
         }catch(err){
             console.log(err);
         }
-    })
+    });
+    sock.on('modify-game-time',(ntime)=>{
+        games[sock.roomName].gametime = Number(ntime)*60*1000;
+        if(!games[sock.roomName].started){
+            games[sock.roomName].timer = new Stopwatch(games[sock.roomName].gametime)
+        }
+    });
     // sock.on('newRoom',handleNewRoom);
     // sock.on('joinRoom',handleJoinRoom);
     // sock.on('joinDefaultRoom',handleJoinDefaultRoom);

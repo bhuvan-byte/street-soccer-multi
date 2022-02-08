@@ -89,10 +89,10 @@ function setEventListener(){
     })
     startBtn.addEventListener('click',()=>{
         sock.emit("start/pause-signal");
-        if(startBtn.innerText[0]=='S'){
+        if(startBtn.innerText=='Start' || startBtn.innerText=='Play'){
             startBtn.innerText = 'Pause'
         } else {
-            startBtn.innerText = 'Start'
+            startBtn.innerText = 'Play'
         }
 
     });
@@ -112,6 +112,14 @@ function setEventListener(){
     let bgSlider = document.querySelector('#bg-vol-slider');
     bgSlider.addEventListener('input',()=>{
         bgSound.volume = bgSlider.value;
+    })
+    let gameLen = document.querySelector('#game-time');
+    let gameLenBtns = document.querySelectorAll('.game-time-close-btn');
+    gameLenBtns.forEach(elt=>{
+        elt.addEventListener('click',()=>{
+            // set game length from here if game not yet started.
+            sock.emit('modify-game-time',gameLen.value);
+        })
     })
 }
 

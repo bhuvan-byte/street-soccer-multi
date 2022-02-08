@@ -14,7 +14,8 @@ class Game{
         this.ball = new Ball();
         this.started = false; // game started for the first time
         this.isRunning = false;
-        this.timer = new Stopwatch(C.gametime);
+        this.gametime = C.defaultGameTime;
+        this.timer = new Stopwatch(this.gametime);
         this.waitList = {};
         this.scoreA = 0;
         this.scoreB = 0;
@@ -121,7 +122,7 @@ class Game{
             if(timeLeft<=1){
                 // Complete Game Restart
                 this.isRunning = false;
-                this.timer.reset();
+                this.timer = new Stopwatch(this.gametime);
                 this.started = false;
                 this.clearWaitList();
             } 
