@@ -18,6 +18,14 @@ function copyUrl(){
 }
 
 function setEventListener(){
+    // Activate bootstrap tooltips 
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+    
+
+
     setInterval(() => {
         let tbodyRed = document.querySelector("#red-team tbody");
         let tbodyBlue = document.querySelector("#blue-team tbody");

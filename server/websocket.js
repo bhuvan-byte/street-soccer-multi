@@ -9,6 +9,12 @@ const io = socketio(server, {cors:{ origin:'*',}});
 
 global.io = io;
 
+setInterval(() => {
+    for(let room in games){
+        let len = Object.keys(games[room].players).length;
+        if(len==0) delete games[room];
+    }
+}, 1800*1000);
 
 //io.sockets.something and io.something are same thing
 io.on("connection", (sock) => {
