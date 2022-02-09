@@ -67,10 +67,17 @@
     z-index: 1;
     align-items: center;
     display: flex;
+    box-sizing: content-box;
 }
 
 #navbar img {
-    height: 90%;
+    /* height: 90%; */
+    box-sizing: content-box;
+}
+
+#navbar .btn {
+    /* background-color: black; */
+    box-sizing: content-box;
 }
 
 #navbar * {
