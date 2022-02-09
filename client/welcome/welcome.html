@@ -195,7 +195,7 @@
                 .catch(function (err) {
                     console.log("No it didn't. This happened:", err)
                 });
-            addToHomescreen();
+            addToHomescreen({modal:true,mandatory:true,logging:true,lifespan:100,displayPace:0.01});
         }
     </script>
 </body>
