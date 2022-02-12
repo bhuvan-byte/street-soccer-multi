@@ -14,12 +14,12 @@
 
 #left-area {
     left: 0;
-    background-color: rgba(0, 255, 255, 0.322);
+    /* background-color: rgba(0, 255, 255, 0.322); */
 }
 
 #right-area{
     right: 0;
-    background-color: rgba(255, 0, 0, 0.322);
+    /* background-color: rgba(255, 0, 0, 0.322); */
 }
 .touch-area {
     position: absolute;

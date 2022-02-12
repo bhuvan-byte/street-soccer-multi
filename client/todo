@@ -1,8 +1,14 @@
 Website
 1. remove borders that were used while development 
-2. use icons for buttons
+// 2. use icons for buttons
 3. add more styling to home page divs and scoreboards
-4. timely check if there are rooms without any players and delete them
+// 4. timely check if there are rooms without any players and delete them
+5. ball direction wrt player 
+6. field image
+7. display room code, correct ping layout
+8. controls modal headings mobile/laptop, size on mobile
+// 9. scoreboard modal css 
+10. new player tour
 
 Github 
 1. update readme on github
