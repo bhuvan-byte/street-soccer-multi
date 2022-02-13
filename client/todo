@@ -1,8 +1,9 @@
 Website
 1. remove borders that were used while development 
-2. use icons for buttons
-3. add more styling to home page divs and scoreboards
-4. timely check if there are rooms without any players and delete them
+2. add more styling to home page divs and scoreboards
+3. remove pausing
+4. add dark mode
+5. add headings for controls modal
 
 Github 
 1. update readme on github

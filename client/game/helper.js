@@ -1,5 +1,7 @@
 "use strict";
 let startBtn = document.querySelector("#start");
+let tourBtn = document.querySelector('#tour-btn');
+
 let saveNameBtn = document.querySelector('#save-name-btn');
 let nam = document.querySelector('#name-input');
 let bgSound = document.querySelector('#bg-sound');
@@ -19,10 +21,10 @@ function copyUrl(){
 
 function setEventListener(){
     // Activate bootstrap tooltips 
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+    // var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    // var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    //   return new bootstrap.Tooltip(tooltipTriggerEl)
+    // })
     
 
 
@@ -134,15 +136,52 @@ function setEventListener(){
     let bgSlider = document.querySelector('#bg-vol-slider');
     bgSlider.addEventListener('input',()=>{
         bgSound.volume = bgSlider.value;
-    })
+    });
+
     let gameLen = document.querySelector('#game-time');
     let gameLenBtns = document.querySelectorAll('.game-time-close-btn');
     gameLenBtns.forEach(elt=>{
         elt.addEventListener('click',()=>{
             // set game length from here if game not yet started.
             sock.emit('modify-game-time',gameLen.value);
-        })
+        });
+    });
+
+    let leftArea = document.querySelector('#left-area');
+    let rightArea = document.querySelector('#right-area');
+    leftArea.style.display = 'none';
+    rightArea.style.display = 'none';
+
+    tourBtn.addEventListener('click',()=>{
+        // Give users a tour of all butttons.
+        // Start button -> Scores -> Share -> Joysticks -> Tackle
+        // startBtn.classList.remove('highlight')
     })
+
+    let bgOpt = document.querySelector('#theme-slider');
+    bgOpt.addEventListener('input',()=>{
+        changeTheme(bgOpt.value);
+    })
+}
+
+function changeTheme(bgOpt){
+    let navbarBtns = document.querySelectorAll('.navbar-btn-my');
+    if(bgOpt == 1){
+        bgColor = '#21252f';
+        for(let btn of navbarBtns){
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-outline-light')
+        }
+    } else{
+        bgColor = '#32a852';
+        for(let btn of navbarBtns){
+            btn.classList.add('btn-primary');
+            btn.classList.remove('btn-outline-light')
+        }
+    }
+    // add code to change class of navbar buttons
+    // btn-primary color -> #017bfe
+    // btn-dark color -> #343b41
 }
 
 function playBg(){

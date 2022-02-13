@@ -1,17 +1,22 @@
 class Field{
-    display(){
-        background(50, 168, 82); // green color
+    display(bgColor){
+        // background(50, 168, 82); // green color
+        // background(52,58,64); // dark
+        // background(33,37,47); // darker
+        background(bgColor)
         noFill(); // to tell shapes are not to filled with some color
         
         // grid for temporary support 
         
-        stroke(20, 130, 60);
-        for (var i = 0; i < 20; i++) {
-            line(0, i * C.ygap, C.Width, i * C.ygap); // horizontal
-        }
-        for (var i = 0; i < 40; i++) {
-            line(i * C.xGoalGap , 0, i * C.xGoalGap , C.Height); // vertical
-        }
+        // stroke(20, 130, 60);
+        // stroke(255,255,255,150);
+        // strokeWeight(1);
+        // for (var i = 0; i <= 20; i++) {
+        //     line(0, i * C.ygap, C.Width, i * C.ygap); // horizontal
+        // }
+        // for (var i = 0; i <= 40; i++) {
+        //     line(i * C.xGoalGap , 0, i * C.xGoalGap , C.Height); // vertical
+        // }
         
         strokeWeight(2);
         stroke(255, 255, 255); // white color to draw shapes

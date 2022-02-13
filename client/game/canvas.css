@@ -1,6 +1,7 @@
 :root {
-    --navheight : 7vh;
+    --navheight: 7vh;
 }
+
 #canvasDiv {
     /* background-color: rgb(157, 216, 133); */
     width: 100%;
@@ -17,10 +18,11 @@
     background-color: rgba(0, 255, 255, 0.322);
 }
 
-#right-area{
+#right-area {
     right: 0;
     background-color: rgba(255, 0, 0, 0.322);
 }
+
 .touch-area {
     position: absolute;
     top: var(--navheight);
@@ -73,25 +75,29 @@
     border-radius: 0px;
     text-align: left;
     /* text-align: right; */
-    font-size: min(3vh,14px);
+    font-size: min(3vh, 14px);
     margin: 0;
     padding: 0 0 0 5px;
     position: absolute;
 }
-#info >:nth-child(1){
+
+#info>:nth-child(1) {
     top: 0;
 }
-#info >:nth-child(2) {
+
+#info>:nth-child(2) {
     top: 50%;
 }
+
 /* #info svg {
     width: 100%;
     color: white;
 }
+*/
 #info text {
-    color: white;
+    color: rgb(3, 3, 3);
     fill: white;
-} */
+}
 
 
 
@@ -116,11 +122,21 @@
     box-sizing: content-box;
 }
 
+
 #navbar * {
     /* float: right; */
     box-sizing: border-box;
-    height: 90%;
+    height: 85%;
     display: inline-block;
+}
+
+@media screen and (max-height: 400px) {
+    #navbar * {
+        /* float: right; */
+        box-sizing: border-box;
+        height: 95%;
+        display: inline-block;
+    }
 }
 
 #navbar-left {
@@ -159,34 +175,25 @@
 }
 
 #final-score-board {
-    display: none;
-    z-index: 1;
-    position: absolute;
     background: #FC5C7D;
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);
     /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #6A82FB, #FC5C7D);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-    width: 600px;
-    height: 400px;
-    border-radius: 5%;
-    margin: 50px;
-    padding-top: 10px;
-    padding-left: 15px;
-    justify-content: space-between;
-    padding: 30px 30px 30px 30px;
-    flex-direction: column;
-}
-
-.final-score-header {
-    color: rgb(208, 255, 0);
-    display: flex;
-    justify-content: space-between;
-    /* border-bottom: 2px solid black; */
 }
 
 .final-score {
-    font-size: 10em;
+    font-size: 7em;
 }
+
+.navbar-btn-my {
+    /* background-color: #fbff00; */
+    background-color: #1565c063;
+}
+
+/* body>*:not(.highlight) {
+    display: none;
+    background: #ffd83c;
+    filter: blur(3px);
+} */

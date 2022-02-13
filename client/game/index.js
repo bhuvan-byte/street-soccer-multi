@@ -8,6 +8,7 @@ let roomList,field,slowIntervalId;
 let joystick,canvas,shootingBtn;
 let fps;
 let settingsBtn;
+let bgColor = '#32a852'; // green color
 let navbarF = 0.07;
 let openSans;  // ("/assets/OpenSans-Light.ttf")
 let kickSound=document.querySelector('#kick-sound');
@@ -244,7 +245,7 @@ function draw() {
 
     // translate(Cam.scale*canvas.width/2,0)
     // translate(-mouseX,-mouseY);
-    field.display();
+    field.display(bgColor);
     // push();
     // fill('#0000FF');
     // text(`fps:${Math.floor(frameRate()/3)*3}`,15,15);
