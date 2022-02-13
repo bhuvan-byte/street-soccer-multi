@@ -4,7 +4,8 @@ var urlsToCache = [
     'service-worker.js',
     '/manifest.json',
     '/welcome/welcome.html',
-    '/welcome/welcome.js'
+    '/welcome/welcome.js',
+    '/assets/pocket.mp3',
 ];
 console.log('loading sw');
 
