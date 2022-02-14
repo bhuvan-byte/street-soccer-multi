@@ -166,6 +166,26 @@ function setEventListener(){
 
 function changeTheme(bgOpt){
     let navbarBtns = document.querySelectorAll('.navbar-btn-my');
+    if(bgOpt == 1){
+        bgColor = '#21252f';
+        for(let btn of navbarBtns){
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-outline-light')
+        }
+    } else{
+        bgColor = '#32a852';
+        for(let btn of navbarBtns){
+            btn.classList.add('btn-primary');
+            btn.classList.remove('btn-outline-light')
+        }
+    }
+    // add code to change class of navbar buttons
+    // btn-primary color -> #017bfe
+    // btn-dark color -> #343b41
+}
+
+function changeTheme(bgOpt){
+    let navbarBtns = document.querySelectorAll('.navbar-btn-my');
     let infoBox = document.querySelectorAll('.info-box');
     if(bgOpt == 1){
         // dark

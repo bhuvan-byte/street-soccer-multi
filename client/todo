@@ -1,9 +1,15 @@
 Website
 1. remove borders that were used while development 
-2. add more styling to home page divs and scoreboards
-3. remove pausing
+2. remove pausing
+3. add more styling to home page divs and scoreboards
 4. add dark mode
-5. add headings for controls modal
+5. ball direction wrt player 
+6. field image
+7. display room code, correct ping layout
+8. controls modal headings mobile/laptop, size on mobile
+9. add headings for controls modal
+10. new player tour
+
 
 Github 
 1. update readme on github
