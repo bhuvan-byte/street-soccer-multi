@@ -1,6 +1,6 @@
 "use strict";
 let startBtn = document.querySelector("#start");
-let tourBtn = document.querySelector('#tour-btn');
+// let tourBtn = document.querySelector('#tour-btn');
 
 let saveNameBtn = document.querySelector('#save-name-btn');
 let nam = document.querySelector('#name-input');
@@ -105,11 +105,11 @@ function setEventListener(){
     })
     startBtn.addEventListener('click',()=>{
         sock.emit("start/pause-signal");
-        if(startBtn.innerText=='Start' || startBtn.innerText=='Play'){
-            startBtn.innerText = 'Pause'
-        } else {
-            startBtn.innerText = 'Play'
-        }
+        // if(startBtn.innerText=='Start' || startBtn.innerText=='Play'){
+        //     startBtn.innerText = 'Pause'
+        // } else {
+        //     startBtn.innerText = 'Play'
+        // }
 
     });
     document.querySelector("#change-team").addEventListener('click',()=>{
@@ -152,11 +152,11 @@ function setEventListener(){
     leftArea.style.display = 'none';
     rightArea.style.display = 'none';
 
-    tourBtn.addEventListener('click',()=>{
+    // tourBtn.addEventListener('click',()=>{
         // Give users a tour of all butttons.
         // Start button -> Scores -> Share -> Joysticks -> Tackle
         // startBtn.classList.remove('highlight')
-    })
+    // })
 
     let bgOpt = document.querySelector('#theme-slider');
     bgOpt.addEventListener('input',()=>{
@@ -166,17 +166,28 @@ function setEventListener(){
 
 function changeTheme(bgOpt){
     let navbarBtns = document.querySelectorAll('.navbar-btn-my');
+    let infoBox = document.querySelectorAll('.info-box');
     if(bgOpt == 1){
+        // dark
         bgColor = '#21252f';
         for(let btn of navbarBtns){
             btn.classList.remove('btn-primary');
             btn.classList.add('btn-outline-light')
         }
+        for(let box of infoBox){
+            box.classList.remove('btn-dark');
+            box.classList.add('btn-outline-light');
+        }
     } else{
+        // light
         bgColor = '#32a852';
         for(let btn of navbarBtns){
             btn.classList.add('btn-primary');
             btn.classList.remove('btn-outline-light')
+        }
+        for(let box of infoBox){
+            box.classList.add('btn-dark');
+            box.classList.remove('btn-outline-light');
         }
     }
     // add code to change class of navbar buttons

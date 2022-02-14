@@ -125,8 +125,8 @@ io.on("connection", (sock) => {
             broadcastTeamofPlayers();
             let isRunning = games[sock.roomName].isRunning ;
             if(isRunning){
-                games[sock.roomName].isRunning = false;
-                games[sock.roomName].timer.stop();
+                // games[sock.roomName].isRunning = false;
+                // games[sock.roomName].timer.stop();
             }else{
                 games[sock.roomName].start();
             }

@@ -6,6 +6,8 @@ var urlsToCache = [
     '/welcome/welcome.html',
     '/welcome/welcome.js',
     '/assets/pocket.mp3',
+    '/assets/kick.mp3',
+    '/assets/goal-sound.mp3',
 ];
 console.log('loading sw');
 
