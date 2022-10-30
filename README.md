@@ -5,6 +5,17 @@
 ![repo size](https://img.shields.io/github/repo-size/bhuvan-byte/street-soccer-multi?style=plastic) ![last commit](https://img.shields.io/github/last-commit/bhuvan-byte/street-soccer-multi) ![contributors](https://img.shields.io/github/contributors/bhuvan-byte/street-soccer-multi)
 
 
+### Demo
+
+Join Room
+![](./client/assets/join.gif)
+
+Settings
+![](./client/assets/opts.gif)
+
+Gameplay
+![](./client/assets/gameplay.gif)
+
 ### Features
 ---
 1. Real Time playing in separate rooms (Implemented by using socket.io)
@@ -22,7 +33,7 @@
 ### Frameworks and Languages
 ---
 <p align="left"> <a href="https://getbootstrap.com" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap" width="40" height="40"/> </a> <a href="https://www.w3schools.com/css/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a> <a href="https://heroku.com" target="_blank"> <img src="https://www.vectorlogo.zone/logos/heroku/heroku-icon.svg" alt="heroku" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a>  <a href="https://nodejs.org" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a>
-<img src="https://socket.io/css/images/logo.svg" alt="socket.io" height="40" /> </p>
+<img src="https://socket.io/images/logo.svg" alt="socket.io" height="40" /> </p>
 
 ### Instructions for playing
 ---
