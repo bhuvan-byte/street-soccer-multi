@@ -24,11 +24,11 @@ Gameplay
 
 ### ScreenShots
 1. players just joined
-<img src="./client/assets/readme/one.png"/>
+<img src="./client/assets/readme/one.jpeg"/>
 2. game started (players in set positions, teams assigned)
-<img src="./client/assets/readme/two.png"/>
+<img src="./client/assets/readme/start.jpeg"/>
 3. team/player status
-<img src="./client/assets/readme/config.png"/>
+<img src="./client/assets/readme/config.jpeg"/>
 
 ### Frameworks and Languages
 ---
