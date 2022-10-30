@@ -30,8 +30,10 @@ Gameplay
 <img src="./client/assets/readme/one.jpeg"/>
 2. game started (players in set positions, teams assigned)
 <img src="./client/assets/readme/start.jpeg"/>
-3. team/player status
+3. Settings
 <img src="./client/assets/readme/config.jpeg"/>
+4. Team
+<img src="./client/assets/readme/teams.jpeg"/>
 
 ### Frameworks and Languages
 ---
