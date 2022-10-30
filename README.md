@@ -8,12 +8,15 @@
 ### Demo
 
 Join Room
+
 ![](./client/assets/join.gif)
 
 Settings
+
 ![](./client/assets/opts.gif)
 
 Gameplay
+
 ![](./client/assets/gameplay.gif)
 
 ### Features
